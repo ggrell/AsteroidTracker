@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+  android:label="About SciencePortal">
+
+<TextView 
+	android:text="@string/description"
+	android:id="@+id/asteroiddescription" 
+	android:layout_width="wrap_content" 
+	android:textSize="17dip"
+	android:layout_height="wrap_content">
+</TextView>
+	 	
+<TextView 
+	android:text="@string/neo"
+	android:layout_marginTop="25dp"
+	android:id="@+id/about_whatisneo" 
+	android:layout_width="wrap_content" 
+	android:textSize="14dip"
+	android:layout_height="wrap_content">
+</TextView>
+
+
+<TextView 
+	android:text="Usefull Links"
+	android:layout_marginTop="5dp"
+	android:id="@+id/about_usefulllinksTitle" 
+	android:layout_width="wrap_content" 
+	android:textSize="20dip"
+	android:layout_height="wrap_content">
+</TextView>
+<TextView 
+	android:text="@string/alldata"
+	android:layout_marginTop="5dp"
+	android:id="@+id/about_allDatafromNASA" 
+	android:layout_width="wrap_content" 
+	android:textSize="15dip"
+	android:layout_height="wrap_content">
+</TextView>
+
+<TextView 
+	android:text="@string/about_closeApproaches"
+	android:layout_marginTop="5dp"
+	android:id="@+id/about_Link_NASANEO_CloseApproaches" 
+	android:layout_width="wrap_content" 
+	android:textSize="14dip"
+	android:layout_height="wrap_content">
+</TextView>
+
+<TextView 
+	android:text="@string/about_impactRisk"
+	android:layout_marginTop="5dp"
+	android:id="@+id/about_Link_NASANEO_ImpactRisk" 
+	android:layout_width="wrap_content" 
+	android:textSize="14dip"
+	android:layout_height="wrap_content">
+</TextView>
+<TextView 
+	android:text="@string/about_impactRiskFaq"
+	android:layout_marginTop="5dp"
+	android:id="@+id/about_Link_NASANEO_ImpactRisk_faq" 
+	android:layout_width="wrap_content" 
+	android:textSize="14dip"
+	android:layout_height="wrap_content">
+</TextView>
+<TextView 
+	android:text="@string/about_JPLNews"
+	android:layout_marginTop="5dp"
+	android:id="@+id/about_Link_JPLNews" 
+	android:layout_width="wrap_content" 
+	android:textSize="14dip"
+	android:layout_height="wrap_content">
+</TextView>
+<TextView 
+	android:text="@string/about_torinoScale"
+	android:layout_marginTop="5dp"
+	android:id="@+id/about_Link_NASANEO_TorinoScale" 
+	android:layout_width="wrap_content" 
+	android:textSize="14dip"
+	android:layout_height="wrap_content">
+</TextView>
+<TextView android:text="Developed by: BuniFish" 
+	android:layout_marginTop="15dp"
+	android:id="@+id/about_developedBY" 
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content">
+</TextView>
+
+
+</LinearLayout>
+	
