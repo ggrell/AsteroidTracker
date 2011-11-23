@@ -4,17 +4,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import java.util.List;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+import com.vitruviussoftware.bunifish.asteroidtracker.database.NewsDB_Adtapter;
+
 import nasa.neoAstroid.nasa_neo;
 import nasa.neoAstroid.nasa_neoArrayAdapter;
 import nasa.neoAstroid.neoAstroidFeed;
 import nasa.neoAstroid.impackRisk.nasa_neoImpactAdapter;
 import nasa.neoAstroid.impackRisk.nasa_neoImpactEntity;
+import nasa.neoAstroid.news.AsteroidNewsProxy;
 import nasa.neoAstroid.news.asteroidNewsAdapter;
 import nasa.neoAstroid.news.newsEntity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TabHost;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TabHost.TabSpec;
@@ -51,11 +56,16 @@ public class AsteroidTrackerActivity extends ListActivity {
 	TabSpec TabSpec3_Impact;
 	TabSpec TabSpec4_News;
 	static neoAstroidFeed neo_AstroidFeed = new neoAstroidFeed();
+	static AsteroidNewsProxy NewsProxy = new AsteroidNewsProxy();
 	public static boolean refresh = false;
 	ProgressDialog dialog;
 	Handler handler;
 	int closeDialog = 0;
-
+	
+	
+	private NewsDB_Adtapter dbHelper; 
+	private Cursor cursor;
+	
 //	long startTime;
 //	long endTime;
 	/** Called when the activity is first created. */
@@ -67,9 +77,47 @@ public class AsteroidTrackerActivity extends ListActivity {
 		Resources res = getResources();
 		drawable = res.getDrawable(R.drawable.asteroid);
 		TabAndListViewSetup();		
+		dbHelper = new NewsDB_Adtapter(this);
+		dbHelper.open();
+		fillData();
 		processFeeds();
     }
 
+    
+    private void fillData() {
+		cursor = dbHelper.fetchAllArticles();
+		startManagingCursor(cursor);
+		String[] from = new String[] { NewsDB_Adtapter.KEY_TITLE };
+		Log.i("DB", "FETCH_SIZE: "+from.length);
+		Log.i("DB", "FETCH_STRING: "+from[0].toLowerCase());
+		Log.i("DB", "first cursor count: "+ cursor.getCount());
+		
+		long created = dbHelper.createNewsArticle("TitleTest", "CoolArtcile", "test.blah.com","10302011", "10292011");
+		Log.i("DB", "created: "+created);
+		cursor = dbHelper.fetchAllArticles();
+		Log.i("DB", "next cursor count: "+ cursor.getCount());
+		
+		if(cursor.getCount() > 1){
+			Cursor article = dbHelper.fetchArticle(1);
+			startManagingCursor(article);
+			String title = article.getString(article.getColumnIndexOrThrow(dbHelper.KEY_TITLE));
+			Log.i("DB", "NEWS_title: "+title);
+			
+			String LastModified = article.getString(article.getColumnIndexOrThrow(dbHelper.KEY_LASTMODIFIED));
+			Log.i("DB", "NEWS_LastModified: "+LastModified);
+
+			if(LastModified.equals("10302011")){
+				Log.i("DB", "Up to date");
+			}else{
+				Log.i("DB", "Not UpToDate");
+			}
+		}	
+		dbHelper.deleteAllArticles();
+		cursor = dbHelper.fetchAllArticles();
+		Log.i("DB", "next cursor count: "+ cursor.getCount());
+		
+    }
+    
     public void TabAndListViewSetup(){
     	tabHost=(TabHost)findViewById(R.id.tabHost);
 		tabHost.setup();
@@ -204,7 +252,9 @@ public class AsteroidTrackerActivity extends ListActivity {
     	AsteroidTrackerActivity.List_NASA_IMPACT = AsteroidTrackerActivity.neo_AstroidFeed.getImpactList(HTTPDATA);
     }
     public void loadEntityLists_NEWS(String HTTPDATA){
-    	AsteroidTrackerActivity.List_NASA_News = AsteroidTrackerActivity.neo_AstroidFeed.parseNewsFeed(HTTPDATA);
+    	AsteroidTrackerActivity.List_NASA_News = AsteroidTrackerActivity.NewsProxy.parseNewsFeed(HTTPDATA);
+    	//Check if data was already loaded today.
+    	//
     }
     
     

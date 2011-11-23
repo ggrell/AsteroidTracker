@@ -33,6 +33,7 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 		public TextView description;
 		public TextView relativeVelocity;
 		public TextView estimatedDiameter;
+		public TextView AlertMessage;
 		public TextView date;
 		public ImageView Icon;
 	}
@@ -41,7 +42,7 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 		nasa_neo entityObject = (nasa_neo) getItem(position);
 		inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View vi = convertView;
-		ViewHolder holder;
+		ViewHolder holder = new ViewHolder();
 		if (convertView == null) {
 			vi = inflater.inflate(R.layout.nasa_neolistview, null);		
 			holder = new ViewHolder();
@@ -51,12 +52,23 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 			holder.date 				= 	(TextView) vi.findViewById(R.id.nasaNeo_date);
 			holder.relativeVelocity		=	(TextView) vi.findViewById(R.id.nasaNeo_relV);
 			holder.estimatedDiameter	= 	(TextView) vi.findViewById(R.id.nasaNeo_estimatedDiameter);
+			holder.AlertMessage			=	(TextView) vi.findViewById(R.id.nasaNeo_AlertMessage);
 			holder.Icon = (ImageView) vi.findViewById(R.id.picview1);
 			vi.setTag(holder);
 		} else {
 			holder = (ViewHolder) vi.getTag();
 		}
-		
+//		String checkdistance = entityObject.getMissDistance_AU().replace(",","");
+		if (Double.parseDouble(entityObject.getMissDistance_AU().replace(",","")) < 400000){
+			Log.i("yellow", "yellow: "+entityObject.getMissDistance_AU().replace(",",""));
+			holder.title.setTextColor(Color.YELLOW);
+			holder.AlertMessage.setTextColor(Color.YELLOW);
+			holder.description.setTextColor(Color.YELLOW);
+			holder.relativeVelocity.setTextColor(Color.YELLOW);
+			holder.estimatedDiameter.setTextColor(Color.YELLOW);
+			holder.date.setTextColor(Color.YELLOW);
+			holder.AlertMessage.setText("Passing by closer than the Moon!");			
+		}
 		if (entityObject.getName().equals("Unable to retrieve Asteroid feed")){
 			holder.title_error.setText("Unable to retrieve NASA NEO feed");
 		}else{

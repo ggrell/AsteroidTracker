@@ -86,7 +86,6 @@ public class neoAstroidFeed {
 	public String getAstroidFeedDATA(String URL) {
 		Log.i("HTTPFEED", "Getting data: "+URL);
 		String data = common.getHTTPData(URL);
-//		Log.i("neo", "DATA: "+data);
 		return data;
 }
 	
