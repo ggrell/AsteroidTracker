@@ -56,14 +56,19 @@
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent" 
 				android:id="@+id/tab3"
-				android:orientation="vertical">
+				android:orientation="vertical"
+				android:scrollHorizontally="false"
+				android:width="0dip"
+			>				
 			<ListView
     			android:id="@+id/android:list"
     			android:layout_width="fill_parent"
     			android:layout_height="fill_parent"
     		/>
-				<TextView 
-					android:layout_width="fill_parent"
+				<TextView
+				    android:width="0dip"
+				    android:scrollHorizontally="false"
+				    android:layout_width="fill_parent"
 					android:layout_height="wrap_content" 
 					android:id="@+id/impactrisk" />
 			</LinearLayout>
@@ -83,8 +88,8 @@
 					android:layout_height="wrap_content" 
 					android:id="@+id/asteroidNewsFeed" />
 			</LinearLayout>
- 
- 			
-		</FrameLayout>
+			
+
+ 		</FrameLayout>
 	</LinearLayout>
 </TabHost>

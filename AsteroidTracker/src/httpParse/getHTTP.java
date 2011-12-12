@@ -1,18 +1,25 @@
 package httpParse;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.ByteArrayBuffer;
+
 import android.util.Log;
 
 public class getHTTP {
@@ -58,4 +65,26 @@ public class getHTTP {
 		return responseData;
 	}
 
+	
+	public static byte[] getImageData(String ImageURL){
+		URL url;
+		InputStream inputStream;
+		try {
+			url = new URL(ImageURL);
+			URLConnection ucon = url.openConnection();
+			inputStream = ucon.getInputStream();
+			BufferedInputStream bis = new BufferedInputStream(inputStream,128);
+			ByteArrayBuffer baf = new ByteArrayBuffer(128);
+			int current = 0;
+			while ((current = bis.read()) != -1) {
+			        baf.append((byte) current);
+			}
+			return baf.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+			ByteArrayBuffer baf = new ByteArrayBuffer(128);
+			return baf.toByteArray();
+		}
+	}
+	
 }

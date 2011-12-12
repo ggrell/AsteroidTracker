@@ -13,6 +13,8 @@ public class NewsDB_Adtapter {
 	public static final String KEY_TITLE = "title";
 	public static final String KEY_DESCRIPTION = "description";
 	public static final String KEY_URL = "url";
+	public static final String KEY_IMAGE_URL = "imageurl";
+	public static final String KEY_IMAGE = "imageByteArray";
 	public static final String KEY_DATE = "date";
 	public static final String KEY_LASTMODIFIED = "LastModified";
 	private static final String DATABASE_TABLE = "news";
@@ -41,8 +43,8 @@ public class NewsDB_Adtapter {
 	 * rowId, otherwise return a -1 to indicate failure.
 	 */
 
-	public long createNewsArticle(String title, String description, String url, String date, String LastModified) {
-		ContentValues initialValues = createContentValues(title, description, url, date, LastModified);
+	public long createNewsArticle(String title, String description, String url, byte[] imageArray, String imageURL, String date, String LastModified) {
+		ContentValues initialValues = createContentValues(title, description, url, imageArray, imageURL, date, LastModified);
 		return database.insert(DATABASE_TABLE, null, initialValues);
 	}
 
@@ -51,11 +53,9 @@ public class NewsDB_Adtapter {
 	 * Update the NewsArticle
 	 */
 
-	public boolean updateNewsArticle(long rowId, String category, String description, String url, String date, String LastModified) {
-		ContentValues updateValues = createContentValues(category, description, url, date, LastModified);
-
-		return database.update(DATABASE_TABLE, updateValues, KEY_ROWID + "="
-				+ rowId, null) > 0;
+	public boolean updateNewsArticle(long rowId, String category, String description, String url,  byte[] imageArray, String imageurl, String date, String LastModified) {
+		ContentValues updateValues = createContentValues(category, description, url, imageArray, imageurl, date, LastModified);
+		return database.update(DATABASE_TABLE, updateValues, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 
 	
@@ -83,7 +83,7 @@ public class NewsDB_Adtapter {
 
 	public Cursor fetchAllArticles() {
 		return database.query(DATABASE_TABLE, new String[] { KEY_ROWID,
-				KEY_TITLE, KEY_DESCRIPTION, KEY_URL, KEY_DATE, KEY_LASTMODIFIED}, null, null, null,
+				KEY_TITLE, KEY_DESCRIPTION, KEY_URL, KEY_IMAGE, KEY_IMAGE_URL, KEY_DATE, KEY_LASTMODIFIED}, null, null, null, null,
 				null, null);
 	}
 
@@ -93,7 +93,7 @@ public class NewsDB_Adtapter {
 	 */
 	public Cursor fetchArticle(long rowId) throws SQLException {
 		Cursor mCursor = database.query(true, DATABASE_TABLE, new String[] {
-				KEY_ROWID, KEY_TITLE, KEY_DESCRIPTION, KEY_URL, KEY_DATE, KEY_LASTMODIFIED},
+				KEY_ROWID, KEY_TITLE, KEY_DESCRIPTION, KEY_URL, KEY_IMAGE, KEY_IMAGE_URL, KEY_DATE, KEY_LASTMODIFIED},
 				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();
@@ -101,11 +101,13 @@ public class NewsDB_Adtapter {
 		return mCursor;
 	}
 
-	private ContentValues createContentValues(String title, String description, String url, String date, String LastModified) {
+	private ContentValues createContentValues(String title, String description, String url, byte[] imageArray, String imageurl, String date, String LastModified) {
 		ContentValues values = new ContentValues();
 		values.put(KEY_TITLE, title);
 		values.put(KEY_DESCRIPTION, description);
 		values.put(KEY_URL, url);
+		values.put(KEY_IMAGE_URL, imageurl);
+		values.put(KEY_IMAGE, imageArray);
 		values.put(KEY_DATE, date);
 		values.put(KEY_LASTMODIFIED, LastModified);
 		return values;

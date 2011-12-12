@@ -164,7 +164,8 @@ public class XmlParser {
     				  JPLEntity.setPubDate(pubDate.item(0).getTextContent().toString().trim());
     				  JPLEntity.artcileUrl =  link.item(0).getTextContent().toString().trim();
     				  JPLEntity.description =  strDesc.trim();
-    				  JPLEntity.imgURL = ImageOperations(imgURL.trim());	
+//    				  JPLEntity.imgURL = ImageOperations(imgURL.trim());	
+    				  JPLEntity.setDrawable(imgURL.trim());
     				  newsList.add(JPLEntity);
     				  if(i==10){
     				  break;
@@ -180,7 +181,7 @@ public class XmlParser {
     		return newsList;
     	}
 
-	private Drawable ImageOperations(String url) {
+	public Drawable ImageOperations(String url) {
 		try {
 			InputStream is = (InputStream) this.fetch(url);
 			Drawable d = Drawable.createFromStream(is, "src");
