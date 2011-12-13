@@ -96,6 +96,14 @@ public class AsteroidTrackerActivity extends ListActivity {
     //--NEOs that pass about as close or closer than our moon!
     //--Really large ones
     
+    public void updateListView(){
+	    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
+             @Override
+             public void run() {
+	    			AsteroidTrackerActivity.this.adapter_NEWS.notifyDataSetChanged();
+             }
+         });
+    }
     
     private void ProcessDBDataData(){
 //    	ProcessNEWS_DB();
@@ -128,9 +136,25 @@ public class AsteroidTrackerActivity extends ListActivity {
  	               }
  	           });
     		}};
-
-		    UpdateNewsFromDB.start();   		
-    		
+		    UpdateNewsFromDB.start();
+		    final Thread UpdateNTEST = new Thread() {
+	    		public void run() {
+	    			try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+	    			ArrayList testing = new ArrayList();
+	    			for(int i = 0; i < 5; i++){
+	    				newsEntity test = new newsEntity();
+	    				test.title = "TEST"+i;
+	    				test.description = "TEST"+i;
+	    				AsteroidTrackerActivity.this.List_NASA_News.add(0, test);
+	    			}
+	    			updateListView();
+	    	}};
+	    	UpdateNTEST.start();
+	    	
     	//Check NEO DB for data
     	//--If DB isnt emtpy, pull most recent 10 entries (if 10 are available)
     	//--Load the entries to the screen
@@ -333,7 +357,25 @@ public class AsteroidTrackerActivity extends ListActivity {
     }   
     public void processAsteroidNewsFeed(){
 //		ProcessDBDataData();
-		Thread NewsUpdate = new Thread() {
+//    	Thread UpdateNewsFromDB = new Thread() {
+//    		public void run() {	 
+//    			ArrayList ProcessNEWS_List = ProcessNEWS_DB();
+//    			if(!ProcessNEWS_List.isEmpty())
+//    			{
+//        			AsteroidTrackerActivity.List_NASA_News = ProcessNEWS_DB();
+//        			LoadAdapters_NEWS();	
+//        		    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
+//      	               @Override
+//      	               public void run() {
+////      	            	   dialog.setMessage("Loading NASA News Feed...");
+//      	            	   Log.i("DB", "Setting data: NEWS");
+//      	            	   SetAdapters_NEWS();
+//      	               }
+//      	           });
+//    			}
+//    		}};
+//		    UpdateNewsFromDB.start();
+		    Thread NewsUpdate = new Thread() {
 			public void run() {			 
 					if(!refresh){
 						String HTTP_NEWS_DATA = AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_JPL_AsteroidNewsFeed);

@@ -45,9 +45,21 @@ public class NewsDB_Adtapter {
 
 	public long createNewsArticle(String title, String description, String url, byte[] imageArray, String imageURL, String date, String LastModified) {
 		ContentValues initialValues = createContentValues(title, description, url, imageArray, imageURL, date, LastModified);
+//		database.
 		return database.insert(DATABASE_TABLE, null, initialValues);
 	}
 
+	public boolean isDuplicate(String title){
+		Cursor mCursor = database.query(true, DATABASE_TABLE, new String[] {
+				KEY_ROWID, KEY_TITLE, KEY_DESCRIPTION, KEY_URL, KEY_IMAGE, KEY_IMAGE_URL, KEY_DATE, KEY_LASTMODIFIED},
+				KEY_TITLE + "=" + title, null, null, null, null, null);
+		if (mCursor != null) {
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
 	
 /**
 	 * Update the NewsArticle

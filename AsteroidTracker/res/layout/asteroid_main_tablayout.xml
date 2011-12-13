@@ -88,8 +88,24 @@
 					android:layout_height="wrap_content" 
 					android:id="@+id/asteroidNewsFeed" />
 			</LinearLayout>
-			
-
  		</FrameLayout>
+ 		<FrameLayout
+			android:layout_width="fill_parent" 
+			android:layout_height="fill_parent" 
+			android:id="@+id/load">
+ 			<LinearLayout 
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent" 
+				android:id="@+id/loading"
+				android:orientation="vertical">
+			<TextView 
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" 
+					android:id="@+id/ast" 
+					android:text="test"/>
+ 			</LinearLayout>
+ 				    
+ 				</FrameLayout>
+ 			
 	</LinearLayout>
 </TabHost>
