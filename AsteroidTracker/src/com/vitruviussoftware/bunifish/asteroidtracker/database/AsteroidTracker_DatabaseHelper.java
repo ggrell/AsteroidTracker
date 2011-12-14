@@ -13,7 +13,8 @@ public class AsteroidTracker_DatabaseHelper extends SQLiteOpenHelper{
 
 	// Database creation sql statement
 	private static final String DATABASE_CREATE_NEWS= "create table news (_id integer primary key autoincrement, "
-			+ "title text not null, description text not null, url text not null,  imageByteArray BLOB not null, imageurl text not null, date text not null, LastModified text not null);";
+			+ "title text not null, description text not null, url text not null,  imageByteArray BLOB not null, imageurl text not null, date text not null, LastModified text not null," +
+					"UNIQUE(title, date) ON CONFLICT REPLACE);";
 
 	private static final String DATABASE_CREATE_NEO = "create table neo (_id integer primary key autoincrement, "
 		+ "title text not null, description text not null, url text not null, date text not null, LastModified text not null);";

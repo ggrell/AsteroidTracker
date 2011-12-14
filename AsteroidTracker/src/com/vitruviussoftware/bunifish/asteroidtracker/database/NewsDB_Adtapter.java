@@ -45,7 +45,6 @@ public class NewsDB_Adtapter {
 
 	public long createNewsArticle(String title, String description, String url, byte[] imageArray, String imageURL, String date, String LastModified) {
 		ContentValues initialValues = createContentValues(title, description, url, imageArray, imageURL, date, LastModified);
-//		database.
 		return database.insert(DATABASE_TABLE, null, initialValues);
 	}
 
