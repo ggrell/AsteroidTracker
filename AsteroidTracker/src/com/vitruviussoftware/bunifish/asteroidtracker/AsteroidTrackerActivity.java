@@ -83,7 +83,6 @@ public class AsteroidTrackerActivity extends ListActivity {
 		dbHelper = new NewsDB_Adtapter(this);
 		dbHelper.open();
 //		dbHelper.deleteAllArticles();
-//		fillData();
 		processFeeds();
 		ProcessDBDataData();
     }
@@ -96,33 +95,16 @@ public class AsteroidTrackerActivity extends ListActivity {
     //--NEOs that pass about as close or closer than our moon!
     //--Really large ones
     
-    public void updateListView(){
+    public void updateNewsListView(){
 	    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
              @Override
              public void run() {
-	    			AsteroidTrackerActivity.this.adapter_NEWS.notifyDataSetChanged();
+	    			AsteroidTrackerActivity.adapter_NEWS.notifyDataSetChanged();
              }
          });
     }
     
     private void ProcessDBDataData(){
-//    	ProcessNEWS_DB();
-//    	List<newsEntity> newsEntities = null;
-//    	ArrayList newsEntities = new ArrayList();
-//    	for(int i = 0; i < 10; i ++){
-//    		long created = dbHelper.createNewsArticle("TitleTest", "CoolArtcile", "test.blah.com","10302011", "10292011");
-//    		Log.i("DB", "created: "+created);
-//        	newsEntity ent = new newsEntity();
-//        	ent.title = "test1";
-//        	ent.description = "description";
-//        	ent.pubDate = "21/04/2011";
-//        	ent.artcileUrl = "www.test.com";
-//        	newsEntities.add(ent);
-//    	}
-//    	ProcessNEWS_DB_AddArticles(newsEntities);
-//    	ProcessNEO_DB();
-//    	ProcessNEWS_DB();
-
     	Thread UpdateNewsFromDB = new Thread() {
     		public void run() {	 
     			AsteroidTrackerActivity.List_NASA_News = ProcessNEWS_DB();
@@ -135,25 +117,39 @@ public class AsteroidTrackerActivity extends ListActivity {
  	            	   SetAdapters_NEWS();
  	               }
  	           });
+//    		    updateNewsListView();
+//				closeDialog();
     		}};
 		    UpdateNewsFromDB.start();
+
 		    final Thread UpdateNTEST = new Thread() {
 	    		public void run() {
+	           	   Log.i("DB", "UpdateNTEST sleep: NEWS");
 	    			try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 	    			ArrayList testing = new ArrayList();
-	    			for(int i = 0; i < 5; i++){
+	    			for(int i = 0; i < 10; i++){
 	    				newsEntity test = new newsEntity();
-	    				test.title = "TEST"+i;
-	    				test.description = "TEST"+i;
+	    				test.title 			= "TESTING"+i;
+	    				test.description 	= "TESTING";
+	    				test.artcileUrl 	= "TESTING";
+	    				test.imageURL 		= "TESTING";
+	    				test.pubDate 		= "TESTING";
+	    				byte[] testArr 		= new byte[2];
+	    				test.imageByteArray = testArr;
 	    				AsteroidTrackerActivity.this.List_NASA_News.add(0, test);
+//	    				testing.add(test);   				
 	    			}
-	    			updateListView();
+	    	    	ProcessNEWS_DB_AddArticles(testing);
+//	    	    	AsteroidTrackerActivity.List_NASA_News = ProcessNEWS_DB();
+	    	    	
+	    			updateNewsListView();
 	    	}};
 	    	UpdateNTEST.start();
+	    	
 	    	
     	//Check NEO DB for data
     	//--If DB isnt emtpy, pull most recent 10 entries (if 10 are available)
@@ -194,7 +190,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     			entity.description = article.getString(article.getColumnIndexOrThrow(dbHelper.KEY_DESCRIPTION));
     			entity.imageURL = article.getString(article.getColumnIndexOrThrow(dbHelper.KEY_IMAGE_URL));
     			entity.imageDrawable = entity.setDrawableWithByteArray(article.getBlob(article.getColumnIndexOrThrow(dbHelper.KEY_IMAGE)));
-    			Log.i("DB", "imageDrawable ("+entity.imageDrawable+")");
+//    			Log.i("DB", "imageDrawable ("+entity.imageDrawable+")");
     			ArticleList.add(entity);
     			if(i == 10){
     				break;
@@ -209,6 +205,9 @@ public class AsteroidTrackerActivity extends ListActivity {
 
     private void ProcessNEWS_DB_AddArticles(List<newsEntity> newsEntities){
     	String timeNow = Long.toString(System.currentTimeMillis());
+		cursor = dbHelper.fetchAllArticles();
+		startManagingCursor(cursor);
+		Log.i("DB", "BEFORE_Count: "+ cursor.getCount());
 		for(int i = 0; i < newsEntities.size(); i++){
       	   Log.i("DB", "Saving title:"+newsEntities.get(i).title);
       	   Log.i("DB", "Saving description:"+newsEntities.get(i).description);
@@ -216,6 +215,9 @@ public class AsteroidTrackerActivity extends ListActivity {
       	   Log.i("DB", "Saving imgURL:"+newsEntities.get(i).imageURL);
       	   Log.i("DB", "Saving pubDate:"+newsEntities.get(i).pubDate);
 	    dbHelper.createNewsArticle(newsEntities.get(i).title, newsEntities.get(i).description, newsEntities.get(i).artcileUrl, newsEntities.get(i).getDrawableImageByteArray(), newsEntities.get(i).imageURL, newsEntities.get(i).pubDate, timeNow);
+	    cursor = dbHelper.fetchAllArticles();
+		Log.i("DB", "AFTER_Count: "+ cursor.getCount());
+		
 		}    	
     }
     
@@ -286,12 +288,12 @@ public class AsteroidTrackerActivity extends ListActivity {
     }
     
     public void processFeeds(){
-    	progressDialog();
+//    	progressDialog();
 //      startTime = System.currentTimeMillis();
     	tabHost.setCurrentTab(0);
-    	processImpactFeed();
-		processAsteroidNewsFeed();
-		processNEOFeed();
+//    	processImpactFeed();
+//		processAsteroidNewsFeed();
+//		processNEOFeed();
 //		processStatsFeed();
     }
     
@@ -299,7 +301,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     public void closeDialog(){
     	closeDialog++;
-    	if(closeDialog == 3){
+    	if(closeDialog == 1){
     		handler.sendEmptyMessage(0);
     		}
     	}
@@ -356,27 +358,37 @@ public class AsteroidTrackerActivity extends ListActivity {
 			ImpactUpdate.start();
     }   
     public void processAsteroidNewsFeed(){
-//		ProcessDBDataData();
-//    	Thread UpdateNewsFromDB = new Thread() {
-//    		public void run() {	 
-//    			ArrayList ProcessNEWS_List = ProcessNEWS_DB();
-//    			if(!ProcessNEWS_List.isEmpty())
-//    			{
-//        			AsteroidTrackerActivity.List_NASA_News = ProcessNEWS_DB();
-//        			LoadAdapters_NEWS();	
-//        		    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
-//      	               @Override
-//      	               public void run() {
-////      	            	   dialog.setMessage("Loading NASA News Feed...");
-//      	            	   Log.i("DB", "Setting data: NEWS");
-//      	            	   SetAdapters_NEWS();
-//      	               }
-//      	           });
-//    			}
-//    		}};
-//		    UpdateNewsFromDB.start();
-		    Thread NewsUpdate = new Thread() {
-			public void run() {			 
+    	Thread UpdateNewsFromDB = new Thread() {
+		public void run() {
+			Log.i("threadStatus", "Starting UpdateNewsFromDB");
+			ArrayList ProcessNEWS_List = ProcessNEWS_DB();
+			if(!ProcessNEWS_List.isEmpty())
+			{
+				AsteroidTrackerActivity.List_NASA_News = ProcessNEWS_List;
+				LoadAdapters_NEWS();
+			    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
+		               @Override
+		               public void run() {
+//		            	   dialog.setMessage("Loading NASA News Feed...");
+		            	   Log.i("DB", "Setting data: NEWS");
+		            	   SetAdapters_NEWS();
+		               }
+		           });
+			}else{
+		    	   Log.i("DB", "No DB data: NEWS");
+			}
+			updateNewsListView();
+		}};
+		UpdateNewsFromDB.start();
+
+	    Thread NewsUpdate = new Thread() {
+			public void run() {
+				Log.i("threadStatus", "Starting NewsUpdate");
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 					if(!refresh){
 						String HTTP_NEWS_DATA = AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_JPL_AsteroidNewsFeed);
 						loadEntityLists_NEWS(HTTP_NEWS_DATA);
@@ -385,23 +397,20 @@ public class AsteroidTrackerActivity extends ListActivity {
 					refresh = true;
 					ProcessNEWS_DB_AddArticles(List_NASA_News);
 //					ProcessDBDataData();
-			    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
+					AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
 		               @Override
 		               public void run() {
-		            	   dialog.setMessage("Loading NASA News Feed...");
+//		            	   dialog.setMessage("Loading NASA News Feed...");
 		            	   Log.i("HTTPFEED", "Setting data: NEWS");
 		            	   SetAdapters_NEWS();
 		               }
 		           });
 				Log.i("HTTPFEED", "closeing-Dialog:"+closeDialog);
-				closeDialog();
+//				closeDialog();
+				updateNewsListView();
 			}};
 			NewsUpdate.start();
     }
-
-
-    public void appendNewsData(){}
-
 
     public void loadEntityLists_NEO(String HTTPDATA){
 	  	AsteroidTrackerActivity.List_NASA_RECENT = AsteroidTrackerActivity.neo_AstroidFeed.getRecentList(HTTPDATA);
@@ -415,8 +424,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     	//Check if data was already loaded today.
     	//
     }
-    
-    
+
     public void LoadAdapters_NEO(){
     	AsteroidTrackerActivity.this.adapter_RECENT = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_RECENT);
     	AsteroidTrackerActivity.this.adapter_UPCOMING = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_UPCOMING);
@@ -425,10 +433,9 @@ public class AsteroidTrackerActivity extends ListActivity {
     	AsteroidTrackerActivity.this.adapter_IMPACT = new nasa_neoImpactAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neo_impact_listview, AsteroidTrackerActivity.List_NASA_IMPACT);
     }
     public void LoadAdapters_NEWS(){
-		AsteroidTrackerActivity.this.adapter_NEWS = new asteroidNewsAdapter(AsteroidTrackerActivity.this, R.layout.jpl_asteroid_news, AsteroidTrackerActivity.List_NASA_News);
+		AsteroidTrackerActivity.adapter_NEWS = new asteroidNewsAdapter(AsteroidTrackerActivity.this, R.layout.jpl_asteroid_news, AsteroidTrackerActivity.List_NASA_News);
     }
     
-   
     public void SetAdapters_NEO(){
     	setListAdapter(adapter_RECENT);
 //    		spec1.setContent(new TabHost.TabContentFactory(){
