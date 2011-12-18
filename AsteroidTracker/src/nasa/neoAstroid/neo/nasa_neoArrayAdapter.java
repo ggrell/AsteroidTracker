@@ -1,6 +1,8 @@
-package nasa.neoAstroid;
+package nasa.neoAstroid.neo;
 
 import java.util.List;
+
+
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import android.content.Context;
 import android.content.res.Resources;

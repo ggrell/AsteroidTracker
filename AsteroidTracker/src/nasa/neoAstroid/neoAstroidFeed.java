@@ -19,6 +19,8 @@ import java.util.List;
 import javax.xml.xpath.XPathExpressionException;
 
 import nasa.neoAstroid.impackRisk.nasa_neoImpactEntity;
+import nasa.neoAstroid.neo.Nasa_neoEntityDeprecated;
+import nasa.neoAstroid.neo.nasa_neo;
 import nasa.neoAstroid.news.newsEntity;
 
 import com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity;

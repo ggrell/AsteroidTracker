@@ -1,4 +1,4 @@
-package nasa.neoAstroid;
+package nasa.neoAstroid.neo;
 
 import java.net.MalformedURLException;
 import java.net.URL;

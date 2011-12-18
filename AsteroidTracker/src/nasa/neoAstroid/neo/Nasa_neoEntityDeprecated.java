@@ -1,4 +1,4 @@
-package nasa.neoAstroid;
+package nasa.neoAstroid.neo;
 
 
 public class Nasa_neoEntityDeprecated {
