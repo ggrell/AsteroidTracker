@@ -22,10 +22,10 @@ public class AsteroidTracker_DatabaseHelper extends SQLiteOpenHelper{
 	private static final String DATABASE_CREATE_IMPACT = "create table impact (_id integer primary key autoincrement, "
 		+ "title text not null, description text not null, url text not null, date text not null, LastModified text not null);";
 
-	private static final String DATABASE_UPDATE_NEO_TABLE = "create table lastnewsupdat (_id integer primary key autoincrement, "
+	private static final String DATABASE_UPDATE_NEO_TABLE = "create table lastneoupdate (_id integer primary key autoincrement, "
 		+ "date text not null);";
-	private static final String DATABASE_UPDATE_NEWS_TABLE = "create table lastneoupdate (_id integer primary key autoincrement, "
-		+ "date text not null);";
+	private static final String DATABASE_UPDATE_NEWS_TABLE = "create table lastRssBuildUpdate (_id integer primary key autoincrement, "
+		+ "lastnewsdate text not null);";
 	private static final String DATABASE_UPDATE_IMPACT_TABLE = "create table lastimpactupdate (_id integer primary key autoincrement, "
 		+ "date text not null);";
 	

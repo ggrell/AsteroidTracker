@@ -22,6 +22,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import nasa.neoAstroid.news.AsteroidNewsProxy;
 import nasa.neoAstroid.news.newsEntity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -142,7 +144,12 @@ public class XmlParser {
     		Log.i("news", "Getting xpath stuff");
     		ArrayList<newsEntity> newsList = new ArrayList<newsEntity>();
     		try {
-    		    NodeList nodes = doc.getElementsByTagName("item");
+    			NodeList lastBuildDate = doc.getElementsByTagName("lastBuildDate");
+    			String lastKnownBuildDate = lastBuildDate.item(0).getTextContent().toString().trim();
+    			Log.i("parser", "LASTBUILDDATE: "+ lastKnownBuildDate);
+			    AsteroidNewsProxy.LastBuildDate_Net = lastKnownBuildDate;
+    			
+			    NodeList nodes = doc.getElementsByTagName("item");
     		    Log.i("news", "Getting xpath getLength "+nodes.getLength());
     			  for (int i = 0; i < nodes.getLength(); i++) {
     				  newsEntity JPLEntity = new newsEntity();
@@ -151,7 +158,7 @@ public class XmlParser {
     			      NodeList description = element.getElementsByTagName("description");
     			      NodeList pubDate = element.getElementsByTagName("pubDate");
     			      NodeList link = element.getElementsByTagName("link");
-    				  String descriptionSTR = description.item(0).getTextContent().toString().trim();
+    			      String descriptionSTR = description.item(0).getTextContent().toString().trim();
     				  int bIdx = descriptionSTR.indexOf("<br /><br />");
     				  int eIdx = descriptionSTR.indexOf("</p>");
     				  int imgIDX = descriptionSTR.indexOf("img src=\"");
@@ -160,11 +167,9 @@ public class XmlParser {
     				  String imgURL = descriptionSTR.substring(imgIDX+9,imgEDX+4);
     				  Log.i("news", "Getting xpath title: "+title.item(0).getTextContent().toString().trim());
     				  JPLEntity.title = title.item(0).getTextContent().toString().trim();
-//    				  JPLEntity.pubDate = pubDate.item(0).getTextContent().toString().trim();
     				  JPLEntity.setPubDate(pubDate.item(0).getTextContent().toString().trim());
     				  JPLEntity.artcileUrl =  link.item(0).getTextContent().toString().trim();
     				  JPLEntity.description =  strDesc.trim();
-//    				  JPLEntity.imgURL = ImageOperations(imgURL.trim());	
     				  JPLEntity.setDrawable(imgURL.trim());
     				  newsList.add(JPLEntity);
     				  if(i==10){
