@@ -1,4 +1,6 @@
-package com.vitruviussoftware.bunifish.asteroidtracker.database;
+package nasa.neoAstroid.news;
+
+import com.vitruviussoftware.bunifish.asteroidtracker.database.AsteroidTracker_DatabaseHelper;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -9,11 +9,18 @@ import android.util.Log;
 public class AsteroidNewsProxy {
 
 	public static final String URL_JPL_AsteroidNewsFeed="http://www.jpl.nasa.gov/multimedia/rss/asteroid.xml";
+	public static String LastBuildDate_DB="";
+	public static String LastBuildDate_Net="";
 
+	
 	public ArrayList<newsEntity> parseNewsFeed(String data){
-		Log.i("news", "data2"+data);
+//		Log.i("news", "data2"+data);
 		XmlParser xmlParser = new XmlParser(data);
 		return xmlParser.getXpath_getNewsItem();
+	}
+	
+	public static void IsRSSFeedNew(){
+		
 	}
 	
 }
