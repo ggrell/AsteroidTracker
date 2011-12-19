@@ -14,9 +14,13 @@ public class AsteroidNewsProxy {
 
 	
 	public ArrayList<newsEntity> parseNewsFeed(String data){
-//		Log.i("news", "data2"+data);
-		XmlParser xmlParser = new XmlParser(data);
-		return xmlParser.getXpath_getNewsItem();
+		if (data.length() < 1){
+			ArrayList emtpy = new ArrayList();
+			return emtpy;
+		}else{
+			XmlParser xmlParser = new XmlParser(data);
+			return xmlParser.getXpath_getNewsItem();
+		}
 	}
 	
 	public static void IsRSSFeedNew(){
