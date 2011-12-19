@@ -37,7 +37,6 @@ public class NewsDB_Adtapter {
 	public void close() {
 		dbHelper.close();
 	}
-
 	
 /**
 	 * Create a new news Article.
@@ -70,7 +69,6 @@ public class NewsDB_Adtapter {
 		ContentValues updateValues = createContentValues(category, description, url, imageArray, imageurl, date, LastModified);
 		return database.update(DATABASE_TABLE, updateValues, KEY_ROWID + "=" + rowId, null) > 0;
 	}
-
 	
 /**
 	 * Deletes NewsArticle
@@ -87,7 +85,6 @@ public class NewsDB_Adtapter {
 	public boolean deleteAllArticles() {
 		return database.delete(DATABASE_TABLE, null, null) > 0;
 	}
-	
 	
 /**
 	 * Return a Cursor over the list of all NewsArticles in the database
