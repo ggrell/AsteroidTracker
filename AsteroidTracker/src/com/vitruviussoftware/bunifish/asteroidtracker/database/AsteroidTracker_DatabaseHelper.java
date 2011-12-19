@@ -14,10 +14,13 @@ public class AsteroidTracker_DatabaseHelper extends SQLiteOpenHelper{
 	// Database creation sql statement
 	private static final String DATABASE_CREATE_NEWS= "create table news (_id integer primary key autoincrement, "
 			+ "title text not null, description text not null, url text not null,  imageByteArray BLOB not null, imageurl text not null, date text not null, LastModified text not null," +
-					"UNIQUE(title, date) ON CONFLICT REPLACE);";
+					"UNIQUE(title, date) ON CONFLICT IGNORE);";
 
 	private static final String DATABASE_CREATE_NEO = "create table neo (_id integer primary key autoincrement, "
-		+ "title text not null, description text not null, url text not null, date text not null, LastModified text not null);";
+		+ "name text not null, closeapproachdate_str text not null, missdistance_au text not null," +
+				"missdistance_ld text not null,estimateddiameter text not null,hmagnitude text not null," +
+				"relativevelocity text not null, url text not null, LastModified text not null, " +
+				"UNIQUE(name) ON CONFLICT IGNORE);";
 
 	private static final String DATABASE_CREATE_IMPACT = "create table impact (_id integer primary key autoincrement, "
 		+ "title text not null, description text not null, url text not null, date text not null, LastModified text not null);";
@@ -39,7 +42,7 @@ public class AsteroidTracker_DatabaseHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase database) {
 		database.execSQL(DATABASE_CREATE_NEWS);
 		database.execSQL(DATABASE_UPDATE_NEWS_TABLE);
-//		database.execSQL(DATABASE_CREATE_NEO);
+		database.execSQL(DATABASE_CREATE_NEO);
 //		database.execSQL(DATABASE_UPDATE_NEO_TABLE);
 //		database.execSQL(DATABASE_CREATE_IMPACT);
 //		database.execSQL(DATABASE_UPDATE_IMPACT_TABLE);		
