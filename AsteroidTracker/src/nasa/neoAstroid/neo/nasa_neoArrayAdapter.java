@@ -61,25 +61,25 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 			holder = (ViewHolder) vi.getTag();
 		}
 //		String checkdistance = entityObject.getMissDistance_AU().replace(",","");
-		if (Double.parseDouble(entityObject.getMissDistance_AU().replace(",","")) < 400000){
-			Log.i("yellow", "yellow: "+entityObject.getMissDistance_AU().replace(",",""));
-			holder.title.setTextColor(Color.YELLOW);
-			holder.AlertMessage.setTextColor(Color.YELLOW);
-			holder.description.setTextColor(Color.YELLOW);
-			holder.relativeVelocity.setTextColor(Color.YELLOW);
-			holder.estimatedDiameter.setTextColor(Color.YELLOW);
-			holder.date.setTextColor(Color.YELLOW);
-			holder.AlertMessage.setText("Passing by closer than the Moon!");			
-		}
 		if (entityObject.getName().equals("Unable to retrieve Asteroid feed")){
 			holder.title_error.setText("Unable to retrieve NASA NEO feed");
 		}else{
 			holder.title.setText("Name: "+entityObject.getName());
 			holder.Icon.setImageDrawable(entityObject.getIcon());
-			holder.description.setText("Miss-Distance: "+entityObject.getMissDistance_AU() + " (km)");
+			holder.description.setText("Miss-Distance: "+entityObject.getMissDistance_AU_Kilometers() + " (km)");
 			holder.relativeVelocity.setText("Relative Velocity: "+ entityObject.getRelativeVelocity() + " (km/s)");
 			holder.estimatedDiameter.setText("Est Diameter: "+ entityObject.getEstimatedDiameter() + " (m)");
 			holder.date.setText("Closest Approach Date: "+entityObject.getDateStr());	
+			if (Double.parseDouble(entityObject.getMissDistance_AU_Kilometers().replace(",","")) < 400000){
+				Log.i("yellow", "yellow: "+entityObject.getMissDistance_AU_Kilometers().replace(",",""));
+				holder.title.setTextColor(Color.YELLOW);
+				holder.AlertMessage.setTextColor(Color.YELLOW);
+				holder.description.setTextColor(Color.YELLOW);
+				holder.relativeVelocity.setTextColor(Color.YELLOW);
+				holder.estimatedDiameter.setTextColor(Color.YELLOW);
+				holder.date.setTextColor(Color.YELLOW);
+				holder.AlertMessage.setText("Passing by closer than the Moon!");			
+			}
 		}
 		return vi;
 	}

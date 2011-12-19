@@ -12,7 +12,7 @@ public class NeoDBAdapter {
 
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_NAME = "name";
-	public static final String KEY_CLOSEAPPROACHDATE = "closeapproachdate";
+//	public static final String KEY_CLOSEAPPROACHDATE = "closeapproachdate";
 	public static final String KEY_CLOSEAPPROACHDATE_STR = "closeapproachdate_str";
 	public static final String KEY_MISSDISTANCE_AU = "missdistance_au";
 	public static final String KEY_MISSDISTANCE_LD = "missdistance_ld";
@@ -41,15 +41,14 @@ public class NeoDBAdapter {
 		dbHelper.close();
 	}
 	
-	public long createNewsArticle(String name, String closeapproachdate, String closeapproachdate_str, String missdistance_au, String missdistance_ld, String estimateddiameter, String hmagnitude, String relativevelocity, String url, String LastModified) {
-		ContentValues initialValues = createContentValues(name, closeapproachdate, closeapproachdate_str, missdistance_au, missdistance_ld, estimateddiameter, hmagnitude, relativevelocity, url, LastModified);
+	public long createNewsArticle(String name, String closeapproachdate_str, String missdistance_au, String missdistance_ld, String estimateddiameter, String hmagnitude, String relativevelocity, String url, String LastModified) {
+		ContentValues initialValues = createContentValues(name, closeapproachdate_str, missdistance_au, missdistance_ld, estimateddiameter, hmagnitude, relativevelocity, url, LastModified);
 		return database.insert(DATABASE_TABLE, null, initialValues);
 	}
 	
-	private ContentValues createContentValues(String name, String closeapproachdate, String closeapproachdate_str, String missdistance_au, String missdistance_ld, String estimateddiameter, String hmagnitude, String relativevelocity, String url, String LastModified) {
+	private ContentValues createContentValues(String name, String closeapproachdate_str, String missdistance_au, String missdistance_ld, String estimateddiameter, String hmagnitude, String relativevelocity, String url, String LastModified) {
 		ContentValues values = new ContentValues();
 		values.put(KEY_NAME, name);
-		values.put(KEY_CLOSEAPPROACHDATE, closeapproachdate);
 		values.put(KEY_CLOSEAPPROACHDATE_STR, closeapproachdate_str);
 		values.put(KEY_MISSDISTANCE_AU, missdistance_au);
 		values.put(KEY_MISSDISTANCE_LD, missdistance_ld);
@@ -66,7 +65,7 @@ return values;
 	 * @return Cursor over all notes
 	 */
 	public Cursor fetchAllEntries() {
-		return database.query(DATABASE_TABLE, new String[] { KEY_ROWID, KEY_NAME, KEY_CLOSEAPPROACHDATE, KEY_CLOSEAPPROACHDATE_STR, 
+		return database.query(DATABASE_TABLE, new String[] { KEY_ROWID, KEY_NAME, KEY_CLOSEAPPROACHDATE_STR, 
 				KEY_MISSDISTANCE_AU, KEY_MISSDISTANCE_LD, KEY_ESTIMATEDDIAMETER, KEY_HMAGNITUDE, KEY_RELETIVEVELOCITY, 
 				KEY_URL, KEY_LASTMODIFIED}, null, null, null, null,
 				null, null);
@@ -78,7 +77,7 @@ return values;
 	 */
 	public Cursor fetchNEOEntry(long rowId) throws SQLException {
 		Cursor mCursor = database.query(true, DATABASE_TABLE, new String[] {
-				KEY_ROWID, KEY_NAME, KEY_CLOSEAPPROACHDATE, KEY_CLOSEAPPROACHDATE_STR, KEY_MISSDISTANCE_AU, KEY_MISSDISTANCE_LD, 
+				KEY_ROWID, KEY_NAME, KEY_CLOSEAPPROACHDATE_STR, KEY_MISSDISTANCE_AU, KEY_MISSDISTANCE_LD, 
 				KEY_ESTIMATEDDIAMETER, KEY_HMAGNITUDE, KEY_RELETIVEVELOCITY, KEY_URL, KEY_LASTMODIFIED},
 				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null) {
