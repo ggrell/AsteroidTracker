@@ -25,7 +25,7 @@ public class nasa_neo {
 	private String Hmagnitude="";
 	private String relativeVelocity="";
 	private URL url;
-	private Drawable IconD;
+	private Drawable IconD = com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity.drawable;
 //	private int averageAU = 149598000;
 	private int averageAU = 149597870;
 	
@@ -85,10 +85,15 @@ public class nasa_neo {
 	}
 	
 	public String getMissDistance_AU(){
+		return this.missDistance_AU;
+	}
+	
+	public String getMissDistance_AU_Kilometers(){
+		Log.i("NEO", "NEO: missDistance_AU: "+this.missDistance_AU);
 		float missDist = Float.parseFloat(this.missDistance_AU);
 		float missInKilo = missDist * averageAU;
 		DecimalFormat ourForm = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-//		Log.i("dec", "NEO "+ourForm.format(missInKilo).toString());
+		Log.i("NEO", "NEO: missDistance_AU converted: "+ourForm.format(missInKilo).toString());
 		return ourForm.format(missInKilo).toString();
 		
 	}
