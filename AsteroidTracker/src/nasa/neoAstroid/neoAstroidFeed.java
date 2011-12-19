@@ -158,7 +158,7 @@ public class neoAstroidFeed {
 				astroid.setEstimatedDiameter(Data.get(3).toString().trim());
 				astroid.setHmagnitude(Data.get(4).toString().trim());
 				astroid.setRelativeVelocity(Data.get(5).toString().trim());
-				astroid.setIcon(com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity.drawable);
+//				astroid.setIcon(com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity.drawable);
 			}
 			nasaNeoList_SortingList.add(astroid);
 			if(type.equals("upcoming")){
