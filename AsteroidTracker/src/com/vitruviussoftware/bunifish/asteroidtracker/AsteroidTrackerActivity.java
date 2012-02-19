@@ -67,7 +67,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 	Handler handler;
 	int closeDialog = 0;
 	
-	private NewsDB_Adtapter NewDBHelper; 
+	private NewsDB_Adtapter NewDB_Adapter; 
 	private NeoDBAdapter NeoDBAdapter;
 	
 	//	private NewsDB_LastUpdate_Adapter newsUpdateHelper; 
@@ -88,21 +88,13 @@ public class AsteroidTrackerActivity extends ListActivity {
 		NeoDBAdapter = new NeoDBAdapter(this);
 		NeoDBAdapter.open();
 		
-		NewDBHelper = new NewsDB_Adtapter(this);
-		NewDBHelper.open();
+		NewDB_Adapter = new NewsDB_Adtapter(this);
+		NewDB_Adapter.open();
 //		dbHelper.deleteAllArticles();
 		processFeeds();
 //		ProcessDBDataData();
     }
 
-    //In settings
-    //Add "check for updates when app startes"
-    //Save Nasa Neo data (to view later)"  This allows you to view the NASA neo data offline.
-    //Clear data (If data is present)
-    //Notifications
-    //--NEOs that pass about as close or closer than our moon!
-    //--Really large ones
-    
     public void updateNewsListView(){
 	    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
              @Override
@@ -186,7 +178,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     private ArrayList<newsEntity> ProcessNEWS_DB(){
 		ArrayList<newsEntity> ArticleList = new ArrayList<newsEntity>();
     	Log.i("DB", "ProcessNEWS_DB");
-    	cursor = NewDBHelper.fetchAllArticles();
+    	cursor = NewDB_Adapter.fetchAllArticles();
     	startManagingCursor(cursor);
     	int ArticleCount = cursor.getCount();
     	Log.i("DB", "Found this many Artciles ("+ArticleCount+")");
@@ -194,16 +186,16 @@ public class AsteroidTrackerActivity extends ListActivity {
         	Log.i("DB", "Checking Articles ("+ArticleCount+")");
     		for(int i = 1; i < ArticleCount; i++){
     			newsEntity entity = new newsEntity();
-    			Cursor article = NewDBHelper.fetchArticle(i);
+    			Cursor article = NewDB_Adapter.fetchArticle(i);
     			startManagingCursor(article);
-    			String title = article.getString(article.getColumnIndexOrThrow(NewDBHelper.KEY_TITLE));
+    			String title = article.getString(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_TITLE));
     			Log.i("DB", "Title ("+title+")");
-    			entity.title = article.getString(article.getColumnIndexOrThrow(NewDBHelper.KEY_TITLE));
-    			entity.artcileUrl = article.getString(article.getColumnIndexOrThrow(NewDBHelper.KEY_URL));
-    			entity.pubDate = article.getString(article.getColumnIndexOrThrow(NewDBHelper.KEY_DATE));
-    			entity.description = article.getString(article.getColumnIndexOrThrow(NewDBHelper.KEY_DESCRIPTION));
-    			entity.imageURL = article.getString(article.getColumnIndexOrThrow(NewDBHelper.KEY_IMAGE_URL));
-    			entity.imageDrawable = entity.setDrawableWithByteArray(article.getBlob(article.getColumnIndexOrThrow(NewDBHelper.KEY_IMAGE)));
+    			entity.title = article.getString(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_TITLE));
+    			entity.artcileUrl = article.getString(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_URL));
+    			entity.pubDate = article.getString(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_DATE));
+    			entity.description = article.getString(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_DESCRIPTION));
+    			entity.imageURL = article.getString(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_IMAGE_URL));
+    			entity.imageDrawable = entity.setDrawableWithByteArray(article.getBlob(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_IMAGE)));
 //    			Log.i("DB", "imageDrawable ("+entity.imageDrawable+")");
     			ArticleList.add(entity);
     			if(i == 10){
@@ -212,7 +204,6 @@ public class AsteroidTrackerActivity extends ListActivity {
     		}
     	}else{
     		Log.i("DB", "No Data News Table");
-    		//No Data News Table
     	}
     	return ArticleList;
     }
@@ -254,7 +245,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     private void ProcessNEWS_DB_AddArticles(List<newsEntity> newsEntities){
     	String timeNow = Long.toString(System.currentTimeMillis());
-		cursor = NewDBHelper.fetchAllArticles();
+		cursor = NewDB_Adapter.fetchAllArticles();
 		startManagingCursor(cursor);
 		Log.i("DB", "BEFORE_Count: "+ cursor.getCount());
 		for(int i = 0; i < newsEntities.size(); i++){
@@ -263,9 +254,9 @@ public class AsteroidTrackerActivity extends ListActivity {
       	   Log.i("DB", "Saving artcileUrl:"+newsEntities.get(i).artcileUrl);
       	   Log.i("DB", "Saving imgURL:"+newsEntities.get(i).imageURL);
       	   Log.i("DB", "Saving pubDate:"+newsEntities.get(i).pubDate);
-      	 NewDBHelper.createNewsArticle(newsEntities.get(i).title, newsEntities.get(i).description, newsEntities.get(i).artcileUrl, 
+      	 NewDB_Adapter.createNewsArticle(newsEntities.get(i).title, newsEntities.get(i).description, newsEntities.get(i).artcileUrl, 
       			 newsEntities.get(i).getDrawableImageByteArray(), newsEntities.get(i).imageURL, newsEntities.get(i).pubDate, timeNow);
-	    cursor = NewDBHelper.fetchAllArticles();
+	    cursor = NewDB_Adapter.fetchAllArticles();
 		Log.i("DB", "AFTER_Count: "+ cursor.getCount());
 		
 		}    	
@@ -296,7 +287,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     }
     
     private void fillData() {
-		cursor = NewDBHelper.fetchAllArticles();
+		cursor = NewDB_Adapter.fetchAllArticles();
 		startManagingCursor(cursor);
 		String[] from = new String[] { NewsDB_Adtapter.KEY_TITLE };
 		Log.i("DB", "FETCH_SIZE: "+from.length);
@@ -304,18 +295,18 @@ public class AsteroidTrackerActivity extends ListActivity {
 		Log.i("DB", "first cursor count: "+ cursor.getCount());
 		Drawable imgURL = null;
 		byte[] test = null;
-		long created = NewDBHelper.createNewsArticle("TitleTest", "CoolArtcile", "test.blah.com", test, "test.com",  "10302011", "10292011");
+		long created = NewDB_Adapter.createNewsArticle("TitleTest", "CoolArtcile", "test.blah.com", test, "test.com",  "10302011", "10292011");
 		Log.i("DB", "created: "+created);
-		cursor = NewDBHelper.fetchAllArticles();
+		cursor = NewDB_Adapter.fetchAllArticles();
 		Log.i("DB", "next cursor count: "+ cursor.getCount());
 		
 		if(cursor.getCount() >= 1){
-			Cursor article = NewDBHelper.fetchArticle(1);
+			Cursor article = NewDB_Adapter.fetchArticle(1);
 			startManagingCursor(article);
-			String title = article.getString(article.getColumnIndexOrThrow(NewDBHelper.KEY_TITLE));
+			String title = article.getString(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_TITLE));
 			Log.i("DB", "NEWS_title: "+title);
 			
-			String LastModified = article.getString(article.getColumnIndexOrThrow(NewDBHelper.KEY_LASTMODIFIED));
+			String LastModified = article.getString(article.getColumnIndexOrThrow(NewDB_Adapter.KEY_LASTMODIFIED));
 			Log.i("DB", "NEWS_LastModified: "+LastModified);
 
 			if(LastModified.equals("10302011")){
@@ -324,8 +315,8 @@ public class AsteroidTrackerActivity extends ListActivity {
 				Log.i("DB", "Not UpToDate");
 			}
 		}	
-		NewDBHelper.deleteAllArticles();
-		cursor = NewDBHelper.fetchAllArticles();
+		NewDB_Adapter.deleteAllArticles();
+		cursor = NewDB_Adapter.fetchAllArticles();
 		Log.i("DB", "next cursor count: "+ cursor.getCount());
 		
     }
@@ -381,13 +372,24 @@ public class AsteroidTrackerActivity extends ListActivity {
     	}
     
     public void progressDialog(){
+		Log.i("mainthread", "Starting progressDialog");
     	  dialog = ProgressDialog.show(this, "", "Loading NASA Asteroid Feed...", true);
     	  handler = new Handler() {
 			public void handleMessage(Message msg) {
 				dialog.dismiss();}
 			};
+			Log.i("mainthread", "Started progressDialog");
+
     }
 	
+    public ArrayList loadBaseNEOEntity(){
+    	ArrayList emptyData = new ArrayList();
+    	nasa_neo entity = new nasa_neo();
+    	entity.setName("Unable to retrieve Asteroid feed");
+    	emptyData.add(entity);
+    	return emptyData;
+    }
+    
     public void processNEOFeed(){
 
     	Thread UpdateNEOFromDB = new Thread() {
@@ -397,6 +399,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     			if(!ProcessNEO_List.isEmpty())
     			{				
     				AsteroidTrackerActivity.List_NASA_RECENT = ProcessNEO_List;
+    				AsteroidTrackerActivity.List_NASA_UPCOMING = loadBaseNEOEntity();
     				LoadAdapters_NEO();
     			    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
     		               @Override
@@ -407,11 +410,12 @@ public class AsteroidTrackerActivity extends ListActivity {
     		               }
     		           });
         			updateNeoListView();
+    				closeDialog();
     			}else{
     		    	   Log.i("DB", "No DB data: NEWS");
     			}
     		}};
-    		UpdateNEOFromDB.start();
+//    		UpdateNEOFromDB.start();
     		
 			Thread checkUpdate = new Thread() {
 			public void run() {	 
@@ -432,8 +436,9 @@ public class AsteroidTrackerActivity extends ListActivity {
 				Log.i("HTTPFEED", "closeing-Dialog:"+closeDialog);
 				closeDialog();
 			}};
-//			checkUpdate.start();
-			}
+			checkUpdate.start();
+			
+    }
     public void processImpactFeed(){
 		Thread ImpactUpdate = new Thread() {
 			public void run() {			 
@@ -478,26 +483,24 @@ public class AsteroidTrackerActivity extends ListActivity {
     					Log.i("DB", "No DB data: NEWS");
     				}
     		}};
-		UpdateNewsFromDB.start();
+    		UpdateNewsFromDB.start();
 
 	    Thread NewsUpdate = new Thread() {
 			public void run() {
 				Log.i("threadStatus", "Starting NewsUpdate");
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 					if(!refresh){
 						String HTTP_NEWS_DATA = AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_JPL_AsteroidNewsFeed);
-							loadEntityLists_NEWS(HTTP_NEWS_DATA);			
+						ArrayList<newsEntity> newsLists = loadEntityLists_NEWS(HTTP_NEWS_DATA);
+						for(int i=0; i < newsLists.size(); i++){
+							List_NASA_News.add(newsLists.get(i));
+							if(i==10){break;}
+						}
 					}
 					LoadAdapters_NEWS();
 					refresh = true;
 					if(!List_NASA_News.isEmpty()){
 						ProcessNEWS_DB_AddArticles(List_NASA_News);						
 					}
-
 					AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
 		               @Override
 		               public void run() {
@@ -510,8 +513,9 @@ public class AsteroidTrackerActivity extends ListActivity {
 				closeDialog();
 				updateNewsListView();
 			}};
-			NewsUpdate.start();
+//			NewsUpdate.start();
     }
+
 
     public void loadEntityLists_NEO(String HTTPDATA){
 	  	AsteroidTrackerActivity.List_NASA_RECENT = AsteroidTrackerActivity.neo_AstroidFeed.getRecentList(HTTPDATA);
@@ -520,8 +524,9 @@ public class AsteroidTrackerActivity extends ListActivity {
     public void loadEntityLists_IMPACT(String HTTPDATA){
     	AsteroidTrackerActivity.List_NASA_IMPACT = AsteroidTrackerActivity.neo_AstroidFeed.getImpactList(HTTPDATA);
     }
-    public void loadEntityLists_NEWS(String HTTPDATA){
-    	AsteroidTrackerActivity.List_NASA_News = AsteroidTrackerActivity.NewsProxy.parseNewsFeed(HTTPDATA);
+    public ArrayList<newsEntity> loadEntityLists_NEWS(String HTTPDATA){
+//    	ArrayList<newsEntity> newsEntries = AsteroidTrackerActivity.NewsProxy.parseNewsFeed(HTTPDATA);
+    	return AsteroidTrackerActivity.NewsProxy.parseNewsFeed(HTTPDATA);
     }
 
     public void LoadAdapters_NEO(){
