@@ -172,9 +172,9 @@ public class XmlParser {
     				  JPLEntity.description =  strDesc.trim();
     				  JPLEntity.setDrawable(imgURL.trim());
     				  newsList.add(JPLEntity);
-    				  if(i==10){
-    				  break;
-    			  }  
+//    				  if(i==10){
+//    				  break;
+//    			  }  
     			  }
     		} catch (Exception e) {
     		    Log.e("news", "xpath Exception!!! Somthing went wrong");
