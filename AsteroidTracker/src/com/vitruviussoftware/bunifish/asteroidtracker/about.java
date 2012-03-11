@@ -45,7 +45,6 @@ public class about extends ListActivity {
     		public void run() {
     			Artclehandler.sendEmptyMessage(0);
     			about.this.runOnUiThread(new Runnable() {
-    	               @Override
     	               public void run() {
     	           		AboutDapter = new aboutAdapter(about.this, R.layout.about_main, aboutEntityList);
     	               	setListAdapter(about.this.AboutDapter);

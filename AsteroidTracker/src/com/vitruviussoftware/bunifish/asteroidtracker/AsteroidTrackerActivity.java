@@ -136,7 +136,6 @@ public class AsteroidTrackerActivity extends ListActivity {
 					LoadAdapters_NEO();
 					refresh = true;
 				AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
-		               @Override
 		               public void run() {
 			           	Log.i("HTTPFEED", "Setting data: NEO");
 		            	   SetAdapters_NEO();
@@ -158,7 +157,6 @@ public class AsteroidTrackerActivity extends ListActivity {
 					LoadAdapters_IMPACT();
 					refresh = true;
 				AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
-		               @Override
 		               public void run() {
 		            	   dialog.setMessage("Loading NASA Impact Risk Feed...");
 		            	   Log.i("HTTPFEED", "Setting data: IMPACT");
@@ -181,7 +179,6 @@ public class AsteroidTrackerActivity extends ListActivity {
 					LoadAdapters_NEWS();
 					refresh = true;
 			    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
-		               @Override
 		               public void run() {
 		            	   dialog.setMessage("Loading NASA News Feed...");
 		            	   Log.i("HTTPFEED", "Setting data: NEWS");

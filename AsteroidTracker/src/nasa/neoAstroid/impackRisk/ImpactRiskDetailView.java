@@ -60,7 +60,6 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
     		public void run() {
     			Artclehandler.sendEmptyMessage(0);
     			ImpactRiskDetailView.this.runOnUiThread(new Runnable() {
-    	               @Override
     	               public void run() {
     	               	adapter_IMPACTRisk_DetailView = new impactRisk_DetailAdapter(ImpactRiskDetailView.this, R.layout.impactrisk_detail_view, NASA_IMPACT_DetailPage);
     	               	setListAdapter(ImpactRiskDetailView.this.adapter_IMPACTRisk_DetailView);
@@ -111,9 +110,7 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
 		Intent i = new Intent(ImpactRiskDetailView.this, about.class);
         startActivity(i);	
        }
-	
 
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		

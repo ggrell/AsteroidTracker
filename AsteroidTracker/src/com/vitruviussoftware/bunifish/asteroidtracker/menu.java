@@ -33,7 +33,6 @@ public class menu extends Activity implements OnClickListener{
 
 	}
 
-	@Override
 	public void onClick(View arg0) {}
 	
 	public void openAbount() {}
