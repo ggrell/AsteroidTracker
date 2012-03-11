@@ -129,5 +129,14 @@ public class nasa_neo {
 		return this.relativeVelocity;
 	}
 
+	public String getMissDistance_AU_Kilometers(){
+		//Log.i("NEO", "NEO: missDistance_AU: "+this.missDistance_AU);
+		float missDist = Float.parseFloat(this.missDistance_AU);
+		float missInKilo = missDist * averageAU;
+		DecimalFormat ourForm = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+		Log.i("NEO", "NEO: missDistance_AU converted: "+ourForm.format(missInKilo).toString());
+		return ourForm.format(missInKilo).toString();
+
+	}
 
 }

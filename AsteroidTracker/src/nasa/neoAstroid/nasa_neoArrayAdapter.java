@@ -35,6 +35,7 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 		public TextView estimatedDiameter;
 		public TextView date;
 		public ImageView Icon;
+		public TextView AlertMessage;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -51,6 +52,7 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 			holder.date 				= 	(TextView) vi.findViewById(R.id.nasaNeo_date);
 			holder.relativeVelocity		=	(TextView) vi.findViewById(R.id.nasaNeo_relV);
 			holder.estimatedDiameter	= 	(TextView) vi.findViewById(R.id.nasaNeo_estimatedDiameter);
+			holder.AlertMessage			=	(TextView) vi.findViewById(R.id.nasaNeo_AlertMessage);
 			holder.Icon = (ImageView) vi.findViewById(R.id.picview1);
 			vi.setTag(holder);
 		} else {
@@ -66,6 +68,10 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 			holder.relativeVelocity.setText("Relative Velocity: "+ entityObject.getRelativeVelocity() + " (km/s)");
 			holder.estimatedDiameter.setText("Est Diameter: "+ entityObject.getEstimatedDiameter() + " (m)");
 			holder.date.setText("Closest Approach Date: "+entityObject.getDateStr());	
+			if (Double.parseDouble(entityObject.getMissDistance_AU_Kilometers().replace(",","")) < 400000){
+				holder.AlertMessage.setTextColor(Color.YELLOW);
+				holder.AlertMessage.setText("It's Passing closer than the Moon!");
+			}
 		}
 		return vi;
 	}

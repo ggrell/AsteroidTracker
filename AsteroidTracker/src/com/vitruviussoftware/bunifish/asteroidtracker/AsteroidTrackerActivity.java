@@ -12,7 +12,9 @@ import nasa.neoAstroid.impackRisk.nasa_neoImpactEntity;
 import nasa.neoAstroid.news.asteroidNewsAdapter;
 import nasa.neoAstroid.news.newsEntity;
 import android.app.ListActivity;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -55,7 +57,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 	ProgressDialog dialog;
 	Handler handler;
 	int closeDialog = 0;
-
+	
 //	long startTime;
 //	long endTime;
 	/** Called when the activity is first created. */
@@ -268,7 +270,12 @@ public class AsteroidTrackerActivity extends ListActivity {
 			finish();
 			return true;
 		case R.id.about:
-			openAbout();
+			notificationManager n = new notificationManager();
+			n.setupNotificationMessage(n.notification, "AT Title", "Asteroid is pretty close!!!");
+//			n.number += 1;
+//			notificationManager.notify(0, n.notification);
+			n.notify();
+			//			openAbout();
 			return true;
 		case R.id.refresh:
 			refresh = false;
