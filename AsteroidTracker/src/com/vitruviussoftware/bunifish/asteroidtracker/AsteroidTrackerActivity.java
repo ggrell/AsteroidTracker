@@ -2,6 +2,8 @@ package com.vitruviussoftware.bunifish.asteroidtracker;
 
 import android.net.Uri;
 import android.os.Bundle;
+
+import java.util.Iterator;
 import java.util.List;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import nasa.neoAstroid.nasa_neo;
@@ -12,7 +14,9 @@ import nasa.neoAstroid.impackRisk.nasa_neoImpactEntity;
 import nasa.neoAstroid.news.asteroidNewsAdapter;
 import nasa.neoAstroid.news.newsEntity;
 import android.app.ListActivity;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -57,6 +61,9 @@ public class AsteroidTrackerActivity extends ListActivity {
 	ProgressDialog dialog;
 	Handler handler;
 	int closeDialog = 0;
+	NotificationManager mNotificationManager;
+
+	//	callNotifyService(setupNotificationMessage("", ""));
 	
 //	long startTime;
 //	long endTime;
@@ -70,6 +77,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 		drawable = res.getDrawable(R.drawable.asteroid);
 		TabAndListViewSetup();		
 		processFeeds();
+		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);		
     }
 
     public void TabAndListViewSetup(){
@@ -193,8 +201,6 @@ public class AsteroidTrackerActivity extends ListActivity {
 			NewsUpdate.start();
     }
 
-
-
     public void loadEntityLists_NEO(String HTTPDATA){
 	  	AsteroidTrackerActivity.List_NASA_RECENT = AsteroidTrackerActivity.neo_AstroidFeed.getRecentList(HTTPDATA);
     	AsteroidTrackerActivity.List_NASA_UPCOMING = AsteroidTrackerActivity.neo_AstroidFeed.getUpcomingList(HTTPDATA);
@@ -208,8 +214,8 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     
     public void LoadAdapters_NEO(){
-    	AsteroidTrackerActivity.this.adapter_RECENT = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_RECENT);
-    	AsteroidTrackerActivity.this.adapter_UPCOMING = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_UPCOMING);
+    	AsteroidTrackerActivity.this.adapter_RECENT = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_RECENT, "RECENT");
+    	AsteroidTrackerActivity.this.adapter_UPCOMING = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_UPCOMING, "UPCOMING");
     }
     public void LoadAdapters_IMPACT(){
     	AsteroidTrackerActivity.this.adapter_IMPACT = new nasa_neoImpactAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neo_impact_listview, AsteroidTrackerActivity.List_NASA_IMPACT);
@@ -235,6 +241,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 		            return ls2_ListView_Upcoming;
 		        }       
 		    });
+    		checkAlerts();
     }
     public void SetAdapters_IMPACT(){
     	TabSpec3_Impact.setContent(new TabHost.TabContentFactory(){
@@ -270,12 +277,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 			finish();
 			return true;
 		case R.id.about:
-			notificationManager n = new notificationManager();
-			n.setupNotificationMessage(n.notification, "AT Title", "Asteroid is pretty close!!!");
-//			n.number += 1;
-//			notificationManager.notify(0, n.notification);
-			n.notify();
-			//			openAbout();
+			openAbout();
 			return true;
 		case R.id.refresh:
 			refresh = false;
@@ -292,7 +294,28 @@ public class AsteroidTrackerActivity extends ListActivity {
         startActivity(i);	
        }
 	
+	public void checkAlerts(){
+		Iterator<nasa_neo> iterator = List_NASA_UPCOMING.iterator();
+		while (iterator.hasNext()) {
+			nasa_neo n = iterator.next();
+			Log.v("UPCOMING", "ALERT TEST");
+			Log.v("UPCOMING", n.getName());
+			Log.v("UPCOMING", n.getAlertMSG());
+//			System.err.println(iterator.next());
+		}
+
+	}
 	
+	public Notification setupNotificationMessage(String notificationTitle, String notifiationText){
+		Intent intent = new Intent(this,AsteroidTrackerActivity.class);  
+		  Notification notification = new Notification(R.drawable.asteroid, "AsteroidTracker close-pass", System.currentTimeMillis());  
+		  notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		  notification.setLatestEventInfo(this,"AsteroidTracker","Asteroid Passing closer than our moon!!", PendingIntent.getActivity(this.getBaseContext(), 0, intent,PendingIntent.FLAG_CANCEL_CURRENT)); 
+		  return notification;
+		}
+	public void callNotifyService(Notification notification) {
+		mNotificationManager.notify(0, notification);	
+	}
 	
 	public OnItemClickListener ImpactRiskClickListener = new OnItemClickListener() {
 		public void onItemClick(AdapterView parent, View view, int position, long id) {

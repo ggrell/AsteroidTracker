@@ -20,11 +20,13 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 	private int resourceId;
 	List dataObject;
 	private Integer[] imgid = {R.drawable.androidmarker, R.drawable.blue_pin, R.drawable.asteroid};
+	private String NEOType;
 	
 	@SuppressWarnings("unchecked")
-	public nasa_neoArrayAdapter(Context context, int textViewResourceId, List objects) {
+	public nasa_neoArrayAdapter(Context context, int textViewResourceId, List objects, String NeoFeedType) {
 		super(context, textViewResourceId, objects);
 		resourceId = textViewResourceId;
+		NEOType = NeoFeedType;
 	}
 
 	public static class ViewHolder {
@@ -71,6 +73,7 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 			if (Double.parseDouble(entityObject.getMissDistance_AU_Kilometers().replace(",","")) < 400000){
 				holder.AlertMessage.setTextColor(Color.YELLOW);
 				holder.AlertMessage.setText("It's Passing closer than the Moon!");
+				entityObject.setAlertMSG("It's Passing closer than the Moon!");
 			}
 		}
 		return vi;

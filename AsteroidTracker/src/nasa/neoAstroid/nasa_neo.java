@@ -28,6 +28,7 @@ public class nasa_neo {
 	private Drawable IconD;
 //	private int averageAU = 149598000;
 	private int averageAU = 149597870;
+	private String AlertMessage="";
 	
 	public enum TYPE {
 	    PAST, FUTURE, TODAY
@@ -139,4 +140,11 @@ public class nasa_neo {
 
 	}
 
+	public String getAlertMSG(){
+		return this.AlertMessage;
+	}
+	
+	public void setAlertMSG(String alertmessage){
+		this.AlertMessage = alertmessage;
+	}
 }
