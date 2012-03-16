@@ -307,6 +307,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 
 	}
 	
+	
 	public Notification setupNotificationMessage(String notificationTitle, String notifiationText){
 		Intent intent = new Intent(this,AsteroidTrackerActivity.class);  
 		  Notification notification = new Notification(R.drawable.asteroid, "AsteroidTracker", System.currentTimeMillis());  
