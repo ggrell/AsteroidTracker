@@ -77,7 +77,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 		drawable = res.getDrawable(R.drawable.asteroid);
 		TabAndListViewSetup();		
 		processFeeds();
-		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);		
+//		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);		
     }
 
     public void TabAndListViewSetup(){
@@ -241,7 +241,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 		            return ls2_ListView_Upcoming;
 		        }       
 		    });
-    		checkAlerts();
+//    		checkAlerts();
     }
     public void SetAdapters_IMPACT(){
     	TabSpec3_Impact.setContent(new TabHost.TabContentFactory(){
@@ -295,14 +295,19 @@ public class AsteroidTrackerActivity extends ListActivity {
        }
 	
 	public void checkAlerts(){
-//		Iterator<nasa_neo> iterator = List_NASA_UPCOMING.iterator();
-		nasa_neo ntest = List_NASA_UPCOMING.get(0);
-//		while (iterator.hasNext()) {
-//			nasa_neo n = iterator.next();
-			Log.v("UPCOMING", "ALERT TEST");
-			Log.v("UPCOMING", ntest.getName());
-			Log.v("UPCOMING", ntest.getAlertMSG());
-			callNotifyService(setupNotificationMessage("AsteroidAlert", ntest.getName()+" is passing closer than our moon"));
+		Iterator<nasa_neo> iterator = List_NASA_UPCOMING.iterator();
+//		nasa_neo ntest = List_NASA_UPCOMING.get(0);
+		while (iterator.hasNext()) {
+			nasa_neo ntest = iterator.next();
+//			Log.v("UPCOMING", "ALERT TEST");
+//			Log.v("UPCOMING", ntest.getAlertMSG());
+			if(ntest.getAlertMSG() != ""){
+				Log.v("UPCOMING", ntest.getName());
+				Log.v("UPCOMING", ntest.getAlertMSG());	
+				callNotifyService(setupNotificationMessage("AsteroidAlert", ntest.getName()+" is passing closer than our moon"));
+			}
+			}
+
 //		}
 
 	}
@@ -310,11 +315,10 @@ public class AsteroidTrackerActivity extends ListActivity {
 	
 	public Notification setupNotificationMessage(String notificationTitle, String notifiationText){
 		Intent intent = new Intent(this,AsteroidTrackerActivity.class);  
-		  Notification notification = new Notification(R.drawable.asteroid, "AsteroidTracker", System.currentTimeMillis());  
+		  Notification notification = new Notification(R.drawable.asteroid, "AsteroidTracker - ALERT", System.currentTimeMillis());  
 		  notification.flags |= Notification.FLAG_AUTO_CANCEL;
-			PendingIntent activity = PendingIntent.getActivity(this, 0, intent, 0);
-		  notification.setLatestEventInfo(this,notificationTitle,notifiationText, PendingIntent.getActivity(this.getBaseContext(), 0, intent,PendingIntent.getActivity(this.getBaseContext(), 0, intent,  
-				  PendingIntent.FLAG_CANCEL_CURRENT)); 
+		  PendingIntent activity = PendingIntent.getActivity(this, 0, intent, 0);
+		  notification.setLatestEventInfo(this,notificationTitle,notifiationText, PendingIntent.getActivity(this.getBaseContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)); 
 		  return notification;
 		}
 	public void callNotifyService(Notification notification) {

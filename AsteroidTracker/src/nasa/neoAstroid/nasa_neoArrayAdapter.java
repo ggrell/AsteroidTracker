@@ -69,7 +69,10 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 			holder.description.setText("Miss-Distance: "+entityObject.getMissDistance_AU() + " (km)");
 			holder.relativeVelocity.setText("Relative Velocity: "+ entityObject.getRelativeVelocity() + " (km/s)");
 			holder.estimatedDiameter.setText("Est Diameter: "+ entityObject.getEstimatedDiameter() + " (m)");
-			holder.date.setText("Closest Approach Date: "+entityObject.getDateStr());	
+			holder.date.setText("Closest Approach Date: "+entityObject.getDateStr());
+//			holder.AlertMessage.setTextColor(Color.YELLOW);
+			holder.AlertMessage.setText("");
+			entityObject.setAlertMSG("");
 			if (Double.parseDouble(entityObject.getMissDistance_AU_Kilometers().replace(",","")) < 400000){
 				holder.AlertMessage.setTextColor(Color.YELLOW);
 				holder.AlertMessage.setText("It's Passing closer than the Moon!");
