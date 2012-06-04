@@ -15,7 +15,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import android.util.Log;
 
-public class getHTTP {
+public class HttpUtil {
 
 	public static String get(String URL) {
 		URL.trim();
