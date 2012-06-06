@@ -30,8 +30,8 @@ public class ContentManager {
     }
 		
     public void LoadAdapters_NEO(Context ctext){
-    	adapter_RECENT = new nasa_neoArrayAdapter(ctext, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_RECENT, "RECENT");
-    	adapter_UPCOMING = new nasa_neoArrayAdapter(ctext, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_UPCOMING, "UPCOMING");
+    	adapter_RECENT = new nasa_neoArrayAdapter(ctext, R.layout.nasa_neolistview, List_NASA_RECENT, "RECENT");
+    	adapter_UPCOMING = new nasa_neoArrayAdapter(ctext, R.layout.nasa_neolistview, List_NASA_UPCOMING, "UPCOMING");
     }
     
     public void loadEntityLists_IMPACT(String HTTPDATA){

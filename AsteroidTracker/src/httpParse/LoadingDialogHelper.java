@@ -11,7 +11,7 @@ public class LoadingDialogHelper{
 	static Handler handler;
 	public static int closeDialog = 0;
 
-    public void progressDialog(Context context){
+    public static void progressDialog(Context context){
   	  dialog = ProgressDialog.show(context, "", "Loading NASA Asteroid Feed...", true);
   	  handler = new Handler() {
 			public void handleMessage(Message msg) {
@@ -21,7 +21,7 @@ public class LoadingDialogHelper{
     
     public static void closeDialog(){
     	closeDialog++;
-    	if(closeDialog >= 1){
+    	if(closeDialog >= 3){
     		handler.sendEmptyMessage(0);
     		}
     	}

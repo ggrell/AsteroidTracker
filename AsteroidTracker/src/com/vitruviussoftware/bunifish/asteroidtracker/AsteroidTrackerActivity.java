@@ -3,6 +3,9 @@ package com.vitruviussoftware.bunifish.asteroidtracker;
 import android.net.Uri;
 import android.os.Bundle;
 
+import httpParse.DownloadManager;
+import httpParse.LoadingDialogHelper;
+
 import java.util.Iterator;
 import java.util.List;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
@@ -62,7 +65,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 	Handler handler;
 	int closeDialog = 0;
 	NotificationManager mNotificationManager;
-
+	DownloadManager dlmanager;
 	//	callNotifyService(setupNotificationMessage("", ""));
 	
 //	long startTime;
@@ -112,12 +115,16 @@ public class AsteroidTrackerActivity extends ListActivity {
     }
     
     public void processFeeds(){
-    	progressDialog();
+//    	progressDialog();
+		LoadingDialogHelper.progressDialog(this);
+		SetAdapters_NEO_Recent();
+		SetAdapters_NEO_Upcoming();
 //      startTime = System.currentTimeMillis();
     	tabHost.setCurrentTab(0);
     	processImpactFeed();
 		processAsteroidNewsFeed();
-		processNEOFeed();
+		dlmanager = new DownloadManager(this, this.getListView());
+		//		processNEOFeed();
     	
     }
     
@@ -129,11 +136,13 @@ public class AsteroidTrackerActivity extends ListActivity {
     	}
     
     public void progressDialog(){
-    	  dialog = ProgressDialog.show(this, "", "Loading NASA Asteroid Feed...", true);
-    	  handler = new Handler() {
-			public void handleMessage(Message msg) {
-				dialog.dismiss();}
-			};
+//    	  dialog = ProgressDialog.show(this, "", "Loading NASA Asteroid Feed...", true);
+//    	  handler = new Handler() {
+//			public void handleMessage(Message msg) {
+//				dialog.dismiss();}
+//			};   
+//			LoadingDialogHelper.dialog.show(this, "", "Loading NASA Asteroid Feed...", true);
+//			LoadingDialogHelper.progressDialog(this);
     }
     
     public void processNEOFeed(){
@@ -148,11 +157,12 @@ public class AsteroidTrackerActivity extends ListActivity {
 				AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
 		               public void run() {
 			           	Log.i("HTTPFEED", "Setting data: NEO");
-		            	   SetAdapters_NEO();
+//		            	   SetAdapters_NEO();
 		               }
 		           });
 				Log.i("HTTPFEED", "closeing-Dialog:"+closeDialog);
-				closeDialog();
+//				closeDialog();
+				LoadingDialogHelper.closeDialog();
 			}};
 			checkUpdate.start();
 			}
@@ -168,13 +178,14 @@ public class AsteroidTrackerActivity extends ListActivity {
 					refresh = true;
 				AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
 		               public void run() {
-		            	   dialog.setMessage("Loading NASA Impact Risk Feed...");
+		            	   LoadingDialogHelper.dialog.setMessage("Loading NASA Impact Risk Feed...");
 		            	   Log.i("HTTPFEED", "Setting data: IMPACT");
 		            	   SetAdapters_IMPACT();
 		               }
 		           });
 				Log.i("HTTPFEED", "closeing-Dialog:"+closeDialog);
-				closeDialog();
+//				closeDialog();
+				LoadingDialogHelper.closeDialog();
 			}};
 			ImpactUpdate.start();
     }
@@ -190,13 +201,13 @@ public class AsteroidTrackerActivity extends ListActivity {
 					refresh = true;
 			    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
 		               public void run() {
-		            	   dialog.setMessage("Loading NASA News Feed...");
+		            	   LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
 		            	   Log.i("HTTPFEED", "Setting data: NEWS");
 		            	   SetAdapters_NEWS();
 		               }
 		           });
 				Log.i("HTTPFEED", "closeing-Dialog:"+closeDialog);
-				closeDialog();
+				LoadingDialogHelper.closeDialog();
 			}};
 			NewsUpdate.start();
     }
@@ -225,23 +236,33 @@ public class AsteroidTrackerActivity extends ListActivity {
     }
     
    
-    public void SetAdapters_NEO(){
-    	setListAdapter(adapter_RECENT);
-//    		spec1.setContent(new TabHost.TabContentFactory(){
-//   		        public View createTabContent(String tag)
-//   		        {
-//   		        	ls1.setAdapter(AsteroidTrackerActivity.adapter);
-//   		            return ls1;
-//   		        }       
-//   		    });
-    		TabSpec2_Upcoming.setContent(new TabHost.TabContentFactory(){
-		        public View createTabContent(String tag)
-		        {
-		        	ls2_ListView_Upcoming.setAdapter(AsteroidTrackerActivity.adapter_UPCOMING);
-		            return ls2_ListView_Upcoming;
-		        }       
-		    });
+    public void SetAdapters_NEO_Recent(){
+    	TabSpec1_Recent.setContent(new TabHost.TabContentFactory(){
+	        public View createTabContent(String tag)
+	        {
+	        	ls1_ListView_Recent.setAdapter(ContentManager.adapter_RECENT);
+	            return ls1_ListView_Recent;
+	        }  
+        });
+//    	setListAdapter(ContentManager.adapter_RECENT);
+//    		TabSpec2_Upcoming.setContent(new TabHost.TabContentFactory(){
+//		        public View createTabContent(String tag)
+//		        {
+//		        	ls2_ListView_Upcoming.setAdapter(ContentManager.adapter_UPCOMING);
+//		            return ls2_ListView_Upcoming;
+//		        }       
+//		    });
 //    		checkAlerts();
+    }
+    
+    public void SetAdapters_NEO_Upcoming(){
+		TabSpec2_Upcoming.setContent(new TabHost.TabContentFactory(){
+	        public View createTabContent(String tag)
+	        {
+	        	ls2_ListView_Upcoming.setAdapter(ContentManager.adapter_UPCOMING);
+	            return ls2_ListView_Upcoming;
+	        }       
+	    });
     }
     public void SetAdapters_IMPACT(){
     	TabSpec3_Impact.setContent(new TabHost.TabContentFactory(){

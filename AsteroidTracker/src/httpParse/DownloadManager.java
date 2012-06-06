@@ -6,6 +6,7 @@ import com.vitruviussoftware.bunifish.asteroidtracker.ContentManager;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.ListView;
 
 public class DownloadManager {
 
@@ -16,24 +17,26 @@ public class DownloadManager {
 	public static final String URL_NASA_NEO_IMPACT_FEED = "http://neo.jpl.nasa.gov/risk/";
 	public static final String URL_JPL_AsteroidNewsFeed="http://www.jpl.nasa.gov/multimedia/rss/asteroid.xml";
 	ContentManager contentManager = new ContentManager();
-	LoadingDialogHelper dialogHelper = new LoadingDialogHelper();
 	
-	public DownloadManager(final Activity parentActivity){
+	public DownloadManager(final Activity parentActivity, ListView view){
 		Thread Download_NEO = new Thread() {
 			public void run() {	 
 				if(!DownloadHelper.refresh){
-					String data = getData(URL_NEOMain);
+					String data = getData(URL_NASA_NEO);
 					contentManager.loadEntityLists_NEO(data);
 					DownloadHelper.refresh = true;
+				}
+				contentManager.LoadAdapters_NEO(parentActivity);
 					parentActivity.runOnUiThread(new Runnable() {
 			               public void run() {
-			            	   dialogHelper.setMessage("Loading NASA Impact Risk Feed...");
+			            	   LoadingDialogHelper.dialog.setMessage("Loading NASA Impact Risk Feed...");
 			            	   Log.i("HTTPFEED", "Setting data: IMPACT");
-//			            	   SetAdapters_IMPACT();
+//			            	   ((AsteroidTrackerActivity) parentActivity).SetAdapters_NEO();
+			            	   contentManager.adapter_RECENT.notifyDataSetChanged();
+			            	   contentManager.adapter_UPCOMING.notifyDataSetChanged();
 			               }
 					});
-					DownloadHelper.Done++;
-				}
+					LoadingDialogHelper.closeDialog();
 			}};
 			Download_NEO.start();
 		Thread Download_Impact = new Thread() {
@@ -45,7 +48,7 @@ public class DownloadManager {
 					DownloadHelper.Done++;
 				}
 			}};
-			Download_Impact.start();
+//			Download_Impact.start();
 		Thread Download_News = new Thread() {
 			public void run() {	 
 				if(!DownloadHelper.refresh){
@@ -55,13 +58,12 @@ public class DownloadManager {
 					DownloadHelper.Done++;
 				}
 			}};
-			Download_News.start();
-	
+//			Download_News.start();
 	}
 	public static void main(String[] args){
-		DownloadManager checkIt = new DownloadManager();
-		LoadingDialogHelper dialogHelper = new LoadingDialogHelper();
-		dialogHelper.progressDialog(this);
+//		DownloadManager checkIt = new DownloadManager();
+//		LoadingDialogHelper dialogHelper = new LoadingDialogHelper();
+//		dialogHelper.progressDialog(this);
 	}
 	
 	
