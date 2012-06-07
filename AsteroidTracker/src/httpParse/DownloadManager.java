@@ -29,11 +29,13 @@ public class DownloadManager {
 				contentManager.LoadAdapters_NEO(parentActivity);
 					parentActivity.runOnUiThread(new Runnable() {
 			               public void run() {
-			            	   LoadingDialogHelper.dialog.setMessage("Loading NASA Impact Risk Feed...");
+			            	   LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Feed...");
 			            	   Log.i("HTTPFEED", "Setting data: IMPACT");
-//			            	   ((AsteroidTrackerActivity) parentActivity).SetAdapters_NEO();
-			            	   contentManager.adapter_RECENT.notifyDataSetChanged();
-			            	   contentManager.adapter_UPCOMING.notifyDataSetChanged();
+			            	   if(parentActivity instanceof AsteroidTrackerActivity){
+				            	   ((AsteroidTrackerActivity) parentActivity).SetAdapters_NEO_Recent();
+			            	   }
+			            	   ContentManager.adapter_RECENT.notifyDataSetChanged();
+			            	   ContentManager.adapter_UPCOMING.notifyDataSetChanged();
 			               }
 					});
 					LoadingDialogHelper.closeDialog();

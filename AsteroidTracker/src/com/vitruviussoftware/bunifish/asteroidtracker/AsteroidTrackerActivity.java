@@ -112,20 +112,18 @@ public class AsteroidTrackerActivity extends ListActivity {
 		tabHost.addTab(TabSpec2_Upcoming);
 		tabHost.addTab(TabSpec3_Impact);
 		tabHost.addTab(TabSpec4_News);
-    }
+		}
     
     public void processFeeds(){
-//    	progressDialog();
 		LoadingDialogHelper.progressDialog(this);
 		SetAdapters_NEO_Recent();
 		SetAdapters_NEO_Upcoming();
+		SetAdapters_IMPACT();
 //      startTime = System.currentTimeMillis();
-    	tabHost.setCurrentTab(0);
     	processImpactFeed();
 		processAsteroidNewsFeed();
 		dlmanager = new DownloadManager(this, this.getListView());
-		//		processNEOFeed();
-    	
+		tabHost.setCurrentTab(0);    	
     }
     
     public void closeDialog(){
@@ -237,22 +235,14 @@ public class AsteroidTrackerActivity extends ListActivity {
     
    
     public void SetAdapters_NEO_Recent(){
-    	TabSpec1_Recent.setContent(new TabHost.TabContentFactory(){
-	        public View createTabContent(String tag)
-	        {
-	        	ls1_ListView_Recent.setAdapter(ContentManager.adapter_RECENT);
-	            return ls1_ListView_Recent;
-	        }  
-        });
-//    	setListAdapter(ContentManager.adapter_RECENT);
-//    		TabSpec2_Upcoming.setContent(new TabHost.TabContentFactory(){
-//		        public View createTabContent(String tag)
-//		        {
-//		        	ls2_ListView_Upcoming.setAdapter(ContentManager.adapter_UPCOMING);
-//		            return ls2_ListView_Upcoming;
-//		        }       
-//		    });
-//    		checkAlerts();
+    	setListAdapter(ContentManager.adapter_RECENT);
+//    	TabSpec1_Recent.setContent(new TabHost.TabContentFactory(){
+//	        public View createTabContent(String tag)
+//	        {
+//	        	ls1_ListView_Recent.setAdapter(ContentManager.adapter_RECENT);
+//	            return ls1_ListView_Recent;
+//	        }  
+//        });
     }
     
     public void SetAdapters_NEO_Upcoming(){
