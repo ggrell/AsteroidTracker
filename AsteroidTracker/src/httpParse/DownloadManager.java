@@ -16,6 +16,11 @@ public class DownloadManager {
 	public static final String URL_NASA_NEO = "http://neo.jpl.nasa.gov/ca/";
 	public static final String URL_NASA_NEO_IMPACT_FEED = "http://neo.jpl.nasa.gov/risk/";
 	public static final String URL_JPL_AsteroidNewsFeed="http://www.jpl.nasa.gov/multimedia/rss/asteroid.xml";
+	
+	public static final String URL_YQL_NEO = "";
+	public static final String URL_YQL_Impact = "";
+	public static final String URL_YQL_News = "";
+
 	ContentManager contentManager = new ContentManager();
 	
 	public DownloadManager(final Activity parentActivity, ListView view){
@@ -40,38 +45,52 @@ public class DownloadManager {
 					});
 					LoadingDialogHelper.closeDialog();
 			}};
-			Download_NEO.start();
+		Download_NEO.start();
+		
 		Thread Download_Impact = new Thread() {
 			public void run() {	 
 				if(!DownloadHelper.refresh){
 					String data = getData(URL_NASA_NEO_IMPACT_FEED);
 					contentManager.loadEntityLists_IMPACT(data);
 					DownloadHelper.refresh = true;
-					DownloadHelper.Done++;
 				}
+				contentManager.LoadAdapters_IMPACT(parentActivity);
+					parentActivity.runOnUiThread(new Runnable() {
+			               public void run() {
+			            	   LoadingDialogHelper.dialog.setMessage("Loading NASA Impact Risk Feed...");
+			            	   Log.i("HTTPFEED", "Setting data: IMPACT");
+//			            	   if(parentActivity instanceof AsteroidTrackerActivity){
+//				            	   ((AsteroidTrackerActivity) parentActivity).SetAdapters_IMPACT();
+//			            	   }
+			            	   ContentManager.adapter_IMPACT.notifyDataSetChanged();
+			               }
+					});
+					LoadingDialogHelper.closeDialog();
 			}};
-//			Download_Impact.start();
-		Thread Download_News = new Thread() {
-			public void run() {	 
-				if(!DownloadHelper.refresh){
-					String data = getData(URL_JPL_AsteroidNewsFeed);
-					contentManager.loadEntityLists_NEWS(data);
-					DownloadHelper.refresh = true;
-					DownloadHelper.Done++;
-				}
-			}};
-//			Download_News.start();
-	}
-	public static void main(String[] args){
-//		DownloadManager checkIt = new DownloadManager();
-//		LoadingDialogHelper dialogHelper = new LoadingDialogHelper();
-//		dialogHelper.progressDialog(this);
-	}
-	
-	
-	public void startDownload(String URL){
-		String HTTPDATA = getData(URL);
+			Download_Impact.start();
 		
+		Thread Download_News = new Thread() {
+				public void run() {	 
+					if(!DownloadHelper.refresh){
+						String data = getData(URL_JPL_AsteroidNewsFeed);
+						contentManager.loadEntityLists_NEWS(data);
+						DownloadHelper.refresh = true;
+					}
+					contentManager.LoadAdapters_NEWS(parentActivity);
+						parentActivity.runOnUiThread(new Runnable() {
+				               public void run() {
+				            	   LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
+				            	   Log.i("HTTPFEED", "Setting data: IMPACT");
+//				            	   if(parentActivity instanceof AsteroidTrackerActivity){
+//					            	   ((AsteroidTrackerActivity) parentActivity).SetAdapters_NEWS();
+//				            	   }
+				            	   ContentManager.adapter_NEWS.notifyDataSetChanged();
+				               }
+						});
+						LoadingDialogHelper.closeDialog();
+				}};
+				Download_News.start();
+
 	}
 	
 	public String getData(String URL) {
