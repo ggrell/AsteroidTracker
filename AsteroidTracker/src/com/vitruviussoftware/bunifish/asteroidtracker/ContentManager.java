@@ -39,7 +39,7 @@ public class ContentManager {
     }
 
     public void LoadAdapters_IMPACT(Context ctext){
-    	adapter_IMPACT = new nasa_neoImpactAdapter(ctext, R.layout.nasa_neo_impact_listview, AsteroidTrackerActivity.List_NASA_IMPACT);
+    	adapter_IMPACT = new nasa_neoImpactAdapter(ctext, R.layout.nasa_neo_impact_listview, List_NASA_IMPACT);
     }
     
     public void loadEntityLists_NEWS(String HTTPDATA){
@@ -47,6 +47,6 @@ public class ContentManager {
     }
  
     public void LoadAdapters_NEWS(Context ctext){
-		adapter_NEWS = new asteroidNewsAdapter(ctext, R.layout.jpl_asteroid_news, AsteroidTrackerActivity.List_NASA_News);
+		adapter_NEWS = new asteroidNewsAdapter(ctext, R.layout.jpl_asteroid_news, List_NASA_News);
     }
 }
