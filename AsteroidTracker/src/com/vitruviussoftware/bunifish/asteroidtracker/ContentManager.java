@@ -41,7 +41,7 @@ public class ContentManager {
     public void loadEntityLists_IMPACT(String HTTPDATA){
     	if(DownloadManager.DownloadState_Impact.equals("yql")){
     		Log.i("yql", "Need to parse yql xml");
-    		ParseImpactFeed(HTTPDATA);
+    		List_NASA_IMPACT = ParseImpactFeed(HTTPDATA);
     	}else if(DownloadManager.DownloadState_Impact.equals("nasa")){
         	List_NASA_IMPACT = AsteroidTrackerActivity.neo_AstroidFeed.getImpactList(HTTPDATA);	
     	}
@@ -62,29 +62,43 @@ public class ContentManager {
     public ArrayList ParseImpactFeed(String data){
     	ArrayList<nasa_neoImpactEntity> NEO_UPCOMINGList = new ArrayList();
 		XmlParser xmlParser = new XmlParser(data);
-		
 		ArrayList<String> ImpactValues = xmlParser.getXpath("//tt/text()");
 		ArrayList<String> ImpactValues_ImpactProb = xmlParser.getXpath("//tt/a/text()");
 		int impactListSize = ImpactValues.size()/10;
 		int bidx = 0;
 		for(int i = 0; i < impactListSize; i++){
-			List subImpactList = ImpactValues.subList(bidx, bidx+10);
+			List subImpactList = ImpactValues.subList(bidx, bidx+11);
 			nasa_neoImpactEntity impact = new nasa_neoImpactEntity();
-			Log.i("yql", "subImpactList:"+subImpactList.get(0).toString());
+//			for(int l = 0; l < subImpactList.size(); l++){
+//				Log.i("yql", "subImpactList:"+l+") "+subImpactList.get(l).toString());	
+//			}
+//			Log.i("yql", "subImpactList:"+subImpactList.get(0).toString());
 			impact.setName(subImpactList.get(0).toString());
+			impact.setYearRange(subImpactList.get(1).toString().trim());
+			impact.setPotentialImpacts(subImpactList.get(2).toString().trim());
+			impact.setImpactProbabilites(ImpactValues_ImpactProb.get(i));
+			impact.setVInfinity(subImpactList.get(5).toString().trim());
+			impact.setH_AbsoluteMag(subImpactList.get(6).toString().trim());
+			impact.setEstimagesDiameter(subImpactList.get(7).toString().trim());
+			impact.setPalermoScaleAve(subImpactList.get(8).toString().trim());
+			impact.setPalermoScaleMax(subImpactList.get(9).toString().trim());
+			impact.setTorinoScale(subImpactList.get(10).toString().trim());
+			impact.setIcon(com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity.drawable);
 			NEO_UPCOMINGList.add(impact);
 			bidx = bidx+11;
 		}
-		for(int i = 0; i < NEO_UPCOMINGList.size(); i++){
-			Log.i("yql", "NEO_UPCOMINGList NAMES: "+NEO_UPCOMINGList.get(i).getName());	
-		}
-//		Log.i("yql", "NEO_UPCOMINGList size:"+NEO_UPCOMINGList.size());
-		Log.i("yql", "NEO_UPCOMINGList size:"+NEO_UPCOMINGList.get(0).getName());
-////    	Log.i("yql", "name:"+name);
-	  	Log.i("yql", "impactListSize:"+impactListSize);
-    	Log.i("yql", "ImpactValues:"+ImpactValues.size());
-    	Log.i("yql", "ImpactValues_ImpactProb:"+ImpactValues_ImpactProb.size());
+//	  	Log.i("yql", "impactListSize:"+impactListSize);
+//    	Log.i("yql", "ImpactValues:"+ImpactValues.size());
+//    	Log.i("yql", "ImpactValues_ImpactProb:"+ImpactValues_ImpactProb.size());
     	return NEO_UPCOMINGList;
     }
 
+    public ArrayList ParseNeoFeed(){
+		return null;
+    	
+    }
+
+    public ArrayList ParseNewsFeed(){
+		return null;
+    }
 }

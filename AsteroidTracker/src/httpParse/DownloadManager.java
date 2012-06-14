@@ -32,13 +32,9 @@ public class DownloadManager {
 		Thread Download_NEO = new Thread() {
 			public void run() {	 
 				if(!DownloadHelper.refresh){
-					if(useYqlService){
-						
-					}else{
 						String data = getData(URL_NASA_NEO);
 						contentManager.loadEntityLists_NEO(data);
 						DownloadHelper.refresh = true;	
-					}
 				}
 				contentManager.LoadAdapters_NEO(parentActivity);
 					parentActivity.runOnUiThread(new Runnable() {
@@ -54,7 +50,7 @@ public class DownloadManager {
 					});
 					LoadingDialogHelper.closeDialog();
 			}};
-//		Download_NEO.start();
+		Download_NEO.start();
 		
 		Thread Download_Impact = new Thread() {
 			public void run() {	 
@@ -99,7 +95,7 @@ public class DownloadManager {
 						});
 						LoadingDialogHelper.closeDialog();
 				}};
-//		Download_News.start();
+		Download_News.start();
 	}
 	
 	public DownloadManager(){}

@@ -97,8 +97,8 @@ public class AsteroidTrackerActivity extends ListActivity {
 		tabHost.addTab(TabSpec3_Impact);
 		tabHost.addTab(TabSpec4_News);
 		
-//		SetAdapters_NEO_Recent();
-//		SetAdapters_NEO_Upcoming();
+		SetAdapters_NEO_Recent();
+		SetAdapters_NEO_Upcoming();
 		SetAdapters_IMPACT();
 		SetAdapters_NEWS();
 		}
