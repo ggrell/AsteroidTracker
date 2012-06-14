@@ -21,7 +21,7 @@ public class LoadingDialogHelper{
     
     public static void closeDialog(){
     	closeDialog++;
-    	if(closeDialog >= 3){
+    	if(closeDialog >= 1){
     		handler.sendEmptyMessage(0);
     		}
     	}
