@@ -18,12 +18,16 @@ public class DownloadManager {
 	public static final String URL_JPL_AsteroidNewsFeed="http://www.jpl.nasa.gov/multimedia/rss/asteroid.xml";
 	
 	public static boolean useYqlService = true;
-	public static final String URL_YQL_NEO = "";
+	public static final String URL_YQL_NEO_Recent = "http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fneo.jpl.nasa.gov%2Fca%2F%22%20and%20xpath%3D%22%2F%2Ftr%5Bpreceding%3A%3Afont%5Btext()%3D'RECENT%20CLOSE%20APPROACHES%20TO%20EARTH'%5D%20and%20following%3A%3Afont%5Btext()%3D'UPCOMING%20CLOSE%20APPROACHES%20TO%20EARTH'%5D%5D%22%20";
+	public static final String URL_YQL_NEO_Upcoming = "";
 	// Json call, unstructured, not as usable.
 	// public static final String URL_YQL_Impact = "http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fneo.jpl.nasa.gov%2Frisk%2F%22%20and%20xpath%3D%22%2F%2Ftable%5B2%5D%2F%2Ftt%22&format=json&callback=cbfunc";
 	public static final String URL_YQL_Impact = "http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fneo.jpl.nasa.gov%2Frisk%2F%22%20and%20xpath%3D%22%2F%2Ftable%5B2%5D%2F%2Ftt%22";
 	public static final String URL_YQL_News = "";
 	public static String DownloadState_Impact = "yql";
+	public static String DownloadState_NEO = "yql";
+	public static String DownloadState_Upcoming = "yql";
+	public static String DownloadState_News = "yql";
 	
 	ContentManager contentManager = new ContentManager();
 
@@ -32,8 +36,24 @@ public class DownloadManager {
 		Thread Download_NEO = new Thread() {
 			public void run() {	 
 				if(!DownloadHelper.refresh){
-						String data = getData(URL_NASA_NEO);
-						contentManager.loadEntityLists_NEO(data);
+						String dataRecent = DownloadFeed(URL_YQL_NEO_Recent);
+						String dataUpcoming = "";
+						if(dataRecent.equals("Timeout")){
+							Log.v("DownloadManager", "");
+							DownloadState_NEO = "nasa";
+							dataRecent = DownloadFeed(URL_NASA_NEO);
+						}else{
+							dataUpcoming = DownloadFeed(URL_YQL_NEO_Recent);
+						}
+//						String dataUpcoming = DownloadFeed(URL_YQL_NEO_Recent, URL_NASA_NEO);
+//						String data = getData(URL_NASA_NEO);
+						if(DownloadState_NEO.equals("yql")){
+							contentManager.loadEntityLists_NEO_Recent(dataRecent);
+							contentManager.loadEntityLists_NEO_Upcoming(dataUpcoming);
+						}else{
+							contentManager.loadEntityLists_NEO_Recent(dataRecent);
+							contentManager.loadEntityLists_NEO_Upcoming(dataRecent);							
+						}
 						DownloadHelper.refresh = true;	
 				}
 				contentManager.LoadAdapters_NEO(parentActivity);
@@ -55,7 +75,10 @@ public class DownloadManager {
 		Thread Download_Impact = new Thread() {
 			public void run() {	 
 				if(!DownloadHelper.refresh){
-					String data = DownloadFeed(URL_YQL_Impact, URL_NASA_NEO_IMPACT_FEED);
+					String data = DownloadFeed(URL_YQL_Impact);
+					if(data.equals("Timeout")){
+						data = DownloadFeed(URL_NASA_NEO_IMPACT_FEED);
+					}
 //					String data = getData(URL_NASA_NEO_IMPACT_FEED);
 					contentManager.loadEntityLists_IMPACT(data);
 					DownloadHelper.refresh = true;
@@ -73,7 +96,7 @@ public class DownloadManager {
 					});
 					LoadingDialogHelper.closeDialog();
 			}};
-		Download_Impact.start();
+//		Download_Impact.start();
 		
 		Thread Download_News = new Thread() {
 				public void run() {	 
@@ -95,20 +118,14 @@ public class DownloadManager {
 						});
 						LoadingDialogHelper.closeDialog();
 				}};
-		Download_News.start();
+//		Download_News.start();
 	}
 	
 	public DownloadManager(){}
 	
-	public String DownloadFeed(String UrlYql, String NasaUrl){
-		String data = getData(UrlYql);
-		DownloadState_Impact = "yql";
-		if (data.equals("Timeout")){
-			DownloadState_Impact = "nasa";
-			Log.i("yql", "Timeout calling yql, defaulting to direct call");
-			data = getData(NasaUrl);
-		}
-		return data;
+	public String DownloadFeed(String URL){
+		Log.i("DownloadFeed", "Getting data: "+URL);
+		return common.getHTTPData(URL);
 	}
 	
 	public String getData(String URL) {

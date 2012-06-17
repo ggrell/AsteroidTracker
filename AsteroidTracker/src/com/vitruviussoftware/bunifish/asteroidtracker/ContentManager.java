@@ -28,9 +28,20 @@ public class ContentManager {
 	public static List<nasa_neoImpactEntity> List_NASA_IMPACT;
 	public static List<newsEntity> List_NASA_News;
 	
-    public void loadEntityLists_NEO(String HTTPDATA){
-	  	List_NASA_RECENT = AsteroidTrackerActivity.neo_AstroidFeed.getRecentList(HTTPDATA);
-    	List_NASA_UPCOMING = AsteroidTrackerActivity.neo_AstroidFeed.getUpcomingList(HTTPDATA);
+    public void loadEntityLists_NEO_Recent(String HTTPDATA){
+    	if(DownloadManager.DownloadState_NEO.equals("yql")){
+    		List_NASA_RECENT = ParseNeoRecentFeed(HTTPDATA);
+    	}else{
+    		List_NASA_RECENT = AsteroidTrackerActivity.neo_AstroidFeed.getRecentList(HTTPDATA);
+    	}
+    }
+    
+    public void loadEntityLists_NEO_Upcoming(String HTTPDATA){
+    	if(DownloadManager.DownloadState_NEO.equals("yql")){
+//    		List_NASA_RECENT;
+    	}else{
+    		List_NASA_UPCOMING = AsteroidTrackerActivity.neo_AstroidFeed.getUpcomingList(HTTPDATA);
+    	}
     }
 		
     public void LoadAdapters_NEO(Context ctext){
@@ -69,10 +80,6 @@ public class ContentManager {
 		for(int i = 0; i < impactListSize; i++){
 			List subImpactList = ImpactValues.subList(bidx, bidx+11);
 			nasa_neoImpactEntity impact = new nasa_neoImpactEntity();
-//			for(int l = 0; l < subImpactList.size(); l++){
-//				Log.i("yql", "subImpactList:"+l+") "+subImpactList.get(l).toString());	
-//			}
-//			Log.i("yql", "subImpactList:"+subImpactList.get(0).toString());
 			impact.setName(subImpactList.get(0).toString());
 			impact.setYearRange(subImpactList.get(1).toString().trim());
 			impact.setPotentialImpacts(subImpactList.get(2).toString().trim());
@@ -87,18 +94,58 @@ public class ContentManager {
 			NEO_UPCOMINGList.add(impact);
 			bidx = bidx+11;
 		}
-//	  	Log.i("yql", "impactListSize:"+impactListSize);
-//    	Log.i("yql", "ImpactValues:"+ImpactValues.size());
-//    	Log.i("yql", "ImpactValues_ImpactProb:"+ImpactValues_ImpactProb.size());
     	return NEO_UPCOMINGList;
     }
 
-    public ArrayList ParseNeoFeed(){
-		return null;
-    	
+    public ArrayList<nasa_neo>  ParseNeoRecentFeed(String data){
+    	ArrayList<nasa_neo> recentlist = new ArrayList();
+		ArrayList<nasa_neo> nasaNeoList_SortingList = new ArrayList<nasa_neo>();
+    	if(data == null || data.length() == 0){
+    		nasa_neo astroid = new nasa_neo();
+			astroid = new nasa_neo();
+			astroid.setName("Unable to retrieve Asteroid feed");
+			recentlist.add(astroid);
+		}else{
+    	XmlParser xmlParser = new XmlParser(data);
+		ArrayList<String> NEORecent_Values = xmlParser.getXpath("//td//font/text()");
+		NEORecent_Values = trimArray(NEORecent_Values);
+		int recentListSize = NEORecent_Values.size()/7;
+		int bidx = 0;
+		for(int i = 0; i < recentListSize; i++){
+			Log.v("ContentManager", "NEORecent Value: "+i+") "+NEORecent_Values.get(i));
+			List subRecentList = NEORecent_Values.subList(bidx, bidx+7);
+			nasa_neo astroid = new nasa_neo();
+			astroid.setName(subRecentList.get(0).toString().trim());
+			astroid.setDateStr(subRecentList.get(1).toString().trim());
+			astroid.SetMissDistance_AU(subRecentList.get(2).toString().trim());
+			astroid.setMissDistance_LD(subRecentList.get(3).toString().trim());
+			astroid.setEstimatedDiameter(subRecentList.get(4).toString().trim());
+			astroid.setHmagnitude(subRecentList.get(5).toString().trim());
+			astroid.setRelativeVelocity(subRecentList.get(6).toString().trim());
+			astroid.setIcon(com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity.drawable);
+			nasaNeoList_SortingList.add(astroid);
+			bidx = bidx+7;
+		}
+	}
+		for(int i = nasaNeoList_SortingList.size()-1; i >= 0; i--){
+			recentlist.add(nasaNeoList_SortingList.get(i));
+		}	
+    	return recentlist;    	
     }
+    
 
     public ArrayList ParseNewsFeed(){
 		return null;
     }
+
+    public ArrayList trimArray (ArrayList arraytoTrim){
+    	for(int i = 0; i < arraytoTrim.size(); i++){
+			if(arraytoTrim.get(i).toString().trim().length() == 0){
+//				Log.v("ContentManager", "Removing null: Values: "+i+") "+arraytoTrim.get(i));
+				arraytoTrim.remove(i);
+			}
+    	}
+    	return arraytoTrim;
+    }
+    
 }
