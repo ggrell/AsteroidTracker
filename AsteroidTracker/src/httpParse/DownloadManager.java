@@ -5,6 +5,7 @@ import com.vitruviussoftware.bunifish.asteroidtracker.ContentManager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Debug;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -16,37 +17,34 @@ public class DownloadManager {
 	public static final String URL_NASA_NEO = "http://neo.jpl.nasa.gov/ca/";
 	public static final String URL_NASA_NEO_IMPACT_FEED = "http://neo.jpl.nasa.gov/risk/";
 	public static final String URL_JPL_AsteroidNewsFeed="http://www.jpl.nasa.gov/multimedia/rss/asteroid.xml";
-	
 	public static boolean useYqlService = true;
 	public static final String URL_YQL_NEO_Recent = "http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fneo.jpl.nasa.gov%2Fca%2F%22%20and%20xpath%3D%22%2F%2Ftr%5Bpreceding%3A%3Afont%5Btext()%3D'RECENT%20CLOSE%20APPROACHES%20TO%20EARTH'%5D%20and%20following%3A%3Afont%5Btext()%3D'UPCOMING%20CLOSE%20APPROACHES%20TO%20EARTH'%5D%5D%22%20";
-	public static final String URL_YQL_NEO_Upcoming = "";
-	// Json call, unstructured, not as usable.
-	// public static final String URL_YQL_Impact = "http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fneo.jpl.nasa.gov%2Frisk%2F%22%20and%20xpath%3D%22%2F%2Ftable%5B2%5D%2F%2Ftt%22&format=json&callback=cbfunc";
+	public static final String URL_YQL_NEO_Upcoming = "http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fneo.jpl.nasa.gov%2Fca%2F%22%20and%20xpath%3D%22%2F%2Ftr%5Bpreceding%3A%3Afont%5Btext()%3D'UPCOMING%20CLOSE%20APPROACHES%20TO%20EARTH'%5D%20and%20following%3A%3Aimg%5B%40alt%3D'Menu'%5D%5D%22%20";
 	public static final String URL_YQL_Impact = "http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fneo.jpl.nasa.gov%2Frisk%2F%22%20and%20xpath%3D%22%2F%2Ftable%5B2%5D%2F%2Ftt%22";
 	public static final String URL_YQL_News = "";
 	public static String DownloadState_Impact = "yql";
 	public static String DownloadState_NEO = "yql";
 	public static String DownloadState_Upcoming = "yql";
 	public static String DownloadState_News = "yql";
+	//public static boolean IsYQLOn = false;
 	
 	ContentManager contentManager = new ContentManager();
 
 	public DownloadManager(final Activity parentActivity, ListView view){
-
 		Thread Download_NEO = new Thread() {
-			public void run() {	 
+		public void run() {	 
 				if(!DownloadHelper.refresh){
 						String dataRecent = DownloadFeed(URL_YQL_NEO_Recent);
 						String dataUpcoming = "";
 						if(dataRecent.equals("Timeout")){
-							Log.v("DownloadManager", "");
+							Log.v("DownloadManager_Asteroid", "Timeout NEO, call NASA page");
 							DownloadState_NEO = "nasa";
 							dataRecent = DownloadFeed(URL_NASA_NEO);
-						}else{
-							dataUpcoming = DownloadFeed(URL_YQL_NEO_Recent);
 						}
-//						String dataUpcoming = DownloadFeed(URL_YQL_NEO_Recent, URL_NASA_NEO);
-//						String data = getData(URL_NASA_NEO);
+						if(DownloadState_NEO.equals("yql")){
+							Log.v("DownloadManager_Asteroid", "Getting Upcoming data");
+							dataUpcoming = DownloadFeed(URL_YQL_NEO_Upcoming);
+						}
 						if(DownloadState_NEO.equals("yql")){
 							contentManager.loadEntityLists_NEO_Recent(dataRecent);
 							contentManager.loadEntityLists_NEO_Upcoming(dataUpcoming);
@@ -79,7 +77,6 @@ public class DownloadManager {
 					if(data.equals("Timeout")){
 						data = DownloadFeed(URL_NASA_NEO_IMPACT_FEED);
 					}
-//					String data = getData(URL_NASA_NEO_IMPACT_FEED);
 					contentManager.loadEntityLists_IMPACT(data);
 					DownloadHelper.refresh = true;
 				}
@@ -96,7 +93,7 @@ public class DownloadManager {
 					});
 					LoadingDialogHelper.closeDialog();
 			}};
-//		Download_Impact.start();
+		Download_Impact.start();
 		
 		Thread Download_News = new Thread() {
 				public void run() {	 
@@ -106,19 +103,19 @@ public class DownloadManager {
 						DownloadHelper.refresh = true;
 					}
 					contentManager.LoadAdapters_NEWS(parentActivity);
-						parentActivity.runOnUiThread(new Runnable() {
-				               public void run() {
-				            	   LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
-				            	   Log.i("HTTPFEED", "Setting data: IMPACT");
+					parentActivity.runOnUiThread(new Runnable() {
+						public void run() {
+							LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
+				            Log.i("HTTPFEED", "Setting data: IMPACT");
 //				            	   if(parentActivity instanceof AsteroidTrackerActivity){
 //					            	   ((AsteroidTrackerActivity) parentActivity).SetAdapters_NEWS();
 //				            	   }
-				            	   ContentManager.adapter_NEWS.notifyDataSetChanged();
-				               }
-						});
-						LoadingDialogHelper.closeDialog();
+				            ContentManager.adapter_NEWS.notifyDataSetChanged();
+				        }
+					});
+					LoadingDialogHelper.closeDialog();
 				}};
-//		Download_News.start();
+		Download_News.start();
 	}
 	
 	public DownloadManager(){}
@@ -131,7 +128,6 @@ public class DownloadManager {
 	public String getData(String URL) {
 		Log.i("HTTPFEED", "Getting data: "+URL);
 		String data = common.getHTTPData(URL);
-//		Log.i("neo", "DATA: "+data);
 		return data;
 }
 

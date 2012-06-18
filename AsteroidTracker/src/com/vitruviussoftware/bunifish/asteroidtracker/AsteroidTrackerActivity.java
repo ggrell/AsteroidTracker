@@ -105,6 +105,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     public void processFeeds(){
 		LoadingDialogHelper.progressDialog(this);
+		NetworkUtil.netCheckin(this);
 //      startTime = System.currentTimeMillis();
 		dlmanager = new DownloadManager(this, this.getListView());
 		tabHost.setCurrentTab(0);    	
