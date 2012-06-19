@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
 public class AsteroidTrackerActivity extends ListActivity {
 
@@ -62,9 +63,9 @@ public class AsteroidTrackerActivity extends ListActivity {
 		setTitle("Asteroid Tracker");
 		Resources res = getResources();
 		drawable = res.getDrawable(R.drawable.asteroid);
-		TabAndListViewSetup();			
-		processFeeds();
-//		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);		
+		TabAndListViewSetup();	
+			processFeeds();
+//			mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);	
     }
 
     public void TabAndListViewSetup(){
@@ -105,7 +106,6 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     public void processFeeds(){
 		LoadingDialogHelper.progressDialog(this);
-		NetworkUtil.netCheckin(this);
 //      startTime = System.currentTimeMillis();
 		dlmanager = new DownloadManager(this, this.getListView());
 		tabHost.setCurrentTab(0);    	

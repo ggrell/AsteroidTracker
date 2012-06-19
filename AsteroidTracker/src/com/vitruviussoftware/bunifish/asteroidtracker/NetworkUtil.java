@@ -8,30 +8,24 @@ import android.widget.Toast;
 
 public class NetworkUtil {
 
-	public static boolean netCheckin(Context ctext) {
+	public static boolean IsNetworkAvailable(Context ctext) {
+		boolean IsNetworkAvailable = false;
         Log.d("NetworkUtil", "Checking Network");
             try {
             	ConnectivityManager connMgr = (ConnectivityManager) ctext.getSystemService(Context.CONNECTIVITY_SERVICE);
-            	 final android.net.NetworkInfo wifi =
-            		  connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            	 final android.net.NetworkInfo mobile =
-            		  connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            	  if( wifi.isAvailable() ){
-            		  Toast.makeText(ctext, "Wifi" , Toast.LENGTH_LONG).show();
-            		  Log.d("NetworkUtil", "Network available: Wifi");
-            		  }
-            		  else if( mobile.isAvailable() ){
-            		  Toast.makeText(ctext, "Mobile 3G " , Toast.LENGTH_LONG).show();
-            		  Log.d("NetworkUtil", "Network available: Mobile");
-            		  }
-            		  else
-            		  {Toast.makeText(ctext, "No Network " , Toast.LENGTH_LONG).show();
-            		  Log.d("NetworkUtil", "Network available: No Network");
-            		  }
-            return false;
+//            	 final android.net.NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//            	 final android.net.NetworkInfo mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+//            	 Log.d("NetworkUtil", "Network isConnectedOrConnecting" + connMgr.getActiveNetworkInfo().isConnectedOrConnecting());
+            	if(connMgr.getActiveNetworkInfo() == null){
+            		  Log.d("NetworkUtil", "getActiveNetworkInfo is null");
+            		  return IsNetworkAvailable;
+            	 }else{
+            		 IsNetworkAvailable = true;
+            		 return IsNetworkAvailable;
+            	 }
 		    } catch (Exception e) {
-		    	 Log.d("NetworkUtil", "Network available:Exception");
-		        return false;
+		    	Log.d("NetworkUtil", "Network available:Exception");
+		        return IsNetworkAvailable;
 		    }
 		}
 	 

@@ -2,12 +2,15 @@ package httpParse;
 
 import com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity;
 import com.vitruviussoftware.bunifish.asteroidtracker.ContentManager;
+import com.vitruviussoftware.bunifish.asteroidtracker.NetworkUtil;
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Debug;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class DownloadManager {
 
@@ -31,7 +34,10 @@ public class DownloadManager {
 	ContentManager contentManager = new ContentManager();
 
 	public DownloadManager(final Activity parentActivity, ListView view){
-		Thread Download_NEO = new Thread() {
+		
+		boolean IsNetworkAvailable = NetworkUtil.IsNetworkAvailable(parentActivity);
+		if(IsNetworkAvailable){
+			Thread Download_NEO = new Thread() {
 		public void run() {	 
 				if(!DownloadHelper.refresh){
 						String dataRecent = DownloadFeed(URL_YQL_NEO_Recent);
@@ -68,9 +74,9 @@ public class DownloadManager {
 					});
 					LoadingDialogHelper.closeDialog();
 			}};
-		Download_NEO.start();
+			Download_NEO.start();
 		
-		Thread Download_Impact = new Thread() {
+			Thread Download_Impact = new Thread() {
 			public void run() {	 
 				if(!DownloadHelper.refresh){
 					String data = DownloadFeed(URL_YQL_Impact);
@@ -93,9 +99,9 @@ public class DownloadManager {
 					});
 					LoadingDialogHelper.closeDialog();
 			}};
-		Download_Impact.start();
+			Download_Impact.start();
 		
-		Thread Download_News = new Thread() {
+			Thread Download_News = new Thread() {
 				public void run() {	 
 					if(!DownloadHelper.refresh){
 						String data = getData(URL_JPL_AsteroidNewsFeed);
@@ -115,7 +121,14 @@ public class DownloadManager {
 					});
 					LoadingDialogHelper.closeDialog();
 				}};
-		Download_News.start();
+			Download_News.start();
+		}else{
+			LoadingDialogHelper.killDialog();
+			CharSequence text = parentActivity.getString(R.string.networkerror);
+			int duration = Toast.LENGTH_LONG;
+			Toast toast = Toast.makeText(parentActivity, text, duration);
+			toast.show();
+		}	
 	}
 	
 	public DownloadManager(){}
