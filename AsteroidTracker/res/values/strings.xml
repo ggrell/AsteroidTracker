@@ -19,5 +19,6 @@
 <string name="about_torinoScale">NASA NEO - The Torino Impact Hazard Scale \nhttp://neo.jpl.nasa.gov/torino_scale.html</string>
 <string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
 <string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
+<string name="networkerror">It seems your mobile/wifi network(s) are unavailable, please check your system settings, airplane mode maybe?? Either way, Sad Panda (Feel free to submit a bug report if you feel this message is in error, though its likely not).</string>
 </resources>
 

@@ -22,7 +22,6 @@ public class nasa_neoImpactEntity {
 	private String TorinoScale = "";
 	private Drawable IconD;
 	
-	
 	public void setName(String name) {
 		this.name = name;
 	}
