@@ -62,7 +62,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 	Handler handler;
 	int closeDialog = 0;
 	NotificationManager mNotificationManager;
-
+	AsteroidTrackerService service = new AsteroidTrackerService();
 	//	callNotifyService(setupNotificationMessage("", ""));
 	
 //	long startTime;
@@ -75,8 +75,11 @@ public class AsteroidTrackerActivity extends ListActivity {
 		setTitle("Asteroid Tracker");
 		Resources res = getResources();
 		drawable = res.getDrawable(R.drawable.asteroid);
-		TabAndListViewSetup();		
-		processFeeds();
+		TabAndListViewSetup();	
+		if(service.IsGitServiceAvailable()){
+			service.getRecentList();
+		}
+//		processFeeds();
 //		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);		
     }
 

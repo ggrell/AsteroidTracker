@@ -12,7 +12,12 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.params.HttpParams;
+
 import android.util.Log;
 
 public class getHTTP {
@@ -24,8 +29,11 @@ public class getHTTP {
 		StringBuffer sb = new StringBuffer();
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet request = new HttpGet();
+		HttpParams params = new BasicHttpParams();
+		params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, new Integer(2000));
+		request.setParams(params);
 		try {
-		request.setURI(new URI(URL));
+			request.setURI(new URI(URL));
 			HttpResponse response = httpClient.execute(request);
 			int status = response.getStatusLine().getStatusCode();
 			if (status != HttpStatus.SC_OK) {
@@ -41,19 +49,14 @@ public class getHTTP {
 				content.close(); // this will also close the connection
 			}
 			responseData = sb.toString();
-		} catch (ClientProtocolException e) {
-			Log.e("HTTPCLIENT", "ClientProtocolException");
-			e.printStackTrace();
-		} catch (IOException e) {
+		}catch (ConnectTimeoutException e ){
+			 return "Timeout";
+		}catch (Exception e){
+			Log.e("HTTPCLIENT", "Exception");
 			Log.e("HTTPCLIENT", "HTTP ERROR");
 			Log.e("HTTPCLIENT", e.getMessage());
 			Log.e("HTTPCLIENT", e.getLocalizedMessage());
-		} catch (URISyntaxException e1) {
-			Log.e("HTTPCLIENT", "HTTP ERROR: URISyntaxException");
-			e1.printStackTrace();
-		} catch (Exception e){
-			Log.e("HTTPCLIENT", "Exception");
-			return "";
+			return "Exception";
 		}
 		return responseData;
 	}
