@@ -1,4 +1,4 @@
-package nasa.neoAstroid.impackRisk;
+package domains;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

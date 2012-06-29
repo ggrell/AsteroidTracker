@@ -1,7 +1,11 @@
-package nasa.neoAstroid.impackRisk;
+package adapters;
 
 import java.util.List;
+
+
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import domains.nasa_neoImpactEntity;
 import android.R.color;
 import android.content.Context;
 import android.content.res.ColorStateList;

@@ -5,7 +5,7 @@
     <uses-sdk android:minSdkVersion="8" />
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application android:icon="@drawable/asteroid" android:label="@string/app_name">
-        <activity android:name=".AsteroidTrackerActivity"
+        <activity android:name="activities.AsteroidTrackerActivity"
                   android:label="@string/app_name"
                   android:configChanges="keyboardHidden|orientation">
             <intent-filter>
@@ -13,9 +13,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="about"></activity>
+        <activity android:name="activities.about"></activity>
 		<activity 
-		android:name="nasa.neoAstroid.impackRisk.ImpactRiskDetailView" 
+		android:name="activities.ImpactRiskDetailView" 
 		android:launchMode="singleTask"></activity>     
     </application>
 </manifest>

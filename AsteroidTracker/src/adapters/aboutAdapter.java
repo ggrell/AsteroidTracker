@@ -1,7 +1,11 @@
-package com.vitruviussoftware.bunifish.asteroidtracker;
+package adapters;
 
 import java.util.List;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+import com.vitruviussoftware.bunifish.asteroidtracker.R.drawable;
+import com.vitruviussoftware.bunifish.asteroidtracker.R.id;
+import com.vitruviussoftware.bunifish.asteroidtracker.R.layout;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;

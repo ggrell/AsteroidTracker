@@ -1,4 +1,4 @@
-package httpParse;
+package utils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -36,6 +36,7 @@ public class getHTTP {
 			request.setURI(new URI(URL));
 			HttpResponse response = httpClient.execute(request);
 			int status = response.getStatusLine().getStatusCode();
+			Log.i("HTTPCLIENT", "status: "+status);
 			if (status != HttpStatus.SC_OK) {
 				ByteArrayOutputStream ostream = new ByteArrayOutputStream();
 				response.getEntity().writeTo(ostream);
@@ -48,8 +49,10 @@ public class getHTTP {
 				in.close();
 				content.close(); // this will also close the connection
 			}
+			Log.i("HTTPCLIENT", "sb: "+sb.toString());
 			responseData = sb.toString();
 		}catch (ConnectTimeoutException e ){
+			Log.e("HTTPCLIENT", "Timeout");
 			 return "Timeout";
 		}catch (Exception e){
 			Log.e("HTTPCLIENT", "Exception");
@@ -58,6 +61,7 @@ public class getHTTP {
 			Log.e("HTTPCLIENT", e.getLocalizedMessage());
 			return "Exception";
 		}
+		Log.i("HTTPCLIENT", "responseData: "+responseData);
 		return responseData;
 	}
 

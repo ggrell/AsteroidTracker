@@ -1,4 +1,7 @@
-package com.vitruviussoftware.bunifish.asteroidtracker;
+package activities;
+
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
+import com.vitruviussoftware.bunifish.asteroidtracker.R.drawable;
 
 import android.app.Activity;
 import android.app.ListActivity;

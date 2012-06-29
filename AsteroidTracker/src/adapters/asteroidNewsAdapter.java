@@ -1,7 +1,11 @@
-package nasa.neoAstroid.news;
+package adapters;
 
 import java.util.List;
+
+
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import domains.newsEntity;
 import android.R.color;
 import android.content.Context;
 import android.content.res.ColorStateList;

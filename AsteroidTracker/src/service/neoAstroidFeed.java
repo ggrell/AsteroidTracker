@@ -1,7 +1,5 @@
-package nasa.neoAstroid;
+package service;
 
-import httpParse.XmlParser;
-import httpParse.common;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -18,11 +16,18 @@ import java.util.List;
 
 import javax.xml.xpath.XPathExpressionException;
 
-import nasa.neoAstroid.impackRisk.nasa_neoImpactEntity;
-import nasa.neoAstroid.news.newsEntity;
+import utils.XmlParser;
+import utils.common;
 
-import com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity;
+
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import domains.Nasa_neoEntityDeprecated;
+import domains.nasa_neo;
+import domains.nasa_neoImpactEntity;
+import domains.newsEntity;
+
+import activities.AsteroidTrackerActivity;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -157,7 +162,7 @@ public class neoAstroidFeed {
 				astroid.setEstimatedDiameter(Data.get(3).toString().trim());
 				astroid.setHmagnitude(Data.get(4).toString().trim());
 				astroid.setRelativeVelocity(Data.get(5).toString().trim());
-				astroid.setIcon(com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity.drawable);
+				astroid.setIcon(activities.AsteroidTrackerActivity.drawable);
 			}
 			nasaNeoList_SortingList.add(astroid);
 			if(type.equals("upcoming")){
@@ -243,7 +248,7 @@ public class neoAstroidFeed {
 				asteroidImpact.setPalermoScaleAve(Data.get(5).toString().trim());
 				asteroidImpact.setPalermoScaleMax(Data.get(6).toString().trim());
 				asteroidImpact.setTorinoScale(Data.get(7).toString().trim());
-				asteroidImpact.setIcon(com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity.drawable);
+				asteroidImpact.setIcon(activities.AsteroidTrackerActivity.drawable);
 //			}
 			}
 			nasaNeoList.add(asteroidImpact);

@@ -1,4 +1,4 @@
-package com.vitruviussoftware.bunifish.asteroidtracker;
+package activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+import com.vitruviussoftware.bunifish.asteroidtracker.R.id;
 
 public class menu extends Activity implements OnClickListener{
 

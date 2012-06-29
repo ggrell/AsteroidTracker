@@ -1,4 +1,4 @@
-package nasa.neoAstroid;
+package domains;
 
 
 public class Nasa_neoEntityDeprecated {

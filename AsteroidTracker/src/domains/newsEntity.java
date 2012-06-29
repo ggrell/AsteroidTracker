@@ -1,4 +1,4 @@
-package nasa.neoAstroid.news;
+package domains;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

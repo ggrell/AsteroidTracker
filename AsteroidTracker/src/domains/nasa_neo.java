@@ -1,4 +1,4 @@
-package nasa.neoAstroid;
+package domains;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -76,7 +76,7 @@ public class nasa_neo {
 	public Date getDate(){
 			return this.closeApproachDate;
 		}
-	
+
 	public String getDateStr(){
 		return this.closeApproachDate_Str;
 	}

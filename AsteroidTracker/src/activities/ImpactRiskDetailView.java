@@ -1,10 +1,14 @@
-package nasa.neoAstroid.impackRisk;
+package activities;
 
 import java.util.ArrayList;
-import nasa.neoAstroid.neoAstroidFeed;
-import com.vitruviussoftware.bunifish.asteroidtracker.AsteroidTrackerActivity;
-import com.vitruviussoftware.bunifish.asteroidtracker.about;
+
+import service.neoAstroidFeed;
+
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import domains.nasa_neoImpactEntity;
+
+import adapters.impactRisk_DetailAdapter;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;

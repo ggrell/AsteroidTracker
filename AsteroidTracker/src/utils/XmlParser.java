@@ -1,4 +1,4 @@
-package httpParse;
+package utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,12 +22,13 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import nasa.neoAstroid.news.newsEntity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import domains.newsEntity;
 import android.util.Log;
 import android.graphics.drawable.Drawable;
 

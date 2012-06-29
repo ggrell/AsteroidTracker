@@ -1,4 +1,4 @@
-package com.vitruviussoftware.bunifish.asteroidtracker;
+package domains;
 
 import android.graphics.drawable.Drawable;
 
