@@ -13,7 +13,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="activities.about"></activity>
+        <activity android:name="activities.About"></activity>
 		<activity 
 		android:name="activities.ImpactRiskDetailView" 
 		android:launchMode="singleTask"></activity>     
