@@ -20,6 +20,7 @@ import com.vitruviussoftware.bunifish.asteroidtracker.R.menu;
 import domains.nasa_neo;
 import domains.nasa_neoImpactEntity;
 import domains.newsEntity;
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -121,9 +122,9 @@ public class AsteroidTrackerActivity extends ListActivity {
     	LoadingDialogHelper.progressDialog(this);
 //      startTime = System.currentTimeMillis();
     	tabHost.setCurrentTab(0);
-//    	processImpactFeed();
-//		processAsteroidNewsFeed();
+    	processImpactFeed();
 //		processNEOFeed();
+		processAsteroidNewsFeed();
 		processNEOFeedRecent();
 		processNEOFeedUpcoming();
     	
@@ -220,13 +221,18 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     public void processImpactFeed(){
 		Thread ImpactUpdate = new Thread() {
-			public void run() {			 
-					if(!refresh){
-						String HTTP_IMPACT_DATA =  AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_NASA_NEO_IMPACT_FEED);
-						loadEntityLists_IMPACT(HTTP_IMPACT_DATA);
-					}
-					LoadAdapters_IMPACT();
-					refresh = true;
+			public void run() {	
+				if(UseGitService){
+					ContentManager.List_NASA_IMPACT = AsteroidTrackerService.getImpactData();
+					ContentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
+				} else{
+//					if(!refresh){
+//						String HTTP_IMPACT_DATA =  AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_NASA_NEO_IMPACT_FEED);
+//						loadEntityLists_IMPACT(HTTP_IMPACT_DATA);
+//					}
+//					LoadAdapters_IMPACT();
+//					refresh = true;
+				}
 				AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
 		               public void run() {
 		            	   LoadingDialogHelper.dialog.setMessage("Loading NASA Impact Risk Feed...");
@@ -242,13 +248,19 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     public void processAsteroidNewsFeed(){
 		Thread NewsUpdate = new Thread() {
-			public void run() {			 
-					if(!refresh){
-						String HTTP_NEWS_DATA = AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_JPL_AsteroidNewsFeed);
-						loadEntityLists_NEWS(HTTP_NEWS_DATA);
-					}
-					LoadAdapters_NEWS();
-					refresh = true;
+			@SuppressLint("ParserError")
+			public void run() {
+				if(UseGitService){
+					ContentManager.List_NASA_News = AsteroidTrackerService.getLatestNews();
+					ContentManager.LoadAdapters_NEO_News(AsteroidTrackerActivity.this);
+				} else{	 
+//					if(!refresh){
+//						String HTTP_NEWS_DATA = AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_JPL_AsteroidNewsFeed);
+//						loadEntityLists_NEWS(HTTP_NEWS_DATA);
+//					}
+//					LoadAdapters_NEWS();
+//					refresh = true;
+				}
 			    AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
 		               public void run() {
 		            	   LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
@@ -313,7 +325,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     	TabSpec3_Impact.setContent(new TabHost.TabContentFactory(){
 	        public View createTabContent(String tag)
 	        {
-	        	ls3_ListView_Impact.setAdapter(AsteroidTrackerActivity.adapter_IMPACT);
+	        	ls3_ListView_Impact.setAdapter(ContentManager.adapter_IMPACT);
 	        	ls3_ListView_Impact.setOnItemClickListener(ImpactRiskClickListener);
 	        	return ls3_ListView_Impact;
 	        }       
@@ -323,7 +335,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     	TabSpec4_News.setContent(new TabHost.TabContentFactory(){
    	        public View createTabContent(String tag)
    	        {
-   	        	ls4_ListView_News.setAdapter(AsteroidTrackerActivity.adapter_NEWS);
+   	        	ls4_ListView_News.setAdapter(ContentManager.adapter_NEWS);
    	        	ls4_ListView_News.setOnItemClickListener(Asteroid_NewsArticle_ClickListener);
    	        	return ls4_ListView_News;
    	        }       

@@ -33,6 +33,12 @@ public class ContentManager {
 	    public static void LoadAdapters_NEO_Upcoming(Context ctext){
 	    	adapter_UPCOMING = new nasa_neoArrayAdapter(ctext, R.layout.nasa_neolistview, List_NASA_UPCOMING, "UPCOMING");
     	}
+	    public static void LoadAdapters_NEO_News(Context ctext){
+	    	adapter_NEWS = new asteroidNewsAdapter(ctext, R.layout.jpl_asteroid_news, List_NASA_News);
+	    }
+	    public static void LoadAdapters_NEO_Impact(Context ctext){
+	    	adapter_IMPACT = new nasa_neoImpactAdapter(ctext, R.layout.nasa_neo_impact_listview, List_NASA_IMPACT);
+	    }
 	    
 	    public ArrayList ParseNewsFeed(){
 			return null;

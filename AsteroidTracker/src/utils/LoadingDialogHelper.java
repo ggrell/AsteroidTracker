@@ -10,7 +10,7 @@ public class LoadingDialogHelper{
 	public static ProgressDialog dialog;
 	static Handler handler;
 	public static int closeDialog = 0;
-	public static int closeDialogLimit = 3;
+	public static int closeDialogLimit = 4;
 
     public static void progressDialog(Context context){
   	  dialog = ProgressDialog.show(context, "", "Loading NASA Asteroid Feed...", true);

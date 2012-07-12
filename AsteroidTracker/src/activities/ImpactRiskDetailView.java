@@ -2,6 +2,7 @@ package activities;
 
 import java.util.ArrayList;
 
+import service.ContentManager;
 import service.neoAstroidFeed;
 
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
@@ -49,7 +50,7 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
 		setTitle("Asteroid Tracker: Impact Risk Summary");
 		extras = getIntent().getExtras();
 		int asteroidList = extras.getInt("position");
-		NASA_IMPACT_DetailPage.add(AsteroidTrackerActivity.List_NASA_IMPACT.get(asteroidList));
+		NASA_IMPACT_DetailPage.add(ContentManager.List_NASA_IMPACT.get(asteroidList));
 		
 		Button button_AsteroidDetailPageButton = (Button) findViewById(R.id.ImpactRisk_Button_AsteroidDetailPage);
 	 	Button button_AsteroidOrbitalPageButton = (Button) findViewById(R.id.ImpactRisk_Button_AsteroidOrbitDiagrams);

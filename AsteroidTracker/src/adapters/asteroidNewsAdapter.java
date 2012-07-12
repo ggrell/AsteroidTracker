@@ -64,7 +64,8 @@ public class asteroidNewsAdapter extends ArrayAdapter{
 			holder.pubDate.setText(entityObject.pubDate);
 //			holder.artcileUrl.setText(entityObject.artcileUrl);
 			holder.description.setText(entityObject.description);
-			holder.imgURL.setImageDrawable(entityObject.imgURL);
+			Log.i("news", "news adapter imgURL"+entityObject.imgURL);
+			holder.imgURL.setImageDrawable(entityObject.getImageURL());
 		return vi;
 	}
 

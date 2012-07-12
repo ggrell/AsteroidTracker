@@ -165,7 +165,8 @@ public class XmlParser {
     				  JPLEntity.setPubDate(pubDate.item(0).getTextContent().toString().trim());
     				  JPLEntity.artcileUrl =  link.item(0).getTextContent().toString().trim();
     				  JPLEntity.description =  strDesc.trim();
-    				  JPLEntity.imgURL = ImageOperations(imgURL.trim());	
+//    				  JPLEntity.imgURL = imgURL.trim();
+//    				  JPLEntity.imgURL = ImageOperations(imgURL.trim());	
     				  newsList.add(JPLEntity);
     				  if(i==10){
     				  break;

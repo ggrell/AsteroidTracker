@@ -30,7 +30,7 @@ public class getHTTP {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet request = new HttpGet();
 		HttpParams params = new BasicHttpParams();
-		params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, new Integer(2000));
+		params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, new Integer(2500));
 		request.setParams(params);
 		try {
 			request.setURI(new URI(URL));

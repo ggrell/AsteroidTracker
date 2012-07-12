@@ -69,7 +69,7 @@ public class nasa_neoArrayAdapter extends ArrayAdapter {
 			holder.title_error.setText("Unable to retrieve NASA NEO feed");
 		}else{
 			holder.title.setText("Name: "+entityObject.getName());
-			holder.Icon.setImageDrawable(entityObject.getIcon());
+			holder.Icon.setImageDrawable(entityObject.IconD);
 			holder.description.setText("Miss-Distance: "+entityObject.getMissDistance_AU() + " (km)");
 			holder.relativeVelocity.setText("Relative Velocity: "+ entityObject.getRelativeVelocity() + " (km/s)");
 			holder.estimatedDiameter.setText("Est Diameter: "+ entityObject.getEstimatedDiameter() + " (m)");

@@ -25,7 +25,7 @@ public class nasa_neo {
 	private String Hmagnitude="";
 	private String relativeVelocity="";
 	private URL url;
-	private Drawable IconD;
+	public Drawable IconD = activities.AsteroidTrackerActivity.drawable;
 //	private int averageAU = 149598000;
 	private int averageAU = 149597870;
 	private String AlertMessage="";
