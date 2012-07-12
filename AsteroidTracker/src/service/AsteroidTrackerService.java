@@ -2,13 +2,13 @@ package service;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import utils.getHTTP;
+import utils.HttpUtil;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import domains.nasa_neo;
-import domains.nasa_neoImpactEntity;
-import domains.newsEntity;
+import domains.NearEarthObject;
+import domains.Impact;
+import domains.News;
 
 
 public class AsteroidTrackerService {
@@ -24,7 +24,7 @@ public class AsteroidTrackerService {
 	public static boolean IsGitServiceAvailable(){
 		Log.i("gitservice", "IsGitServiceAvailable");
 //		String data = getHTTP.get(useServiceUri).trim();
-		if (getHTTP.get(useServiceUri).trim().equals("true")){
+		if (HttpUtil.get(useServiceUri).trim().equals("true")){
 			Log.i("gitservice", "IsGitServiceAvailable: "+ true);
 			return true;
 		}else {
@@ -33,35 +33,35 @@ public class AsteroidTrackerService {
 		}
 	}
 	
-	public static ArrayList<nasa_neo> getRecentList(){
+	public static ArrayList<NearEarthObject> getRecentList(){
 		Log.i("gitservice", "getRecentList");
-		Type collectionType = new TypeToken<ArrayList<nasa_neo>>(){}.getType();
-		return gson.fromJson(getHTTP.get(URIRecent), collectionType);
+		Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
+		return gson.fromJson(HttpUtil.get(URIRecent), collectionType);
 //		 ArrayList test = new ArrayList();
 //		return test;
 	}
-	public static ArrayList<nasa_neo> getUpcomingList(){
+	public static ArrayList<NearEarthObject> getUpcomingList(){
 		Log.i("gitservice", "getUpcomingList");
-		Type collectionType = new TypeToken<ArrayList<nasa_neo>>(){}.getType();
-		return gson.fromJson(getHTTP.get(URIUpcoming), collectionType);
+		Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
+		return gson.fromJson(HttpUtil.get(URIUpcoming), collectionType);
 //		 ArrayList test = new ArrayList();
 //			return test;
 	}
 	
-	public static ArrayList<newsEntity> getLatestNews(){
+	public static ArrayList<News> getLatestNews(){
 		Log.i("gitservice", "getLatestNews");
-		Type collectionType = new TypeToken<ArrayList<newsEntity>>(){}.getType();
+		Type collectionType = new TypeToken<ArrayList<News>>(){}.getType();
 //		return gson.fromJson(getHTTP.get(URINews), collectionType);
-		ArrayList<newsEntity> newslist = gson.fromJson(getHTTP.get(URINews), collectionType);
+		ArrayList<News> newslist = gson.fromJson(HttpUtil.get(URINews), collectionType);
 		for(int i = 0; i < newslist.size(); i++){
 			newslist.get(i).updateImageURLDrawable();
 		}
 		return newslist;
 	}
 	
-	public static ArrayList<nasa_neoImpactEntity> getImpactData(){
+	public static ArrayList<Impact> getImpactData(){
 		Log.i("gitservice", "getImpactData");
-		Type collectionType = new TypeToken<ArrayList<nasa_neoImpactEntity>>(){}.getType();
-		return gson.fromJson(getHTTP.get(URIImpact), collectionType);
+		Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
+		return gson.fromJson(HttpUtil.get(URIImpact), collectionType);
 	}
 }

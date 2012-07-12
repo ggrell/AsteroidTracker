@@ -5,39 +5,39 @@ import java.util.List;
 
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
-import domains.nasa_neo;
-import domains.nasa_neoImpactEntity;
-import domains.newsEntity;
+import domains.NearEarthObject;
+import domains.Impact;
+import domains.News;
 
 import activities.AsteroidTrackerActivity;
-import adapters.asteroidNewsAdapter;
-import adapters.nasa_neoArrayAdapter;
-import adapters.nasa_neoImpactAdapter;
+import adapters.NewsAdapter;
+import adapters.NearEarthObjectAdapter;
+import adapters.ImpactAdapter;
 import android.content.Context;
 import android.util.Log;
 
 public class ContentManager {
 
-		public static nasa_neoArrayAdapter adapter_RECENT; 
-		public static nasa_neoArrayAdapter adapter_UPCOMING; 
-		public static nasa_neoImpactAdapter adapter_IMPACT;
-		public static asteroidNewsAdapter adapter_NEWS;
-		public static List<nasa_neo> List_NASA_RECENT;
-		public static List<nasa_neo> List_NASA_UPCOMING;
-		public static List<nasa_neoImpactEntity> List_NASA_IMPACT;
-		public static List<newsEntity> List_NASA_News;
+		public static NearEarthObjectAdapter adapter_RECENT; 
+		public static NearEarthObjectAdapter adapter_UPCOMING; 
+		public static ImpactAdapter adapter_IMPACT;
+		public static NewsAdapter adapter_NEWS;
+		public static List<NearEarthObject> List_NASA_RECENT;
+		public static List<NearEarthObject> List_NASA_UPCOMING;
+		public static List<Impact> List_NASA_IMPACT;
+		public static List<News> List_NASA_News;
 
 	    public static void LoadAdapters_NEO_Recent(Context ctext){
-	    	adapter_RECENT = new nasa_neoArrayAdapter(ctext, R.layout.nasa_neolistview, List_NASA_RECENT, "RECENT");
+	    	adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, List_NASA_RECENT, "RECENT");
     	}
 	    public static void LoadAdapters_NEO_Upcoming(Context ctext){
-	    	adapter_UPCOMING = new nasa_neoArrayAdapter(ctext, R.layout.nasa_neolistview, List_NASA_UPCOMING, "UPCOMING");
+	    	adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, List_NASA_UPCOMING, "UPCOMING");
     	}
 	    public static void LoadAdapters_NEO_News(Context ctext){
-	    	adapter_NEWS = new asteroidNewsAdapter(ctext, R.layout.jpl_asteroid_news, List_NASA_News);
+	    	adapter_NEWS = new NewsAdapter(ctext, R.layout.jpl_asteroid_news, List_NASA_News);
 	    }
 	    public static void LoadAdapters_NEO_Impact(Context ctext){
-	    	adapter_IMPACT = new nasa_neoImpactAdapter(ctext, R.layout.nasa_neo_impact_listview, List_NASA_IMPACT);
+	    	adapter_IMPACT = new ImpactAdapter(ctext, R.layout.nasa_neo_impact_listview, List_NASA_IMPACT);
 	    }
 	    
 	    public ArrayList ParseNewsFeed(){

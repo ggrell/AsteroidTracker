@@ -23,9 +23,9 @@ import utils.common;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import domains.Nasa_neoEntityDeprecated;
-import domains.nasa_neo;
-import domains.nasa_neoImpactEntity;
-import domains.newsEntity;
+import domains.NearEarthObject;
+import domains.Impact;
+import domains.News;
 
 import activities.AsteroidTrackerActivity;
 import android.app.Activity;
@@ -96,16 +96,16 @@ public class neoAstroidFeed {
 }
 	
 	public List getRecentList(String DATA){
-		ArrayList<nasa_neo> NEO_RECENTList = parseDATA(DATA, RECENT_baseSearchString, RECENT_endSearchString, "recent");
+		ArrayList<NearEarthObject> NEO_RECENTList = parseDATA(DATA, RECENT_baseSearchString, RECENT_endSearchString, "recent");
 		return NEO_RECENTList;		
 	}
 		
 	public List getUpcomingList(String DATA){
-		ArrayList<nasa_neo> NEO_UPCOMINGList = parseDATA(DATA, UPCOMING_baseSearchString, UPCOMING_endSearchString, "upcoming");
+		ArrayList<NearEarthObject> NEO_UPCOMINGList = parseDATA(DATA, UPCOMING_baseSearchString, UPCOMING_endSearchString, "upcoming");
 		return NEO_UPCOMINGList;		
 	}
 	public List getImpactList(String DATA){
-		ArrayList<nasa_neoImpactEntity> NEO_UPCOMINGList = parseImpactDATA(DATA, "Recently Observed Objects", "Objects Not Recently Observed", "impact");
+		ArrayList<Impact> NEO_UPCOMINGList = parseImpactDATA(DATA, "Recently Observed Objects", "Objects Not Recently Observed", "impact");
 		return NEO_UPCOMINGList;		
 	}
 
@@ -124,11 +124,11 @@ public class neoAstroidFeed {
 		return rowIndex;
 		}
 	
-	public ArrayList<nasa_neo> parseDATA(String data, String startingPoint, String endingPoint, String type){
-		ArrayList<nasa_neo> nasaNeoList = new ArrayList<nasa_neo>();
-		ArrayList<nasa_neo> nasaNeoList_SortingList = new ArrayList<nasa_neo>();
+	public ArrayList<NearEarthObject> parseDATA(String data, String startingPoint, String endingPoint, String type){
+		ArrayList<NearEarthObject> nasaNeoList = new ArrayList<NearEarthObject>();
+		ArrayList<NearEarthObject> nasaNeoList_SortingList = new ArrayList<NearEarthObject>();
 		if(data == null || data.length() == 0){
-			nasa_neo astroid = new nasa_neo();
+			NearEarthObject astroid = new NearEarthObject();
 			astroid.setName("Unable to retrieve Asteroid feed");
 			nasaNeoList.add(astroid);
 		}else{
@@ -150,7 +150,7 @@ public class neoAstroidFeed {
 			ArrayList<String> URL = xmlParser.getXpath(XPATH_URL);
 			ArrayList<String> name = xmlParser.getXpath(XPATH_NAME);
 			ArrayList<String> Data = xmlParser.getXpath(XPATH_DATA);
-			nasa_neo astroid = new nasa_neo();
+			NearEarthObject astroid = new NearEarthObject();
 			for(int loop = 0; loop < URL.size(); loop++){
 				astroid.setURL(URL.get(loop).toString().trim());
 //				Log.i("neo", "DATA: "+name.get(loop).toString().trim());
@@ -188,12 +188,12 @@ public class neoAstroidFeed {
 	}
 
 
-	public ArrayList<nasa_neoImpactEntity> parseImpactDATA(String data, String startingPoint, String endingPoint, String type){
-		ArrayList<nasa_neoImpactEntity> nasaNeoList = new ArrayList<nasa_neoImpactEntity>();
+	public ArrayList<Impact> parseImpactDATA(String data, String startingPoint, String endingPoint, String type){
+		ArrayList<Impact> nasaNeoList = new ArrayList<Impact>();
 
 		if(data == null || data.length() == 0){
 //			Log.e("parsedata", "IM EMPTY");
-			nasa_neoImpactEntity astroid = new nasa_neoImpactEntity();
+			Impact astroid = new Impact();
 			astroid.setName("Unable to retrieve Asteroid feed");
 			nasaNeoList.add(astroid);
 		}else{
@@ -225,7 +225,7 @@ public class neoAstroidFeed {
 			ArrayList<String> name = xmlParser.getXpath(XPATH_IMPACT_NAME);
 			ArrayList<String> Data = xmlParser.getXpath(XPATH_IMPACT_DATA);
 			ArrayList<String> IMPACTPROB = xmlParser.getXpath(XPATH_IMPACT_IMPACTPROBABILITY);
-			nasa_neoImpactEntity asteroidImpact = new nasa_neoImpactEntity();
+			Impact asteroidImpact = new Impact();
 //				Log.i("parsedata", "DATA  DataSIZE: "+ Data.size());
 //				Log.i("parsedata", "NAME  DataSIZE: "+ name.size());
 //				Log.i("parsedata", "IMPACTPROB  DataSIZE: "+ IMPACTPROB.size());			
@@ -258,7 +258,7 @@ public class neoAstroidFeed {
 		return nasaNeoList;
 }
 
-	public ArrayList<newsEntity> parseNewsFeed(String data){
+	public ArrayList<News> parseNewsFeed(String data){
 		Log.i("news", "data2"+data);
 		XmlParser xmlParser = new XmlParser(data);
 		return xmlParser.getXpath_getNewsItem();

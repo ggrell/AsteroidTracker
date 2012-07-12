@@ -1,8 +1,8 @@
 package activities;
 
-import adapters.asteroidNewsAdapter;
-import adapters.nasa_neoArrayAdapter;
-import adapters.nasa_neoImpactAdapter;
+import adapters.NewsAdapter;
+import adapters.NearEarthObjectAdapter;
+import adapters.ImpactAdapter;
 import android.net.Uri;
 import android.os.Bundle;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import com.vitruviussoftware.bunifish.asteroidtracker.R.drawable;
 import com.vitruviussoftware.bunifish.asteroidtracker.R.id;
 import com.vitruviussoftware.bunifish.asteroidtracker.R.layout;
 import com.vitruviussoftware.bunifish.asteroidtracker.R.menu;
-import domains.nasa_neo;
-import domains.nasa_neoImpactEntity;
-import domains.newsEntity;
-import android.annotation.SuppressLint;
+import domains.NearEarthObject;
+import domains.Impact;
+import domains.News;
+//import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -43,14 +43,14 @@ import android.widget.TabHost.TabSpec;
 
 public class AsteroidTrackerActivity extends ListActivity {
 
-	static nasa_neoArrayAdapter adapter_RECENT; 
-	static nasa_neoArrayAdapter adapter_UPCOMING; 
-	static nasa_neoImpactAdapter adapter_IMPACT;
-	static asteroidNewsAdapter adapter_NEWS;
-	public static List<nasa_neo> List_NASA_RECENT;
-	public static List<nasa_neo> List_NASA_UPCOMING;
-	public static List<nasa_neoImpactEntity> List_NASA_IMPACT;
-	public static List<newsEntity> List_NASA_News;
+	static NearEarthObjectAdapter adapter_RECENT; 
+	static NearEarthObjectAdapter adapter_UPCOMING; 
+	static ImpactAdapter adapter_IMPACT;
+	static NewsAdapter adapter_NEWS;
+	public static List<NearEarthObject> List_NASA_RECENT;
+	public static List<NearEarthObject> List_NASA_UPCOMING;
+	public static List<Impact> List_NASA_IMPACT;
+	public static List<News> List_NASA_News;
 	ListView ls1_ListView_Recent;
 	ListView ls2_ListView_Upcoming;
 	ListView ls3_ListView_Impact;
@@ -71,8 +71,6 @@ public class AsteroidTrackerActivity extends ListActivity {
 	//	callNotifyService(setupNotificationMessage("", ""));
 	boolean UseGitService;
 	
-//	long startTime;
-//	long endTime;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -118,9 +116,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     public void processFeeds(){
     	UseGitService = AsteroidTrackerService.IsGitServiceAvailable();
-//    	progressDialog();
     	LoadingDialogHelper.progressDialog(this);
-//      startTime = System.currentTimeMillis();
     	tabHost.setCurrentTab(0);
     	processImpactFeed();
 //		processNEOFeed();
@@ -189,7 +185,6 @@ public class AsteroidTrackerActivity extends ListActivity {
 		}};
 		checkUpdate.start();
 		}
-
     
     public void processNEOFeedUpcoming(){
 		Thread checkUpdate = new Thread() {
@@ -248,7 +243,6 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     public void processAsteroidNewsFeed(){
 		Thread NewsUpdate = new Thread() {
-			@SuppressLint("ParserError")
 			public void run() {
 				if(UseGitService){
 					ContentManager.List_NASA_News = AsteroidTrackerService.getLatestNews();
@@ -286,20 +280,20 @@ public class AsteroidTrackerActivity extends ListActivity {
     }
     
     public void LoadAdapters_NEO_RECENT(ArrayList list){
-    	AsteroidTrackerActivity.this.adapter_RECENT = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, list, "RECENT");    
+    	AsteroidTrackerActivity.this.adapter_RECENT = new NearEarthObjectAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, list, "RECENT");    
     }
     public void LoadAdapters_NEO_Upcoming(ArrayList list){
-     	AsteroidTrackerActivity.this.adapter_UPCOMING = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, list, "UPCOMING");
+     	AsteroidTrackerActivity.this.adapter_UPCOMING = new NearEarthObjectAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, list, "UPCOMING");
     }
     public void LoadAdapters_NEO(){
-    	AsteroidTrackerActivity.this.adapter_RECENT = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_RECENT, "RECENT");
-    	AsteroidTrackerActivity.this.adapter_UPCOMING = new nasa_neoArrayAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_UPCOMING, "UPCOMING");
+    	AsteroidTrackerActivity.this.adapter_RECENT = new NearEarthObjectAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_RECENT, "RECENT");
+    	AsteroidTrackerActivity.this.adapter_UPCOMING = new NearEarthObjectAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_UPCOMING, "UPCOMING");
     }
     public void LoadAdapters_IMPACT(){
-    	AsteroidTrackerActivity.this.adapter_IMPACT = new nasa_neoImpactAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neo_impact_listview, AsteroidTrackerActivity.List_NASA_IMPACT);
+    	AsteroidTrackerActivity.this.adapter_IMPACT = new ImpactAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neo_impact_listview, AsteroidTrackerActivity.List_NASA_IMPACT);
     }
     public void LoadAdapters_NEWS(){
-		AsteroidTrackerActivity.this.adapter_NEWS = new asteroidNewsAdapter(AsteroidTrackerActivity.this, R.layout.jpl_asteroid_news, AsteroidTrackerActivity.List_NASA_News);
+		AsteroidTrackerActivity.this.adapter_NEWS = new NewsAdapter(AsteroidTrackerActivity.this, R.layout.jpl_asteroid_news, AsteroidTrackerActivity.List_NASA_News);
     }
     
    
@@ -341,7 +335,6 @@ public class AsteroidTrackerActivity extends ListActivity {
    	        }       
    	    });	
     }
- 
     
     public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -368,15 +361,15 @@ public class AsteroidTrackerActivity extends ListActivity {
 }
 
 	public void openAbout() {
-		Intent i = new Intent(AsteroidTrackerActivity.this, about.class);
+		Intent i = new Intent(AsteroidTrackerActivity.this, About.class);
         startActivity(i);	
        }
 	
 	public void checkAlerts(){
-		Iterator<nasa_neo> iterator = List_NASA_UPCOMING.iterator();
+		Iterator<NearEarthObject> iterator = List_NASA_UPCOMING.iterator();
 //		nasa_neo ntest = List_NASA_UPCOMING.get(0);
 		while (iterator.hasNext()) {
-			nasa_neo ntest = iterator.next();
+			NearEarthObject ntest = iterator.next();
 //			Log.v("UPCOMING", "ALERT TEST");
 //			Log.v("UPCOMING", ntest.getAlertMSG());
 			if(ntest.getAlertMSG() != ""){
@@ -406,7 +399,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 	public OnItemClickListener ImpactRiskClickListener = new OnItemClickListener() {
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
 		    Object object = AsteroidTrackerActivity.this.ls3_ListView_Impact.getAdapter().getItem(position);	
-		    nasa_neoImpactEntity asteroidEntity = (nasa_neoImpactEntity) object;
+		    Impact asteroidEntity = (Impact) object;
 		    Intent openArticleView = new Intent(AsteroidTrackerActivity.this, activities.ImpactRiskDetailView.class);
 			Log.i("track", Integer.toString(position));
 		    openArticleView.putExtra("position", position);
@@ -417,7 +410,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 	public OnItemClickListener Asteroid_NewsArticle_ClickListener = new OnItemClickListener() {
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
 		    Object object = AsteroidTrackerActivity.this.ls4_ListView_News.getAdapter().getItem(position);	
-		    newsEntity asteroidEntity = (newsEntity) object;
+		    News asteroidEntity = (News) object;
 		    Intent i = new Intent(Intent.ACTION_VIEW);
 			i.setData(Uri.parse(asteroidEntity.artcileUrl));
 			startActivity(i);

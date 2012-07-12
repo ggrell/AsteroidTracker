@@ -7,9 +7,9 @@ import service.neoAstroidFeed;
 
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
-import domains.nasa_neoImpactEntity;
+import domains.Impact;
 
-import adapters.impactRisk_DetailAdapter;
+import adapters.ImpactRiskDetailAdapter;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -41,9 +41,9 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
 	TextView torino_scale;
 	TextView palermo_scale;
 	ListView ls1;
-	static impactRisk_DetailAdapter adapter_IMPACTRisk_DetailView;
-	nasa_neoImpactEntity asteroid =  new nasa_neoImpactEntity();
-	ArrayList<nasa_neoImpactEntity> NASA_IMPACT_DetailPage = new ArrayList();
+	static ImpactRiskDetailAdapter adapter_IMPACTRisk_DetailView;
+	Impact asteroid =  new Impact();
+	ArrayList<Impact> NASA_IMPACT_DetailPage = new ArrayList();
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,7 +66,7 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
     			Artclehandler.sendEmptyMessage(0);
     			ImpactRiskDetailView.this.runOnUiThread(new Runnable() {
     	               public void run() {
-    	               	adapter_IMPACTRisk_DetailView = new impactRisk_DetailAdapter(ImpactRiskDetailView.this, R.layout.impactrisk_detail_view, NASA_IMPACT_DetailPage);
+    	               	adapter_IMPACTRisk_DetailView = new ImpactRiskDetailAdapter(ImpactRiskDetailView.this, R.layout.impactrisk_detail_view, NASA_IMPACT_DetailPage);
     	               	setListAdapter(ImpactRiskDetailView.this.adapter_IMPACTRisk_DetailView);
     	               }
     	           });
@@ -112,7 +112,7 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
 }
 	
 	public void openAbout() {
-		Intent i = new Intent(ImpactRiskDetailView.this, about.class);
+		Intent i = new Intent(ImpactRiskDetailView.this, About.class);
         startActivity(i);	
        }
 

@@ -28,7 +28,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import domains.newsEntity;
+import domains.News;
 import android.util.Log;
 import android.graphics.drawable.Drawable;
 
@@ -139,14 +139,14 @@ public class XmlParser {
 		return entityCount;
 	}
 
-    public ArrayList<newsEntity> getXpath_getNewsItem() {
+    public ArrayList<News> getXpath_getNewsItem() {
     		Log.i("news", "Getting xpath stuff");
-    		ArrayList<newsEntity> newsList = new ArrayList<newsEntity>();
+    		ArrayList<News> newsList = new ArrayList<News>();
     		try {
     		    NodeList nodes = doc.getElementsByTagName("item");
     		    Log.i("news", "Getting xpath getLength "+nodes.getLength());
     			  for (int i = 0; i < nodes.getLength(); i++) {
-    				  newsEntity JPLEntity = new newsEntity();
+    				  News JPLEntity = new News();
     			      Element element = (Element) nodes.item(i);
     			      NodeList title = element.getElementsByTagName("title");
     			      NodeList description = element.getElementsByTagName("description");

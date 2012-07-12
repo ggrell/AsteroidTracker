@@ -20,19 +20,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 @SuppressWarnings("rawtypes")
-public class aboutAdapter extends ArrayAdapter {
+public class AboutAdapter extends ArrayAdapter {
 	private static LayoutInflater inflater = null;
 	private int resourceId;
 	List dataObject;
 	private Integer[] imgid = {R.drawable.androidmarker, R.drawable.blue_pin, R.drawable.asteroid};
 	
 	@SuppressWarnings("unchecked")
-	public aboutAdapter(Context context, int textViewResourceId, List objects) {
+	public AboutAdapter(Context context, int textViewResourceId, List objects) {
 		super(context, textViewResourceId, objects);
 		resourceId = textViewResourceId;
 	}
 
-	public aboutAdapter(Context context, int textViewResourceId) {
+	public AboutAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId);
 		resourceId = textViewResourceId;
 	}

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import com.vitruviussoftware.bunifish.asteroidtracker.R.layout;
 
-import domains.aboutEntity;
-import domains.nasa_neoImpactEntity;
-import adapters.aboutAdapter;
-import adapters.impactRisk_DetailAdapter;
+import domains.AboutAsteroidTracker;
+import domains.Impact;
+import adapters.AboutAdapter;
+import adapters.ImpactRiskDetailAdapter;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -26,16 +26,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class about extends ListActivity {
+public class About extends ListActivity {
 
 	public static Drawable drawableAbout;
-	static aboutAdapter AboutDapter;
-	ArrayList<aboutEntity> aboutEntityList = new ArrayList();
+	static AboutAdapter AboutDapter;
+	ArrayList<AboutAsteroidTracker> aboutEntityList = new ArrayList();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle("AsteroidWatch About");
-		aboutEntity about = new aboutEntity();
+		AboutAsteroidTracker about = new AboutAsteroidTracker();
 		aboutEntityList.add(about);
 
 		final ProgressDialog ArtcleDialog = ProgressDialog.show(this, "","", true);
@@ -47,10 +47,10 @@ public class about extends ListActivity {
     	Thread checkUpdate = new Thread() {
     		public void run() {
     			Artclehandler.sendEmptyMessage(0);
-    			about.this.runOnUiThread(new Runnable() {
+    			About.this.runOnUiThread(new Runnable() {
     	               public void run() {
-    	           		AboutDapter = new aboutAdapter(about.this, R.layout.about_main, aboutEntityList);
-    	               	setListAdapter(about.this.AboutDapter);
+    	           		AboutDapter = new AboutAdapter(About.this, R.layout.about_main, aboutEntityList);
+    	               	setListAdapter(About.this.AboutDapter);
     	               }
     	           });
     		}
