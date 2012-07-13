@@ -43,14 +43,6 @@ import android.widget.TabHost.TabSpec;
 
 public class AsteroidTrackerActivity extends ListActivity {
 
-	static NearEarthObjectAdapter adapter_RECENT; 
-	static NearEarthObjectAdapter adapter_UPCOMING; 
-	static ImpactAdapter adapter_IMPACT;
-	static NewsAdapter adapter_NEWS;
-	public static List<NearEarthObject> List_NASA_RECENT;
-	public static List<NearEarthObject> List_NASA_UPCOMING;
-	public static List<Impact> List_NASA_IMPACT;
-	public static List<News> List_NASA_News;
 	ListView ls1_ListView_Recent;
 	ListView ls2_ListView_Upcoming;
 	ListView ls3_ListView_Impact;
@@ -62,14 +54,13 @@ public class AsteroidTrackerActivity extends ListActivity {
 	TabSpec TabSpec2_Upcoming;
 	TabSpec TabSpec3_Impact;
 	TabSpec TabSpec4_News;
-	static neoAstroidFeed neo_AstroidFeed = new neoAstroidFeed();
 	public static boolean refresh = false;
-	ProgressDialog dialog;
-	Handler handler;
 	int closeDialog = 0;
-	NotificationManager mNotificationManager;
-	//	callNotifyService(setupNotificationMessage("", ""));
 	boolean UseGitService;
+	Handler handler;
+	ProgressDialog dialog;
+    NotificationManager mNotificationManager;
+    public static ContentManager contentManager = new ContentManager();
 	
 	/** Called when the activity is first created. */
     @Override
@@ -132,17 +123,17 @@ public class AsteroidTrackerActivity extends ListActivity {
 				Log.i("gitservice", "processNEOFeed");
 				if(AsteroidTrackerService.IsGitServiceAvailable()){
 					Log.i("gitservice", "Start main dl");
-					ContentManager.List_NASA_RECENT = AsteroidTrackerService.getRecentList();
-					ContentManager.List_NASA_UPCOMING = AsteroidTrackerService.getUpcomingList();
-					ContentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
-					ContentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
+					contentManager.List_NASA_RECENT = AsteroidTrackerService.getRecentList();
+					contentManager.List_NASA_UPCOMING = AsteroidTrackerService.getUpcomingList();
+					contentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
+					contentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
 					Log.i("gitservice", "dl done");
 				} else{
 						if(!refresh){
-							String HTTPDATA =  AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_NASA_NEO);
-							loadEntityLists_NEO(HTTPDATA);
+							String HTTPDATA =  contentManager.neo_AstroidFeed.getAstroidFeedDATA(contentManager.neo_AstroidFeed.URL_NASA_NEO);
+							contentManager.loadEntityLists_NEO(HTTPDATA);
 						}
-						LoadAdapters_NEO();
+//						contentManager.LoadAdapters_NEO();
 						refresh = true;
 					}
 				AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
@@ -163,8 +154,8 @@ public class AsteroidTrackerActivity extends ListActivity {
 		public void run() {
 			Log.i("gitservice", "processNEOFeed");
 			if(UseGitService){
-				ContentManager.List_NASA_RECENT = AsteroidTrackerService.getRecentList();
-				ContentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
+			    contentManager.List_NASA_RECENT = AsteroidTrackerService.getRecentList();
+			    contentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
 			} else{
 //					if(!refresh){
 //						String HTTPDATA =  AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_NASA_NEO);
@@ -191,8 +182,8 @@ public class AsteroidTrackerActivity extends ListActivity {
 		public void run() {
 			Log.i("gitservice", "processNEOFeedUpcoming");
 			if(UseGitService){
-				ContentManager.List_NASA_UPCOMING = AsteroidTrackerService.getUpcomingList();
-				ContentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
+			    contentManager.List_NASA_UPCOMING = AsteroidTrackerService.getUpcomingList();
+			    contentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
 			} else{
 //					if(!refresh){
 //						String HTTPDATA =  AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_NASA_NEO);
@@ -218,8 +209,8 @@ public class AsteroidTrackerActivity extends ListActivity {
 		Thread ImpactUpdate = new Thread() {
 			public void run() {	
 				if(UseGitService){
-					ContentManager.List_NASA_IMPACT = AsteroidTrackerService.getImpactData();
-					ContentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
+				    contentManager.List_NASA_IMPACT = AsteroidTrackerService.getImpactData();
+				    contentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
 				} else{
 //					if(!refresh){
 //						String HTTP_IMPACT_DATA =  AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_NASA_NEO_IMPACT_FEED);
@@ -245,8 +236,8 @@ public class AsteroidTrackerActivity extends ListActivity {
 		Thread NewsUpdate = new Thread() {
 			public void run() {
 				if(UseGitService){
-					ContentManager.List_NASA_News = AsteroidTrackerService.getLatestNews();
-					ContentManager.LoadAdapters_NEO_News(AsteroidTrackerActivity.this);
+				    contentManager.List_NASA_News = AsteroidTrackerService.getLatestNews();
+				    contentManager.LoadAdapters_NEO_News(AsteroidTrackerActivity.this);
 				} else{	 
 //					if(!refresh){
 //						String HTTP_NEWS_DATA = AsteroidTrackerActivity.neo_AstroidFeed.getAstroidFeedDATA(AsteroidTrackerActivity.neo_AstroidFeed.URL_JPL_AsteroidNewsFeed);
@@ -269,34 +260,18 @@ public class AsteroidTrackerActivity extends ListActivity {
     }
 
     public void loadEntityLists_NEO(String HTTPDATA){
-	  	AsteroidTrackerActivity.List_NASA_RECENT = AsteroidTrackerActivity.neo_AstroidFeed.getRecentList(HTTPDATA);
-    	AsteroidTrackerActivity.List_NASA_UPCOMING = AsteroidTrackerActivity.neo_AstroidFeed.getUpcomingList(HTTPDATA);
+        contentManager.List_NASA_RECENT = contentManager.neo_AstroidFeed.getRecentList(HTTPDATA);
+        contentManager.List_NASA_UPCOMING = contentManager.neo_AstroidFeed.getUpcomingList(HTTPDATA);
     }
+    
     public void loadEntityLists_IMPACT(String HTTPDATA){
-    	AsteroidTrackerActivity.List_NASA_IMPACT = AsteroidTrackerActivity.neo_AstroidFeed.getImpactList(HTTPDATA);
+        contentManager.List_NASA_IMPACT = contentManager.neo_AstroidFeed.getImpactList(HTTPDATA);
     }
+    
     public void loadEntityLists_NEWS(String HTTPDATA){
-    	AsteroidTrackerActivity.List_NASA_News = AsteroidTrackerActivity.neo_AstroidFeed.parseNewsFeed(HTTPDATA);
+        contentManager.List_NASA_News = contentManager.neo_AstroidFeed.parseNewsFeed(HTTPDATA);
     }
-    
-    public void LoadAdapters_NEO_RECENT(ArrayList list){
-    	AsteroidTrackerActivity.this.adapter_RECENT = new NearEarthObjectAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, list, "RECENT");    
-    }
-    public void LoadAdapters_NEO_Upcoming(ArrayList list){
-     	AsteroidTrackerActivity.this.adapter_UPCOMING = new NearEarthObjectAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, list, "UPCOMING");
-    }
-    public void LoadAdapters_NEO(){
-    	AsteroidTrackerActivity.this.adapter_RECENT = new NearEarthObjectAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_RECENT, "RECENT");
-    	AsteroidTrackerActivity.this.adapter_UPCOMING = new NearEarthObjectAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neolistview, AsteroidTrackerActivity.List_NASA_UPCOMING, "UPCOMING");
-    }
-    public void LoadAdapters_IMPACT(){
-    	AsteroidTrackerActivity.this.adapter_IMPACT = new ImpactAdapter(AsteroidTrackerActivity.this, R.layout.nasa_neo_impact_listview, AsteroidTrackerActivity.List_NASA_IMPACT);
-    }
-    public void LoadAdapters_NEWS(){
-		AsteroidTrackerActivity.this.adapter_NEWS = new NewsAdapter(AsteroidTrackerActivity.this, R.layout.jpl_asteroid_news, AsteroidTrackerActivity.List_NASA_News);
-    }
-    
-   
+       
     public void SetAdapters_NEO(){
     	setListAdapter(ContentManager.adapter_RECENT);
 //    		spec1.setContent(new TabHost.TabContentFactory(){
@@ -315,6 +290,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 		    });
 //    		checkAlerts();
     }
+    
     public void SetAdapters_IMPACT(){
     	TabSpec3_Impact.setContent(new TabHost.TabContentFactory(){
 	        public View createTabContent(String tag)
@@ -325,6 +301,7 @@ public class AsteroidTrackerActivity extends ListActivity {
 	        }       
 	    });	
     }
+    
     public void SetAdapters_NEWS(){
     	TabSpec4_News.setContent(new TabHost.TabContentFactory(){
    	        public View createTabContent(String tag)
@@ -366,7 +343,7 @@ public class AsteroidTrackerActivity extends ListActivity {
        }
 	
 	public void checkAlerts(){
-		Iterator<NearEarthObject> iterator = List_NASA_UPCOMING.iterator();
+		Iterator<NearEarthObject> iterator = contentManager.List_NASA_UPCOMING.iterator();
 //		nasa_neo ntest = List_NASA_UPCOMING.get(0);
 		while (iterator.hasNext()) {
 			NearEarthObject ntest = iterator.next();

@@ -84,7 +84,7 @@ public class ImpactAdapter extends ArrayAdapter {
 			}else{
 				holder.title.setText("Name: "+entityObject.getName());
 				holder.yearRange.setText("Year-Range: "+entityObject.getYearRange());
-				holder.Icon.setImageDrawable(entityObject.getIcon());
+				holder.Icon.setImageDrawable(entityObject.IconD);
 			}
 		}
 		return vi;
