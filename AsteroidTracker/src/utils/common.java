@@ -7,15 +7,17 @@ public class common {
 	
 	public static XmlParser getXMLData(String URL_FEED) {
 		Log.i("HTTP", "Getting Data");
-		String data = HttpUtil.get(URL_FEED);
+//		String data = HttpUtil.get(URL_FEED);
 //		Log.i("HTTP", Integer.toString(data.length()));
 //		Log.i("HTTP", data);
-		return new XmlParser(data);
+//		return new XmlParser(data);
+      return new XmlParser("");
 	}
 	
 	public static String getHTTPData(String URL_FEED){
 		Log.i("HTTP", "Getting Data");
-		return HttpUtil.get(URL_FEED);
+//		return HttpUtil.get(URL_FEED);
+		return "";
 	}
 	
 }

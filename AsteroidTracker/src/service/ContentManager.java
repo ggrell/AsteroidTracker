@@ -18,10 +18,10 @@ import android.util.Log;
 
 public class ContentManager {
 
-		public static NearEarthObjectAdapter adapter_RECENT; 
-		public static NearEarthObjectAdapter adapter_UPCOMING; 
-		public static ImpactAdapter adapter_IMPACT;
-		public static NewsAdapter adapter_NEWS;
+		public NearEarthObjectAdapter adapter_RECENT; 
+		public NearEarthObjectAdapter adapter_UPCOMING; 
+		public ImpactAdapter adapter_IMPACT;
+		public NewsAdapter adapter_NEWS;
 		public List<NearEarthObject> List_NASA_RECENT;
 		public List<NearEarthObject> List_NASA_UPCOMING;
 		public List<Impact> List_NASA_IMPACT;
@@ -45,16 +45,16 @@ public class ContentManager {
 	    }
 	    
 	    public void loadEntityLists_NEO(String HTTPDATA){
-	        List_NASA_RECENT = this.neo_AstroidFeed.getRecentList(HTTPDATA);
-	        List_NASA_UPCOMING = this.neo_AstroidFeed.getUpcomingList(HTTPDATA);
+	        List_NASA_RECENT = neo_AstroidFeed.getRecentList(HTTPDATA);
+	        List_NASA_UPCOMING = neo_AstroidFeed.getUpcomingList(HTTPDATA);
 	    }
 	    
 	    public void loadEntityLists_IMPACT(String HTTPDATA){
-	        List_NASA_IMPACT = this.neo_AstroidFeed.getImpactList(HTTPDATA);
+	        List_NASA_IMPACT = neo_AstroidFeed.getImpactList(HTTPDATA);
 	    }
 	    
 	    public void loadEntityLists_NEWS(String HTTPDATA){
-	        this.List_NASA_News = this.neo_AstroidFeed.parseNewsFeed(HTTPDATA);
+	        this.List_NASA_News = neo_AstroidFeed.parseNewsFeed(HTTPDATA);
 	    }
 	    
 	    public ArrayList ParseNewsFeed(){
