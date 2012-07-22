@@ -35,20 +35,16 @@ public class AsteroidTrackerService {
     }
     
     public ArrayList<NearEarthObject> getRecentList(){
-//        Log.v("gitservice", "getRecentList");
         Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
         return gson.fromJson(HttpUtil.get(URIRecent), collectionType);
     }
     public ArrayList<NearEarthObject> getUpcomingList(){
-//        Log.v("gitservice", "getUpcomingList");
         Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
         return gson.fromJson(HttpUtil.get(URIUpcoming), collectionType);
     }
     
     public ArrayList<News> getLatestNews(){
-//        Log.v("gitservice", "getLatestNews");
         Type collectionType = new TypeToken<ArrayList<News>>(){}.getType();
-//        return gson.fromJson(getHTTP.get(URINews), collectionType);
         ArrayList<News> newslist = gson.fromJson(HttpUtil.get(URINews), collectionType);
         for(int i = 0; i < newslist.size(); i++){
             newslist.get(i).updateImageURLDrawable();
@@ -57,7 +53,6 @@ public class AsteroidTrackerService {
     }
     
     public ArrayList<Impact> getImpactData(){
-//        Log.i("gitservice", "getImpactData");
         Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
         return gson.fromJson(HttpUtil.get(URIImpact), collectionType);
     }

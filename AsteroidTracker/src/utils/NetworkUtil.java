@@ -11,9 +11,6 @@ public class NetworkUtil {
             Log.d("NetworkUtil", "Checking Network");
                 try {
                     ConnectivityManager connMgr = (ConnectivityManager) ctext.getSystemService(Context.CONNECTIVITY_SERVICE);
-//                   final android.net.NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-//                   final android.net.NetworkInfo mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-//                   Log.d("NetworkUtil", "Network isConnectedOrConnecting" + connMgr.getActiveNetworkInfo().isConnectedOrConnecting());
                     if(connMgr.getActiveNetworkInfo() == null){
                           Log.d("NetworkUtil", "getActiveNetworkInfo is null");
                           return IsNetworkAvailable;

@@ -91,7 +91,7 @@ public class XmlParser {
 			NodeList nodes = (NodeList) xpath.evaluate(Xpath, doc, XPathConstants.NODESET);
 //			Log.i("xpath", "NodeLength: " + nodes.getLength());
 			for (int i = 0; i < nodes.getLength(); i++) {
-				Log.i("xpath", "Nodes: " + nodes.item(i).getNodeValue());
+//				Log.i("xpath", "Nodes: " + nodes.item(i).getNodeValue());
 				arList.add(nodes.item(i).getNodeValue());
 			}
 		} catch (Exception e) {
@@ -115,7 +115,7 @@ public class XmlParser {
 				arList.add(nodes.item(i).getNodeValue());
 			}
 		} catch (Exception e) {
-			Log.i("xpath", "xpath Error multi");
+			Log.e("xpath", "xpath Error multi");
 		}
 		return arList;
 	}
@@ -134,17 +134,17 @@ public class XmlParser {
 				entityCount = nodes.item(0).getNodeValue();
 			}
 		} catch (Exception e) {
-			Log.i("xpath", "xpath Error");
+			Log.e("xpath", "xpath Error");
 		}
 		return entityCount;
 	}
 
     public ArrayList<News> getXpath_getNewsItem() {
-    		Log.i("news", "Getting xpath stuff");
+    		Log.d("news", "Getting xpath stuff");
     		ArrayList<News> newsList = new ArrayList<News>();
     		try {
     		    NodeList nodes = doc.getElementsByTagName("item");
-    		    Log.i("news", "Getting xpath getLength "+nodes.getLength());
+//    		    Log.i("news", "Getting xpath getLength "+nodes.getLength());
     			  for (int i = 0; i < nodes.getLength(); i++) {
     				  News JPLEntity = new News();
     			      Element element = (Element) nodes.item(i);
@@ -159,7 +159,7 @@ public class XmlParser {
     				  int imgEDX = descriptionSTR.indexOf(".jpg\"");
     				  String strDesc = descriptionSTR.substring(bIdx+12,eIdx);
     				  String imgURL = descriptionSTR.substring(imgIDX+9,imgEDX+4);
-    				  Log.i("news", "Getting xpath title: "+title.item(0).getTextContent().toString().trim());
+//    				  Log.i("news", "Getting xpath title: "+title.item(0).getTextContent().toString().trim());
     				  JPLEntity.title = title.item(0).getTextContent().toString().trim();
     				  JPLEntity.setPubDate(pubDate.item(0).getTextContent().toString().trim());
     				  JPLEntity.artcileUrl =  link.item(0).getTextContent().toString().trim();

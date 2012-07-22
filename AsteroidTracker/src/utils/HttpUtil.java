@@ -18,27 +18,8 @@ import org.apache.http.params.HttpParams;
 import android.util.Log;
 
 public class HttpUtil {
-    
-    public String test(String URL) {
-        HttpClient client = new DefaultHttpClient();
-        HttpGet request = new HttpGet(URL);
-        StringBuffer sb = new StringBuffer();
-        try {
-        HttpResponse response = client.execute(request);
-        BufferedReader rd = new BufferedReader
-            (new InputStreamReader(response.getEntity().getContent()));
-        String line = "";
-            while ((line = rd.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } 
-        return sb.toString();
-    }
-    
+
      public static String get(String URL) {
-//       Log.i("HTTPCLIENT", "Getting: "+URL);
        StringBuffer sb = new StringBuffer();
        HttpClient httpClient = new DefaultHttpClient();
        HttpGet request = new HttpGet(URL);
@@ -46,17 +27,14 @@ public class HttpUtil {
        params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, new Integer(2500));
        request.setParams(params);
        try {
-           long startTime = System.currentTimeMillis();
            HttpResponse response = httpClient.execute(request);
            int status = response.getStatusLine().getStatusCode();
-//           Log.i("HTTPCLIENT", "status: "+status);
            if (status != HttpStatus.SC_OK) {
-               Log.i("HTTPCLIENT", "HttpStatus isnt ok");
+               Log.d("HTTPCLIENT", "HttpStatus isnt ok");
                ByteArrayOutputStream ostream = new ByteArrayOutputStream();
                response.getEntity().writeTo(ostream);
-               Log.i("HTTPCLIENT", "sb: "+response.getEntity().getContent().toString());
+               Log.d("HTTPCLIENT", "sb: "+response.getEntity().getContent().toString());
            } else {
-//                Log.i("HTTPCLIENT", "HttpStatus is ok");
                InputStream content = response.getEntity().getContent();
                BufferedReader in = new BufferedReader(new InputStreamReader(content));
                String inputLine;
@@ -64,8 +42,9 @@ public class HttpUtil {
                    sb.append(inputLine);
                in.close();
                content.close(); // this will also close the connection
-               long elapsedTime = System.currentTimeMillis() - startTime;
-               Log.i("HTTPCLIENT", "Time URL: "+URL+", "+elapsedTime);
+//               long startTime = System.currentTimeMillis();
+//               long elapsedTime = System.currentTimeMillis() - startTime;
+//               Log.i("HTTPCLIENT", "Time URL: "+URL+", "+elapsedTime);
            }
        }catch (ConnectTimeoutException e ){
            Log.e("HTTPCLIENT", "Timeout");
@@ -78,7 +57,6 @@ public class HttpUtil {
            e.printStackTrace();
            return "Exception";
        }
-//       Log.i("HTTPCLIENT", "Done getting: "+URL);
        return sb.toString();
    }
 }
