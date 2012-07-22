@@ -25,8 +25,7 @@ public class AsteroidTrackerService {
     
     public boolean IsGitServiceAvailable(){
         Log.i("gitservice", "IsGitServiceAvailable");
-//        if (HttpUtil.get(useServiceUri).trim().equals("true")){
-        if (httputil.test(useServiceUri).trim().equals("true")){
+        if (HttpUtil.get(useServiceUri).trim().equals("true")){
             Log.i("gitservice", "IsGitServiceAvailable: "+ true);
             return true;
         }else {
@@ -36,24 +35,21 @@ public class AsteroidTrackerService {
     }
     
     public ArrayList<NearEarthObject> getRecentList(){
-        Log.i("gitservice", "getRecentList");
+//        Log.v("gitservice", "getRecentList");
         Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
-//        return gson.fromJson(HttpUtil.get(URIRecent), collectionType);
-          return gson.fromJson(httputil.test(URIRecent), collectionType);
+        return gson.fromJson(HttpUtil.get(URIRecent), collectionType);
     }
     public ArrayList<NearEarthObject> getUpcomingList(){
-        Log.i("gitservice", "getUpcomingList");
+//        Log.v("gitservice", "getUpcomingList");
         Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
-//        return gson.fromJson(HttpUtil.get(URIUpcoming), collectionType);
-        return gson.fromJson(httputil.test(URIUpcoming), collectionType);
+        return gson.fromJson(HttpUtil.get(URIUpcoming), collectionType);
     }
     
     public ArrayList<News> getLatestNews(){
-        Log.i("gitservice", "getLatestNews");
+//        Log.v("gitservice", "getLatestNews");
         Type collectionType = new TypeToken<ArrayList<News>>(){}.getType();
 //        return gson.fromJson(getHTTP.get(URINews), collectionType);
-//        ArrayList<News> newslist = gson.fromJson(HttpUtil.get(URINews), collectionType);
-        ArrayList<News> newslist = gson.fromJson(httputil.test(URINews), collectionType);
+        ArrayList<News> newslist = gson.fromJson(HttpUtil.get(URINews), collectionType);
         for(int i = 0; i < newslist.size(); i++){
             newslist.get(i).updateImageURLDrawable();
         }
@@ -61,9 +57,8 @@ public class AsteroidTrackerService {
     }
     
     public ArrayList<Impact> getImpactData(){
-        Log.i("gitservice", "getImpactData");
+//        Log.i("gitservice", "getImpactData");
         Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
-//        return gson.fromJson(HttpUtil.get(URIImpact), collectionType);
-        return gson.fromJson(httputil.test(URIImpact), collectionType);
+        return gson.fromJson(HttpUtil.get(URIImpact), collectionType);
     }
 }

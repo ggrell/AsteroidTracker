@@ -12,9 +12,9 @@ public class LoadingDialogHelper{
     public static int closeDialog = 0;
     public static int closeDialogLimit = 4;
     public static String messageTitle = "";
-    
-    public static void progressDialog(Context context){
-        dialog = ProgressDialog.show(context, "", "Checking Asteroid Service", true);
+
+    public static void progressDialog(Context context, String Title, String message){
+        dialog = ProgressDialog.show(context, Title, message, true);
         handler = new Handler() {
             public void handleMessage(Message msg) {
                 dialog.dismiss();}
@@ -29,6 +29,17 @@ public class LoadingDialogHelper{
         }
     
     public static void killDialog(){
+        closeDialog = closeDialogLimit;
+        handler.sendEmptyMessage(0);
+    }
+    
+    public static void waitAndKillDialog(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        closeDialog = closeDialogLimit;
         handler.sendEmptyMessage(0);
     }
     

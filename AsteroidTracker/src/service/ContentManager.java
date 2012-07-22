@@ -29,19 +29,31 @@ public class ContentManager {
 		public neoAstroidFeed neo_AstroidFeed = new neoAstroidFeed();
 		
 	    public void LoadAdapters_NEO_Recent(Context ctext){
+            long startTime = System.currentTimeMillis();
 	    	adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_RECENT, "RECENT");
+            long elapsedTime = System.currentTimeMillis() - startTime;
+	    	Log.v("ContentManager", "LoadAdapters_NEO_Recent done " + elapsedTime);
     	}
 	    
 	    public void LoadAdapters_NEO_Upcoming(Context ctext){
+            long startTime = System.currentTimeMillis();
 	    	adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_UPCOMING, "UPCOMING");
+            long elapsedTime = System.currentTimeMillis() - startTime;
+	          Log.v("ContentManager", "LoadAdapters_NEO_Upcoming done " + elapsedTime);
     	}
 	    
 	    public void LoadAdapters_NEO_News(Context ctext){
+            long startTime = System.currentTimeMillis();
 	    	adapter_NEWS = new NewsAdapter(ctext, R.layout.jpl_asteroid_news, this.List_NASA_News);
+            long elapsedTime = System.currentTimeMillis() - startTime;
+	         Log.v("ContentManager", "LoadAdapters_NEO_News done" + elapsedTime);
 	    }
 	    
 	    public void LoadAdapters_NEO_Impact(Context ctext){
+            long startTime = System.currentTimeMillis();
 	    	adapter_IMPACT = new ImpactAdapter(ctext, R.layout.nasa_neo_impact_listview, this.List_NASA_IMPACT);
+            long elapsedTime = System.currentTimeMillis() - startTime;
+	    	Log.v("ContentManager", "LoadAdapters_NEO_Impact done" + elapsedTime);
 	    }
 	    
 	    public void loadEntityLists_NEO(String HTTPDATA){
@@ -53,9 +65,9 @@ public class ContentManager {
 	        List_NASA_IMPACT = neo_AstroidFeed.getImpactList(HTTPDATA);
 	    }
 	    
-	    public void loadEntityLists_NEWS(String HTTPDATA){
-	        this.List_NASA_News = neo_AstroidFeed.parseNewsFeed(HTTPDATA);
-	    }
+//	    public void loadEntityLists_NEWS(String HTTPDATA){
+//	        List_NASA_News = neo_AstroidFeed.parseNewsFeed(HTTPDATA);
+//	    }
 	    
 	    public ArrayList ParseNewsFeed(){
 			return null;

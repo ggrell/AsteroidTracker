@@ -30,7 +30,7 @@ public class News {
 	public String description = "";
 	public String source = "";
 	public String pubDate;	
-	private Drawable imageURL;
+	public Drawable imageURL;
 	public String imgURL;
 	
 

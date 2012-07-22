@@ -6,6 +6,8 @@ import java.util.Iterator;
 import service.AsteroidTrackerService;
 import service.ContentManager;
 import utils.LoadingDialogHelper;
+import utils.NetworkUtil;
+
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import com.vitruviussoftware.bunifish.asteroidtracker.R.drawable;
 import com.vitruviussoftware.bunifish.asteroidtracker.R.id;
@@ -19,6 +21,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -33,6 +36,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
 public class AsteroidTrackerActivity extends ListActivity {
 
@@ -54,7 +58,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     NotificationManager mNotificationManager;
     public static ContentManager contentManager = new ContentManager();
     AsteroidTrackerService GitService = new AsteroidTrackerService();
-    
+    NetworkUtil nUtil = new NetworkUtil();
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -98,28 +102,40 @@ public class AsteroidTrackerActivity extends ListActivity {
         tabHost.addTab(TabSpec4_News);
     }
     
-    public void processFeeds(){ 
-        LoadingDialogHelper.progressDialog(this);
-        UseGitService = GitService.IsGitServiceAvailable();
-        if(UseGitService){
-            processNEOFeedRecent();
-            processNEOFeedUpcoming();
-        }else{
-            processNEOFeed(); 
+    public void processFeeds(){
+        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
+        boolean networkAvailable = nUtil.IsNetworkAvailable(this);
+        if(networkAvailable){
+            UseGitService = GitService.IsGitServiceAvailable();
+            Log.i("gitservice", "UseGitService: " + UseGitService);
+            if(UseGitService){
+                processNEOFeedRecent();
+                processNEOFeedUpcoming();
+            }else{
+                processNEOFeed(); 
+            }
+            processImpactFeed();
+            processAsteroidNewsFeed();            
+        } else {
+            LoadingDialogHelper.killDialog();
+            int duration = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(getApplicationContext(), "Network Unavailable, Please check your Mobile or Wifi Network", duration);
+            toast.show();
         }
-        processImpactFeed();
-        processAsteroidNewsFeed();
         tabHost.setCurrentTab(0);
     }
-    
+
     public void processNEOFeed(){
             Thread checkUpdate = new Thread() {
             public void run() {
-                Log.i("gitservice", "processNEOFeed");
                     if(!refresh){
                         String HTTPDATA =  contentManager.neo_AstroidFeed.getAstroidFeedDATA(contentManager.neo_AstroidFeed.URL_NASA_NEO);
                         contentManager.loadEntityLists_NEO(HTTPDATA);
+                        contentManager.List_NASA_RECENT = contentManager.neo_AstroidFeed.getRecentList(HTTPDATA);
+                        contentManager.List_NASA_UPCOMING = contentManager.neo_AstroidFeed.getUpcomingList(HTTPDATA);
                     }
+                    contentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
+                    contentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
                     refresh = true;
                     AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
@@ -133,17 +149,20 @@ public class AsteroidTrackerActivity extends ListActivity {
             }};
             checkUpdate.start();
             }
-    
+
     public void processNEOFeedRecent(){
         Thread checkUpdate = new Thread() {
         public void run() {
             Log.i("gitservice", "NEORecent");
-            contentManager.List_NASA_RECENT = GitService.getRecentList();
-            contentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
+            if(!refresh){
+                contentManager.List_NASA_RECENT = GitService.getRecentList();
+                contentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
+                refresh = true;
+            }
             AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
                    public void run() {
                        LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
-                       Log.i("HTTPFEED", "Setting data: NEO");
+                       Log.i("HTTPFEED", "Setting data: NEO Recent");
                        SetAdapters_NEO();
                    }
                });
@@ -156,12 +175,15 @@ public class AsteroidTrackerActivity extends ListActivity {
         Thread checkUpdate = new Thread() {
         public void run() {
             Log.i("gitservice", "NEOUpcoming");
+            if(!refresh){
                 contentManager.List_NASA_UPCOMING = GitService.getUpcomingList();
                 contentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
+                refresh = true;
+            }
             AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
                    public void run() {
                        LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Upcoming Feed...");
-                       Log.i("HTTPFEED", "Setting data: NEO");
+                       Log.i("HTTPFEED", "Setting data: NEO Upcoming");
                        SetAdapters_NEO();
                    }
                });
@@ -174,16 +196,16 @@ public class AsteroidTrackerActivity extends ListActivity {
         Thread ImpactUpdate = new Thread() {
             public void run() {
                 Log.i("gitservice", "ImpactUpdate");
-                if(UseGitService){
-                    contentManager.List_NASA_IMPACT = GitService.getImpactData();
-                    contentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
-                } else{
-                    if(!refresh){
+                if(!refresh){
+                    if(UseGitService){
+                        contentManager.List_NASA_IMPACT = GitService.getImpactData();
+                        contentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
+                    } else{
                         String HTTP_IMPACT_DATA =  contentManager.neo_AstroidFeed.getAstroidFeedDATA(contentManager.neo_AstroidFeed.URL_NASA_NEO_IMPACT_FEED);
-                        contentManager.loadEntityLists_IMPACT(HTTP_IMPACT_DATA);
+                        contentManager.List_NASA_IMPACT = contentManager.neo_AstroidFeed.getImpactList(HTTP_IMPACT_DATA);
                     }
-                    contentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
-                    refresh = true;
+                contentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
+                refresh = true;
                 }
                 AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
@@ -200,18 +222,18 @@ public class AsteroidTrackerActivity extends ListActivity {
     public void processAsteroidNewsFeed(){
         Thread NewsUpdate = new Thread() {
             public void run() {
-                Log.i("gitservice", "NewsUpdate");
-                if(UseGitService){
-                    contentManager.List_NASA_News = GitService.getLatestNews();
-                    contentManager.LoadAdapters_NEO_News(AsteroidTrackerActivity.this);
-                } else{     
-                    if(!refresh){
+                if(!refresh){
+//                    Log.i("gitservice", "NewsUpdate");
+                    if(UseGitService){
+                        contentManager.List_NASA_News = GitService.getLatestNews();
+//                    contentManager.LoadAdapters_NEO_News(AsteroidTrackerActivity.this);
+                    } else {
                         String HTTP_NEWS_DATA = contentManager.neo_AstroidFeed.getAstroidFeedDATA(contentManager.neo_AstroidFeed.URL_JPL_AsteroidNewsFeed);
-                        contentManager.loadEntityLists_NEWS(HTTP_NEWS_DATA);
+                        contentManager.List_NASA_News = contentManager.neo_AstroidFeed.parseNewsFeed(HTTP_NEWS_DATA);
                     }
-                    contentManager.LoadAdapters_NEO_News(AsteroidTrackerActivity.this);
-                    refresh = true;
                 }
+                contentManager.LoadAdapters_NEO_News(AsteroidTrackerActivity.this);
+                refresh = true;
                 AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
                        public void run() {
                            LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
@@ -226,13 +248,13 @@ public class AsteroidTrackerActivity extends ListActivity {
 
     public void SetAdapters_NEO(){
         setListAdapter(contentManager.adapter_RECENT);
-//            spec1.setContent(new TabHost.TabContentFactory(){
-//                   public View createTabContent(String tag)
-//                   {
-//                       ls1.setAdapter(AsteroidTrackerActivity.adapter);
-//                       return ls1;
-//                   }       
-//               });
+//        TabSpec1_Recent.setContent(new TabHost.TabContentFactory(){
+//            public View createTabContent(String tag)
+//            {
+//                ls1_ListView_Recent.setAdapter(contentManager.adapter_RECENT);
+//                return ls1_ListView_Recent;
+//            }       
+//        });
             TabSpec2_Upcoming.setContent(new TabHost.TabContentFactory(){
                 public View createTabContent(String tag)
                 {
@@ -311,7 +333,6 @@ public class AsteroidTrackerActivity extends ListActivity {
 //        }
 
     }
-    
     
     public Notification setupNotificationMessage(String notificationTitle, String notifiationText){
         Intent intent = new Intent(this,AsteroidTrackerActivity.class);  

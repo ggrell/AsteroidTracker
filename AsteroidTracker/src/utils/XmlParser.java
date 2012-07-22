@@ -161,12 +161,10 @@ public class XmlParser {
     				  String imgURL = descriptionSTR.substring(imgIDX+9,imgEDX+4);
     				  Log.i("news", "Getting xpath title: "+title.item(0).getTextContent().toString().trim());
     				  JPLEntity.title = title.item(0).getTextContent().toString().trim();
-//    				  JPLEntity.pubDate = pubDate.item(0).getTextContent().toString().trim();
     				  JPLEntity.setPubDate(pubDate.item(0).getTextContent().toString().trim());
     				  JPLEntity.artcileUrl =  link.item(0).getTextContent().toString().trim();
     				  JPLEntity.description =  strDesc.trim();
-//    				  JPLEntity.imgURL = imgURL.trim();
-//    				  JPLEntity.imgURL = ImageOperations(imgURL.trim());	
+    				  JPLEntity.imageURL = ImageOperations(imgURL.trim());	
     				  newsList.add(JPLEntity);
     				  if(i==10){
     				  break;
@@ -175,9 +173,7 @@ public class XmlParser {
     		} catch (Exception e) {
     		    Log.e("news", "xpath Exception!!! Somthing went wrong");
     		    Log.e("news", e.getMessage());
-//    		    Log.e("news", e.getCause());
     			Log.e("xpath", "Exception!!! Somthing went wrong");
-//    			e.printStackTrace();
     		}
     		return newsList;
     	}

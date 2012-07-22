@@ -4,6 +4,7 @@
       android:versionName="1.5" package="com.vitruviussoftware.bunifish.asteroidtracker">
     <uses-sdk android:minSdkVersion="8" />
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     <application android:icon="@drawable/asteroid" android:label="@string/app_name">
         <activity android:name="activities.AsteroidTrackerActivity"
                   android:label="@string/app_name"
