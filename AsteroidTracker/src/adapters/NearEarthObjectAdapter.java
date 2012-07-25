@@ -65,8 +65,9 @@ public class NearEarthObjectAdapter extends ArrayAdapter {
 			holder = (ViewHolder) vi.getTag();
 		}
 		
-		if (entityObject.getName().equals("Unable to retrieve Asteroid feed")){
-			holder.title_error.setText("Unable to retrieve NASA NEO feed");
+		if (entityObject.getName().equals("Unable to retrieve Asteroid Data")){
+			holder.title_error.setText("Unable to retrieve Asteroid Data");
+//			holder.title.setText("Name: "+entityObject.getName());
 		}else{
 			holder.title.setText("Name: "+entityObject.getName());
 			holder.Icon.setImageDrawable(entityObject.IconD);

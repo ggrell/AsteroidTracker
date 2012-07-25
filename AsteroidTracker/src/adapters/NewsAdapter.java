@@ -39,6 +39,7 @@ public class NewsAdapter extends ArrayAdapter{
 		public TextView description;
 		public TextView pubDate;
 		public ImageView imgURL;
+		public TextView title_error;
 //		public ImageView Icon;
 	}
 
@@ -51,6 +52,7 @@ public class NewsAdapter extends ArrayAdapter{
 			vi = inflater.inflate(R.layout.jpl_asteroid_news, null);		
 			holder = new ViewHolder();
 			holder.title 		=	(TextView) vi.findViewById(R.id.jpl_news_title);
+			holder.title_error  =   (TextView) vi.findViewById(R.id.news_error);
 			holder.artcileUrl 	=	(TextView) vi.findViewById(R.id.jpl_news_title);
 			holder.description 	= 	(TextView) vi.findViewById(R.id.jpl_news_Description);
 			holder.imgURL 		=	(ImageView) vi.findViewById(R.id.jpl_articleImage);
@@ -59,14 +61,17 @@ public class NewsAdapter extends ArrayAdapter{
 		} else {
 			holder = (ViewHolder) vi.getTag();
 		}
-// 		Log.i("news", "setting title"+entityObject.title);
+		if(entityObject.title.equals("Unable to retrieve Asteroid News")){
+		    holder.title_error.setText(entityObject.title);
+		} else {
 			holder.title.setText(entityObject.title);
 			holder.pubDate.setText(entityObject.pubDate);
 //			holder.artcileUrl.setText(entityObject.artcileUrl);
 			holder.description.setText(entityObject.description);
 			Log.i("news", "news adapter imgURL"+entityObject.imgURL);
 			holder.imgURL.setImageDrawable(entityObject.getImageURL());
-		return vi;
+		}
+	return vi;
 	}
 
 }
