@@ -40,18 +40,15 @@ public class AsteroidTrackerService {
         try {
             Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
             responseData = gson.fromJson(HttpUtil.get(URI), collectionType);
-            throw new JsonSyntaxException("error");
         } catch (JsonSyntaxException e) {
             NearEarthObject neoerror = new NearEarthObject();
             neoerror.setName("Unable to retrieve Asteroid Data");
             if(responseData.size() > 0){
-                Log.e("AsteroidTrackerService", "Clearing array");
                 responseData.clear();
             }
             responseData.add(neoerror);
             Log.e("AsteroidTrackerService", "Error on getList" +e);
         }
-        Log.e("AsteroidTrackerService", "returning");
         return responseData;
     }
     
@@ -63,7 +60,6 @@ public class AsteroidTrackerService {
             for(int i = 0; i < newslist.size(); i++){
                 newslist.get(i).updateImageURLDrawable();
             }
-            throw new JsonSyntaxException("news error");
         } catch (JsonSyntaxException e) {
             News newsError = new News();
             newsError.title = "Unable to retrieve Asteroid News";
@@ -76,7 +72,18 @@ public class AsteroidTrackerService {
     }
     
     public ArrayList<Impact> getImpactData(){
-        Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
-        return gson.fromJson(HttpUtil.get(URIImpact), collectionType);
+        ArrayList<Impact> impactList = new ArrayList<Impact>();
+        try {
+            Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
+            impactList = gson.fromJson(HttpUtil.get(URIImpact), collectionType);
+        } catch (JsonSyntaxException e) {
+            Impact impactError = new Impact();
+            impactError.setName("Unable to retrieve Asteroid Data");
+            if(impactList.size() > 0){
+                impactList.clear();
+            }
+            impactList.add(impactError);
+        }
+        return impactList;
     }
 }

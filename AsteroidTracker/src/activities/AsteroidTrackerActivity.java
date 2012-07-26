@@ -20,6 +20,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -346,9 +347,11 @@ public class AsteroidTrackerActivity extends ListActivity {
             Object object = AsteroidTrackerActivity.this.ls4_ListView_News.getAdapter().getItem(position);    
             News asteroidEntity = (News) object;
             Intent i = new Intent(Intent.ACTION_VIEW);
-            if(asteroidEntity.artcileUrl != "" || !asteroidEntity.artcileUrl.equals(null)){
+            try {
                 i.setData(Uri.parse(asteroidEntity.artcileUrl));
                 startActivity(i);
+            } catch (ActivityNotFoundException e){
+                Log.d("News", "ActivityNotFound on news article listner", e);
             }
         };
     };
