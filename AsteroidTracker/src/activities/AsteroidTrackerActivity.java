@@ -2,11 +2,9 @@ package activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import service.AsteroidTrackerService;
 import service.ContentManager;
 import utils.LoadingDialogHelper;

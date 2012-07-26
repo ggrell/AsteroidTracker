@@ -24,7 +24,7 @@ public class HttpUtil {
        HttpClient httpClient = new DefaultHttpClient();
        HttpGet request = new HttpGet(URL);
        HttpParams params = new BasicHttpParams();
-       params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, new Integer(2500));
+       params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, new Integer(3000));
        request.setParams(params);
        try {
            HttpResponse response = httpClient.execute(request);
