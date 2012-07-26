@@ -74,8 +74,8 @@ public class ImpactAdapter extends ArrayAdapter {
 		} else {
 			holder = (ViewHolder) vi.getTag();
 		}
-		if (entityObject.getName().equals("Unable to retrieve Asteroid feed")){
-			holder.title_error.setText("Unable to retrieve NASA NEO feed");
+		if (entityObject.getName().equals("Unable to retrieve Asteroid Data")){
+			holder.title_error.setText(entityObject.getName());
 		}else{
 			int torinoScale = Integer.parseInt(entityObject.getTorinoScale());
 			holder = getHazardLevel(torinoScale, holder);

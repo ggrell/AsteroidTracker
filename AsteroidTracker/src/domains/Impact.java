@@ -35,7 +35,7 @@ public class Impact {
 		return YearRange;
 	}
 	public void setImpactProbabilites(String impactProbabilites) {
-		Log.i("floatIssue", impactProbabilites);
+		Log.d("floatIssue", impactProbabilites);
 		float impactPercentage = Float.parseFloat(impactProbabilites);
 		DecimalFormat ourForm = (DecimalFormat) NumberFormat.getInstance(Locale.US);
 		NumberFormat percent = NumberFormat.getPercentInstance();

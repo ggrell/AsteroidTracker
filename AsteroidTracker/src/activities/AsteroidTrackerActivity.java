@@ -2,7 +2,9 @@ package activities;
 
 import android.net.Uri;
 import android.os.Bundle;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import service.AsteroidTrackerService;
 import service.ContentManager;
 import utils.LoadingDialogHelper;
@@ -16,6 +18,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -149,7 +152,7 @@ public class AsteroidTrackerActivity extends ListActivity {
         Thread checkUpdate = new Thread() {
         public void run() {
             if(!refresh){
-                contentManager.List_NASA_RECENT = GitService.getRecentList();
+                contentManager.List_NASA_RECENT = (List<NearEarthObject>) GitService.getNEOList(GitService.URIRecent);
                 contentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
                 refresh = true;
             }
@@ -168,7 +171,7 @@ public class AsteroidTrackerActivity extends ListActivity {
         Thread checkUpdate = new Thread() {
         public void run() {
             if(!refresh){
-                contentManager.List_NASA_UPCOMING = GitService.getUpcomingList();
+                contentManager.List_NASA_UPCOMING =  GitService.getNEOList(GitService.URIUpcoming);
                 contentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
                 refresh = true;
             }
@@ -343,9 +346,12 @@ public class AsteroidTrackerActivity extends ListActivity {
             Object object = AsteroidTrackerActivity.this.ls4_ListView_News.getAdapter().getItem(position);    
             News asteroidEntity = (News) object;
             Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(asteroidEntity.artcileUrl));
-            startActivity(i);
-            
+            try {
+                i.setData(Uri.parse(asteroidEntity.artcileUrl));
+                startActivity(i);
+            } catch (ActivityNotFoundException e){
+                Log.d("News", "ActivityNotFound on news article listner", e);
+            }
         };
     };
 }

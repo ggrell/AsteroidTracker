@@ -5,6 +5,16 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
   
+     <TextView android:id="@+id/news_error"
+            android:textSize="18dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="#FFFFFF"
+        />
+     
         <ImageView
         	android:id="@+id/jpl_articleImage"
 			android:layout_width="110dp"
