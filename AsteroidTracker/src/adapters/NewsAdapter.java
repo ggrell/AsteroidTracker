@@ -30,7 +30,6 @@ public class NewsAdapter extends ArrayAdapter{
 	public NewsAdapter(Context context, int textViewResourceId, List objects) {
 		super(context, textViewResourceId, objects);
 		resourceId = textViewResourceId;
-		Log.i("news", "news adapter");
 	}
 
 	public static class ViewHolder {
@@ -68,7 +67,6 @@ public class NewsAdapter extends ArrayAdapter{
 			holder.pubDate.setText(entityObject.pubDate);
 //			holder.artcileUrl.setText(entityObject.artcileUrl);
 			holder.description.setText(entityObject.description);
-			Log.i("news", "news adapter imgURL"+entityObject.imgURL);
 			holder.imgURL.setImageDrawable(entityObject.getImageURL());
 		}
 	return vi;

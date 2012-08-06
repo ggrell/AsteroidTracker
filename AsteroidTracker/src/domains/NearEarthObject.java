@@ -59,14 +59,11 @@ public class NearEarthObject {
 	}
 
 	public void setDate(String dateString){
-			Log.i("date", "dateString: " +dateString);
-	//		Log.i("date", "subs: " +this.closeApproachDate);
 			DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
 			dateString = dateString.substring(1);
 			formatter =   new SimpleDateFormat("yyyy-MMM-dd");
 			Date d = new Date(dateString);
 			this.closeApproachDate = d;
-	//		Log.i("date", "Today is: " +this.closeApproachDate); 
 	 }
 	
 	public void setDateStr(String dateString){
@@ -131,11 +128,9 @@ public class NearEarthObject {
 	}
 
 	public String getMissDistance_AU_Kilometers(){
-		//Log.i("NEO", "NEO: missDistance_AU: "+this.missDistance_AU);
 		float missDist = Float.parseFloat(this.missDistance_AU);
 		float missInKilo = missDist * averageAU;
 		DecimalFormat ourForm = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-		Log.i("NEO", "NEO: missDistance_AU converted: "+ourForm.format(missInKilo).toString());
 		return ourForm.format(missInKilo).toString();
 
 	}
