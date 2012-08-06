@@ -110,6 +110,7 @@ public class AsteroidTrackerActivity extends ListActivity {
                 processNEOFeedRecent();
                 processNEOFeedUpcoming();
             }else{
+                LoadingDialogHelper.dialog.setMessage("Checking Asteroid NASA Service");
                 processNEOFeed(); 
             }
             processImpactFeed();

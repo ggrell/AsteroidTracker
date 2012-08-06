@@ -1,14 +1,9 @@
 package activities;
 
 import java.util.ArrayList;
-
-import service.ContentManager;
 import service.neoAstroidFeed;
-
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
-
 import domains.Impact;
-
 import adapters.ImpactRiskDetailAdapter;
 import android.app.ListActivity;
 import android.app.ProgressDialog;

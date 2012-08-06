@@ -24,6 +24,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -68,18 +69,25 @@ public class XmlParser {
 	public String getXpath_single(String Xpath) {
 		String XPath_Results = "";
 		try {
-			// ArrayList nbList = new ArrayList();
 			XPathExpression expr = xpath.compile(Xpath);
-			Object result = expr.evaluate(doc, XPathConstants.NODESET);
+			Object result = expr.evaluate(doc, XPathConstants.STRING);
+			Log.i("xpath", "got nodes done");
+			Log.i("xpath", "got nodes done" +result.toString());
+//			Log.i("xpath", "got nodes result toString" + result.toString());
+			Node nodeTest = (Node) result;
+			Log.i("xpath", "got nodes nodeTest");
+			Log.i("xpath", "got nodes getTextContent()" + nodeTest.getTextContent());
+			
 			NodeList nodes = (NodeList) result;
+			Log.i("xpath", "got nodes" + nodes.getLength());
 			XPath_Results = nodes.item(0).getNodeValue();
-			for (int i = 0; i < nodes.getLength(); i++) {
-//				Log.i("xpath", "got data");
-//				Log.i("xpath", nodes.item(i).getNodeValue());
+			for (int i = 0; i <= nodes.getLength(); i++) {
+				Log.i("xpath", "got data");
+				Log.i("xpath", nodes.item(i).getNodeValue());
 				XPath_Results = nodes.item(i).getNodeValue();
 			}
 		} catch (Exception e) {
-//			Log.i("xpath", "xpath Error");
+			Log.i("xpath", "xpath Error");
 		}
 		return XPath_Results;
 	}
@@ -89,7 +97,7 @@ public class XmlParser {
 		ArrayList<String> arList = new ArrayList<String>();
 		try {
 			NodeList nodes = (NodeList) xpath.evaluate(Xpath, doc, XPathConstants.NODESET);
-//			Log.i("xpath", "NodeLength: " + nodes.getLength());
+			Log.i("xpath", "NodeLength: " + nodes.getLength());
 			for (int i = 0; i < nodes.getLength(); i++) {
 //				Log.i("xpath", "Nodes: " + nodes.item(i).getNodeValue());
 				arList.add(nodes.item(i).getNodeValue());

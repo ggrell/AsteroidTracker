@@ -25,12 +25,12 @@ public class AsteroidTrackerService {
     HttpUtil httputil = new HttpUtil();
     
     public boolean IsGitServiceAvailable(){
-        Log.i("gitservice", "IsGitServiceAvailable");
+        Log.d("gitservice", "IsGitServiceAvailable");
         if (HttpUtil.get(useServiceUri).trim().equals("true")){
-            Log.i("gitservice", "IsGitServiceAvailable: "+ true);
+            Log.d("gitservice", "IsGitServiceAvailable: "+ true);
             return true;
         }else {
-            Log.i("gitservice", "IsGitServiceAvailable: "+ false);
+            Log.d("gitservice", "IsGitServiceAvailable: "+ false);
             return false;
         }
     }

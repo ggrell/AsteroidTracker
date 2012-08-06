@@ -39,6 +39,10 @@ public class neoAstroidFeed {
 	public static final String URL_NEOMain="http://neo.jpl.nasa.gov/";
 	public static final String URL_NEOImpact_base="http://neo.jpl.nasa.gov/risk/";	
 	public static final String URL_NEOImpact_OrbitalBase="http://ssd.jpl.nasa.gov/sbdb.cgi?sstr={NEONAME};orb=1";			
+	public static final String URL_NASA_NEO = "http://neo.jpl.nasa.gov/ca/";
+	public static final String URL_NASA_NEO_IMPACT_FEED = "http://neo.jpl.nasa.gov/risk/";
+	public static final String URL_JPL_AsteroidNewsFeed="http://www.jpl.nasa.gov/multimedia/rss/asteroid.xml";
+
 	public static XmlParser parser;
 	public static List<Nasa_neoEntityDeprecated> nasa_neoEntries = new ArrayList<Nasa_neoEntityDeprecated>();
 	public static String Data;
@@ -54,9 +58,6 @@ public class neoAstroidFeed {
 	public static final String RECENT_endSearchString = "</table>";
 	public static final String UPCOMING_baseSearchString = "UPCOMING CLOSE APPROACHES TO EARTH";
 	public static final String UPCOMING_endSearchString = "</table>";
-	public static final String URL_NASA_NEO = "http://neo.jpl.nasa.gov/ca/";
-	public static final String URL_NASA_NEO_IMPACT_FEED = "http://neo.jpl.nasa.gov/risk/";
-	public static final String URL_JPL_AsteroidNewsFeed="http://www.jpl.nasa.gov/multimedia/rss/asteroid.xml";
 
 	
 	public static String[] getEntries(XmlParser xmlParser) {
