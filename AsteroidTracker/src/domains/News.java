@@ -9,6 +9,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
@@ -65,6 +69,9 @@ public class News {
 		return this.pubDate;
 	}
 
+	public void setDefaultIcon(){
+        this.imageURL = activities.AsteroidTrackerActivity.drawable;
+	}
 	private Drawable ImageOperations(String url) {
 		try {
 			InputStream is = (InputStream) this.fetch(url);

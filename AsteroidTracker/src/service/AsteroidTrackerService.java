@@ -8,6 +8,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
 import domains.NearEarthObject;
 import domains.Impact;
 import domains.News;
@@ -58,7 +60,11 @@ public class AsteroidTrackerService {
             Type collectionType = new TypeToken<ArrayList<News>>(){}.getType();
             newslist = gson.fromJson(HttpUtil.get(URINews), collectionType);
             for(int i = 0; i < newslist.size(); i++){
-                newslist.get(i).updateImageURLDrawable();
+                try {
+                    newslist.get(i).updateImageURLDrawable();
+                } catch(NullPointerException e) {
+                    newslist.get(i).setDefaultIcon();
+                }
             }
         } catch (JsonSyntaxException e) {
             News newsError = new News();
