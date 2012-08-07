@@ -44,6 +44,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     ListView ls4_ListView_News;
     View ImgView;
     public static Drawable drawable;
+    public static Drawable newsDrawable;
     static TabHost tabHost;
     TabSpec TabSpec1_Recent;
     TabSpec TabSpec2_Upcoming;
@@ -67,6 +68,7 @@ public class AsteroidTrackerActivity extends ListActivity {
         processFeeds();
         Resources res = getResources();
         drawable = res.getDrawable(R.drawable.asteroid);
+        newsDrawable = res.getDrawable(R.drawable.asteroidnews);
     }
 
     public void TabAndListViewSetup(){

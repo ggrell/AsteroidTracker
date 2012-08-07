@@ -70,7 +70,8 @@ public class News {
 	}
 
 	public void setDefaultIcon(){
-        this.imageURL = activities.AsteroidTrackerActivity.drawable;
+        this.imageURL = activities.AsteroidTrackerActivity.newsDrawable;
+        
 	}
 	private Drawable ImageOperations(String url) {
 		try {
