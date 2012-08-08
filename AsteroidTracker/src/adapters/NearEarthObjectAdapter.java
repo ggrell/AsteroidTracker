@@ -69,7 +69,7 @@ public class NearEarthObjectAdapter extends ArrayAdapter {
 			holder.title_error.setText("Unable to retrieve Asteroid Data");
 //			holder.title.setText("Name: "+entityObject.getName());
 		}else{
-			holder.title.setText("Name: "+entityObject.getName());
+			holder.title.append(" "+entityObject.getName());
 			holder.Icon.setImageDrawable(entityObject.IconD);
 			holder.description.setText("Miss-Distance: "+entityObject.getMissDistance_AU() + " (km)");
 			holder.relativeVelocity.setText("Relative Velocity: "+ entityObject.getRelativeVelocity() + " (km/s)");
