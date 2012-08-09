@@ -36,7 +36,7 @@ public class NearEarthObjectAdapter extends ArrayAdapter {
 	public static class ViewHolder {
 		public TextView title;
 		public TextView title_error;
-		public TextView description;
+		public TextView missDistance;
 		public TextView relativeVelocity;
 		public TextView estimatedDiameter;
 		public TextView date;
@@ -54,7 +54,7 @@ public class NearEarthObjectAdapter extends ArrayAdapter {
 			holder = new ViewHolder();
 			holder.title 				= 	(TextView) vi.findViewById(R.id.asteroidName);
 			holder.title_error 			= 	(TextView) vi.findViewById(R.id.nasaNeo_error);
-			holder.description 			= 	(TextView) vi.findViewById(R.id.middletext1);
+			holder.missDistance 			= 	(TextView) vi.findViewById(R.id.missDistance);
 			holder.date 				= 	(TextView) vi.findViewById(R.id.nasaNeo_date);
 			holder.relativeVelocity		=	(TextView) vi.findViewById(R.id.nasaNeo_relV);
 			holder.estimatedDiameter	= 	(TextView) vi.findViewById(R.id.nasaNeo_estimatedDiameter);
@@ -67,21 +67,19 @@ public class NearEarthObjectAdapter extends ArrayAdapter {
 		
 		if (entityObject.getName().equals("Unable to retrieve Asteroid Data")){
 			holder.title_error.setText("Unable to retrieve Asteroid Data");
-//			holder.title.setText("Name: "+entityObject.getName());
 		}else{
-			holder.title.append(" "+entityObject.getName());
+			holder.title.setText(NearEarthObjectAdapter.this.getContext().getString(R.string.neoName)+" "+entityObject.getName());
 			holder.Icon.setImageDrawable(entityObject.IconD);
-			holder.description.setText("Miss-Distance: "+entityObject.getMissDistance_AU() + " (km)");
-			holder.relativeVelocity.setText("Relative Velocity: "+ entityObject.getRelativeVelocity() + " (km/s)");
-			holder.estimatedDiameter.setText("Est Diameter: "+ entityObject.getEstimatedDiameter() + " (m)");
-			holder.date.setText("Closest Approach Date: "+entityObject.getDateStr());
-//			holder.AlertMessage.setTextColor(Color.YELLOW);
+			holder.missDistance.setText(NearEarthObjectAdapter.this.getContext().getString(R.string.neoMissDistance)+" "+entityObject.getMissDistance_AU() + " (km)");
+			holder.relativeVelocity.setText(NearEarthObjectAdapter.this.getContext().getString(R.string.neoRelVelocity)+" "+ entityObject.getRelativeVelocity() + " (km/s)");
+			holder.estimatedDiameter.setText(NearEarthObjectAdapter.this.getContext().getString(R.string.neoEstDiameter)+" "+ entityObject.getEstimatedDiameter() + " (m)");
+			holder.date.setText(NearEarthObjectAdapter.this.getContext().getString(R.string.neoClosAppDate)+" "+entityObject.getDateStr());
 			holder.AlertMessage.setText("");
 			entityObject.setAlertMSG("");
 			if (Double.parseDouble(entityObject.getMissDistance_AU_Kilometers().replace(",","")) < 400000){
 				holder.AlertMessage.setTextColor(Color.YELLOW);
 				holder.AlertMessage.setText("It's Passing closer than the Moon!");
-				entityObject.setAlertMSG("It's Passing closer than the Moon!");
+				entityObject.setAlertMSG(NearEarthObjectAdapter.this.getContext().getString(R.string.neoAlertClosePass));
 			}
 		}
 		return vi;
