@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="neoName">Name:</string>
+    <string name="neoMissDistance">Miss-Distance:</string>
+    <string name="neoRelVelocity">Relative Velocity:</string>
+    <string name="neoEstDiameter">Est Diameter:</string>
+    <string name="neoClosAppDate">Closest Approach Date:</string>
+    <string name="neoAlertClosePass">It\'s Passing closer than the Moon!</string>
+    <string name="neoError">Unable to retrieve Asteroid Data</string>
+</resources>
