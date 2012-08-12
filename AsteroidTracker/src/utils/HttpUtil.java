@@ -15,6 +15,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpParams;
 
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 public class HttpUtil {
@@ -59,4 +60,36 @@ public class HttpUtil {
        }
        return sb.toString();
    }
+
+     public static Drawable getImageData(String URL) {
+         HttpClient httpClient = new DefaultHttpClient();
+         HttpGet request = new HttpGet(URL);
+         HttpParams params = new BasicHttpParams();
+         params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, new Integer(3000));
+         request.setParams(params);
+         Drawable image = null;
+         try {
+             HttpResponse response = httpClient.execute(request);
+             int status = response.getStatusLine().getStatusCode();
+             if (status != HttpStatus.SC_OK) {
+                 Log.d("HTTPCLIENT", "HttpStatus isnt ok");
+             } else {
+                 InputStream content = response.getEntity().getContent();
+                 image = Drawable.createFromStream(content, "src");
+                 content.close();;
+             }
+         }catch (ConnectTimeoutException e ){
+             Log.e("HTTPCLIENT", "Timeout");
+              return image;
+         }catch (Exception e){
+             Log.e("HTTPCLIENT", "Exception");
+             Log.e("HTTPCLIENT", "HTTP ERROR");
+             Log.e("HTTPCLIENT", e.getMessage());
+             Log.e("HTTPCLIENT", e.getLocalizedMessage());
+             e.printStackTrace();
+             return image;
+         }
+         return image;
+     }
+
 }

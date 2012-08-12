@@ -1,18 +1,10 @@
 package domains;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import com.vitruviussoftware.bunifish.asteroidtracker.R;
-
-import android.content.Context;
-import android.content.res.Resources;
+import utils.HttpUtil;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
@@ -44,17 +36,16 @@ public class News {
 
 	public void setImgURL(String ImgURL) {
 		Log.i("news", "news ImageOperations"+ImgURL);
-		this.imageURL = ImageOperations(ImgURL);
+		this.imageURL = activities.AsteroidTrackerActivity.newsDrawable; //ImageOperations(ImgURL);
 		this.imgURL = ImgURL;
 	}
-
 
 	public Drawable getImageURL() {
 		return this.imageURL;
 	}
 	
 	public void updateImageURLDrawable() {
-		this.imageURL = ImageOperations(this.imgURL);
+		this.imageURL = HttpUtil.getImageData(this.imgURL);
 	}
 	
 	//	private String imgURL;
@@ -73,24 +64,4 @@ public class News {
         this.imageURL = activities.AsteroidTrackerActivity.newsDrawable;
         
 	}
-	private Drawable ImageOperations(String url) {
-		try {
-			InputStream is = (InputStream) this.fetch(url);
-			Drawable d = Drawable.createFromStream(is, "src");
-			return d;
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public Object fetch(String address) throws MalformedURLException,IOException {
-		URL url = new URL(address);
-		Object content = url.getContent();
-		return content;
-	}
-	
 }

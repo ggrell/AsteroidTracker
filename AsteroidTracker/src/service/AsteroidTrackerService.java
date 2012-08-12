@@ -1,6 +1,5 @@
 package service;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import utils.HttpUtil;
@@ -8,8 +7,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.vitruviussoftware.bunifish.asteroidtracker.R;
-
 import domains.NearEarthObject;
 import domains.Impact;
 import domains.News;
