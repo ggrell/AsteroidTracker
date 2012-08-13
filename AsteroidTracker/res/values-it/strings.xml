@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">AsteroidTracker</string>
+<string name="quit">Smettere</string>
+<string name="settings">Impostazioni</string>
+<string name="about">Circa</string>
+<string name="developedby">Sviluppato da: Vitruvious Software (BunnyFish Projects)</string>
+<string name="visit_neoSite">Vai al sito web NEO</string>
+<string name="visit_bunnyFish">Vai a bunnyFish</string>
+<string name="description">\nAndoidTracker è un\'applicazione di aggregazione scienza che visualizza le informazioni relative Near Earth Objects. </string>
+<string name="neo">Che cosa è un Near-Earth Object (NEO)? \n Near-Earth Objects (NEO) sono le comete e gli asteroidi che sono stati gomitata per l\'attrazione gravitazionale dei pianeti vicini in orbite che permettono loro di entrare quartiere della Terra \'s. Composto principalmente da ghiaccio d\'acqua con le particelle di polvere incorporate...</string>
+<string name="alldata">Tutti i dati sono dalla NASA Vicino programma Earth Object \nhttp://neo.jpl.nasa.gov.</string>
+<string name="feedDown">Impossibile recuperare alimentazione Asteroid</string>
+<string name="refresh">Rinfrescare</string>
+<string name="about_impactRisk">NASA NEO - Impact Risk - Sentry Risk Table\nhttp://neo.jpl.nasa.gov/risk/</string>
+<string name="about_impactRiskDetail">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
+<string name="about_closeApproaches">NASA NEO - Close Approaches\nhttp://neo.jpl.nasa.gov/ca/</string>
+<string name="about_torinoScale">NASA NEO - The Torino Impact Hazard Scale \nhttp://neo.jpl.nasa.gov/torino_scale.html</string>
+<string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
+<string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
+<string name="networkerror">It seems your mobile/wifi network(s) are unavailable, please check your system settings, airplane mode maybe?? Either way, Sad Panda (Feel free to submit a bug report if you feel this message is in error, though its likely not).</string>
+</resources>
+

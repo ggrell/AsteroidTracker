@@ -12,7 +12,7 @@
     <string name="Impact_Detail_PotentialImpacts">Impactos Potenciales:</string>
     <string name="Impact_Detail_ImpactProbability">Impact Probability:</string>
     <string name="Impact_Detail_AbsoluteMagnitude">Magnitud Absoluta:</string>
-    <string name="Impact_Detail_EstimatedDiameter">Diámetro Estimado:"</string>
+    <string name="Impact_Detail_EstimatedDiameter">Diámetro Estimado:</string>
     <string name="Impact_Detail_vInfinity">Vinfinity:</string>
     <string name="Impact_Detail_TorinoScale">Torino Scale:</string>
     <string name="Impact_Detail_PalermoScale">Palermo Scale:</string>
