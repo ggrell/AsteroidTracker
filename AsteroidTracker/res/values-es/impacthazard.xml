@@ -3,7 +3,7 @@
     <string name="Name">Nombre</string>
     <string name="YearRange">Año de rango</string>
     <string name="Level_NoHazard">No Peligro</string>
-   <string name="Impact_Level_Title">Impacto Nivel de Peligrosidad:</string>
+   <string name="Impact_Level_Title">Nivel de Peligrosidad:</string>
     <string name="Level_Normal">Normal</string>
     <string name="Level_MeritsAttention">Digna de atención</string>
     <string name="Level_Threatening">Amenazante</string>
