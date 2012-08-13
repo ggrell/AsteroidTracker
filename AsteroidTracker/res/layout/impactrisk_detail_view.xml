@@ -7,7 +7,7 @@
     		
     <TableRow android:layout_marginTop="5dp">
         <TextView
-            android:text="Name:"
+            android:text="@string/Name"
             android:textSize="18dip"
             android:padding="3dip"
             android:gravity="left" />
@@ -22,7 +22,7 @@
 
     <TableRow>
         <TextView
-            android:text="Year Range:"
+            android:text="@string/YearRange"
             android:textSize="18dip"
             android:padding="3dip"
             android:gravity="left" />
@@ -37,7 +37,7 @@
 
     <TableRow>
         <TextView
-            android:text="Potential Impacts:"
+            android:text="@string/Impact_Detail_PotentialImpacts"
             android:textSize="18dip"
             android:padding="3dip"
             android:gravity="left"/>
@@ -52,7 +52,7 @@
 
     <TableRow>
         <TextView
-            android:text="Earth Impact Prob:"
+            android:text="@string/Impact_Detail_ImpactProbability"
             android:textSize="18dip"
             android:padding="3dip"
             android:gravity="left"/>
@@ -67,7 +67,7 @@
 
     <TableRow>
         <TextView
-            android:text="Vinfinity:"
+            android:text="@string/Impact_Detail_vInfinity"
 			android:textSize="18dip"
             android:padding="3dip"
             android:gravity="left"/>
@@ -82,7 +82,7 @@
     
 	<TableRow>
         <TextView
-            android:text="Absolute Magnitude:"
+            android:text="@string/Impact_Detail_AbsoluteMagnitude"
             android:padding="3dip"
             android:textSize="18dip"
             android:gravity="left"/>
@@ -97,7 +97,7 @@
     
 	<TableRow>
         <TextView
-            android:text="Estimated Diameter:"
+            android:text="@string/Impact_Detail_EstimatedDiameter"
             android:padding="3dip"
             android:textSize="18dip"
             android:gravity="left"/>
@@ -112,7 +112,7 @@
 
 	<TableRow>
         <TextView
-            android:text="Torino Scale (Max):"
+            android:text="@string/Impact_Detail_TorinoScaleMax"
             android:padding="3dip"
             android:textSize="18dip"
             android:gravity="left"/>
@@ -127,7 +127,7 @@
     
     <TableRow>
         <TextView
-            android:text="Palermo Scale (Max):"
+            android:text="@string/Impact_Detail_PalermoScaleMax"
             android:padding="3dip"
             android:textSize="18dip"
             android:gravity="left"/>
@@ -136,7 +136,7 @@
            	android:layout_column="1"
             android:text=""
             android:textSize="18dip"
-            android:gravity="right"
+            android:gravity="right" 
             android:padding="3dip" />
     </TableRow>
   
@@ -152,12 +152,12 @@
         android:layout_marginTop="5dp"
        	android:layout_width="wrap_content"
         android:id="@+id/ImpactRisk_Button_AsteroidDetailPage" 
-        android:text="NASA Asteroid details page"
+        android:text="@string/Impact_Button_DetailsPage"
         android:onClick="asteroidDetailsPage"/>
   
 		<Button android:layout_marginTop="5dp" 
 		android:id="@+id/ImpactRisk_Button_AsteroidOrbitDiagrams"
-		android:text="Orbital diagram and elements"
+		android:text="@string/Impact_Button_OrbitalDiagram"
 		android:onClick="asteroidOrbitPage"/>
      
 </TableLayout>

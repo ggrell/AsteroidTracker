@@ -80,10 +80,10 @@ public class ImpactAdapter extends ArrayAdapter {
 			int torinoScale = Integer.parseInt(entityObject.getTorinoScale());
 			holder = getHazardLevel(torinoScale, holder);
 			if (entityObject.getName().equals("Unable to retrieve Asteroid feed")){
-				holder.title.setText("Name: "+entityObject.getName());
+				holder.title.setText(ImpactAdapter.this.getContext().getString(R.string.Impact_Name)+" "+entityObject.getName());
 			}else{
-				holder.title.setText("Name: "+entityObject.getName());
-				holder.yearRange.setText("Year-Range: "+entityObject.getYearRange());
+				holder.title.setText(ImpactAdapter.this.getContext().getString(R.string.Impact_Name)+" "+entityObject.getName());
+				holder.yearRange.setText(ImpactAdapter.this.getContext().getString(R.string.YearRange)+" "+entityObject.getYearRange());
 				holder.Icon.setImageDrawable(entityObject.IconD);
 			}
 		}
@@ -92,22 +92,22 @@ public class ImpactAdapter extends ArrayAdapter {
 	
 	public ViewHolder getHazardLevel(int torinoScale, ViewHolder holder){
 		//TODO Move string to values
-		String hazardText = "Impact Hazard Level";
+		String hazardText = ImpactAdapter.this.getContext().getString(R.string.Impact_Level_Title);
 		if(torinoScale == 0){
 			holder.HazardScale.setTextColor(Color.WHITE);
-			holder.HazardScale.setText(hazardText+": No Hazard");
+			holder.HazardScale.setText(hazardText+" "+ImpactAdapter.this.getContext().getString(R.string.Impact_Level_NoHazard));
 		}else if(torinoScale == 1){
 			holder.HazardScale.setTextColor(Color.GREEN);
-			holder.HazardScale.setText(hazardText+": Normal");
+		    holder.HazardScale.setText(hazardText+" "+ImpactAdapter.this.getContext().getString(R.string.Impact_Level_Normal));
 		}else if(torinoScale >= 2 || torinoScale <= 4){
 			holder.HazardScale.setTextColor(Color.YELLOW);
-			holder.HazardScale.setText(hazardText+": Merits Attention");
+			holder.HazardScale.setText(hazardText+" "+ImpactAdapter.this.getContext().getString(R.string.Impact_Level_MeritsAttention));
 		}else if(torinoScale >= 5 || torinoScale <= 7){
 			holder.HazardScale.setTextColor(Color.rgb(255, 165, 0));
-			holder.HazardScale.setText(hazardText+": Threatening");
+			holder.HazardScale.setText(hazardText+" "+ImpactAdapter.this.getContext().getString(R.string.Impact_Level_Threatening));
 		}else if(torinoScale >= 8|| torinoScale <= 10){
 			holder.HazardScale.setTextColor(Color.RED);
-			holder.HazardScale.setText(hazardText+": Certain Collisions");
+			holder.HazardScale.setText(hazardText+" "+ImpactAdapter.this.getContext().getString(R.string.Impact_Level_CertainCollisions));
 		}
 		return holder;
 	}

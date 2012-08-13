@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Impact_Name">Name:</string>
+    <string name="Impact_YearRange">Year-Range:</string>
+    <string name="Impact_Level_Title">Impact Hazard Level:</string>
+    <string name="Impact_Level_NoHazard">No Hazard</string>
+    <string name="Impact_Level_Normal">Normal</string>
+    <string name="Impact_Level_MeritsAttention">Merits Attention</string>
+    <string name="Impact_Level_Threatening">Threatening</string>
+    <string name="Impact_Level_CertainCollisions">Certain Collisions</string>
+    
+    <string name="Impact_Detail_PotentialImpacts">Potential Impacts:</string>
+    <string name="Impact_Detail_ImpactProbability">Impact Probability:</string>
+    <string name="Impact_Detail_AbsoluteMagnitude">Absolute Magnitude:</string>
+    <string name="Impact_Detail_EstimatedDiameter">Estimated Diameter:"</string>
+    <string name="Impact_Detail_vInfinity">Vinfinity:</string>
+    <string name="Impact_Detail_TorinoScaleMax">Torino Scale (Max):</string>
+    <string name="Impact_Detail_PalermoScaleMax">Palermo Scale:</string>
+    <string name="Impact_Button_DetailsPage">NASA Asteroid details page</string>
+    <string name="Impact_Button_OrbitalDiagram">Orbital diagram and elements</string>    
+</resources>
