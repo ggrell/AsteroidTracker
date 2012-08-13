@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">AsteroidTracker</string>
+<string name="quit">Verlassen</string>
+<string name="settings">Einstellungen</string>
+<string name="about">über</string>
+<string name="developedby">Entwickelt von: Vitruvious Software (BunnyFish Projects)</string>
+<string name="visit_neoSite">Go To NEO Website</string>
+<string name="visit_bunnyFish">Go To bunnyFish</string>
+<string name="description">\nAndoidTracker ist eine Wissenschaft, Aggregation-Anwendung, die Informationen über erdnahe Objekte anzeigt. </string>
+<string name="neo">Was ist ein Near-Earth Object (NEO)? \n Near-Earth Objects (NEO) sind Kometen und Asteroiden, die durch die Anziehungskraft des Planeten in der Nähe wurden in Umlaufbahnen, die sie auf die Erde \'s Nachbarschaft geben lassen anstieß. Bestehend aus Wassereis mit eingebetteten Staubteilchen...</string>
+<string name="alldata">Alle Daten ist von der NASA Near Earth Object-Programm \n http://neo.jpl.nasa.gov.</string>
+<string name="feedDown">Kann Asteroid-Feed abrufen</string>
+<string name="refresh">Erfrischen</string>
+<string name="about_impactRisk">NASA NEO - Impact Risk - Sentry Risk Table\nhttp://neo.jpl.nasa.gov/risk/</string>
+<string name="about_impactRiskDetail">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
+<string name="about_closeApproaches">NASA NEO - Close Approaches\nhttp://neo.jpl.nasa.gov/ca/</string>
+<string name="about_torinoScale">NASA NEO - The Torino Impact Hazard Scale \nhttp://neo.jpl.nasa.gov/torino_scale.html</string>
+<string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
+<string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
+<string name="networkerror">It seems your mobile/wifi network(s) are unavailable, please check your system settings, airplane mode maybe?? Either way, Sad Panda (Feel free to submit a bug report if you feel this message is in error, though its likely not).</string>
+</resources>
+

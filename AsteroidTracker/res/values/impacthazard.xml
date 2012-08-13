@@ -14,7 +14,7 @@
     <string name="Impact_Detail_AbsoluteMagnitude">Absolute Magnitude:</string>
     <string name="Impact_Detail_EstimatedDiameter">Estimated Diameter:"</string>
     <string name="Impact_Detail_vInfinity">Vinfinity:</string>
-    <string name="Impact_Detail_TorinoScaleMax">Torino Scale (Max):</string>
+    <string name="Impact_Detail_TorinoScaleMax">Torino Scale:</string>
     <string name="Impact_Detail_PalermoScaleMax">Palermo Scale:</string>
     <string name="Impact_Button_DetailsPage">NASA Asteroid details page</string>
     <string name="Impact_Button_OrbitalDiagram">Orbital diagram and elements</string>    
