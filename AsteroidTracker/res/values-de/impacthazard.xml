@@ -9,6 +9,7 @@
     <string name="Impact_Level_Threatening">Bedrohlich</string>
     <string name="Impact_Level_CertainCollisions">Bestimmte Kollisionen</string>
 
+    <string name="Impact_Detail_ViewTitle">Risiko-Zusammenfassung</string>
     <string name="Impact_Detail_PotentialImpacts">Potenzielle Auswirkungen:</string>
     <string name="Impact_Detail_ImpactProbability">Einschlagwahrscheinlichkeit:</string>
     <string name="Impact_Detail_AbsoluteMagnitude">Absolute Magnitude:</string>

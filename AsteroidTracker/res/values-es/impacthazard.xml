@@ -9,6 +9,7 @@
     <string name="Level_Threatening">Amenazante</string>
     <string name="Level_CertainCollisions">Ciertas Colisiones</string>
     
+    <string name="Impact_Detail_ViewTitle">Análisis de Riesgo Resumen</string>
     <string name="Impact_Detail_PotentialImpacts">Impactos Potenciales:</string>
     <string name="Impact_Detail_ImpactProbability">Impact Probability:</string>
     <string name="Impact_Detail_AbsoluteMagnitude">Magnitud Absoluta:</string>

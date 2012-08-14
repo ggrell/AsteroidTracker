@@ -34,7 +34,7 @@ public class About extends ListActivity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle("AsteroidWatch About");
+		setTitle("Asteroid Tracker "+getResources().getString(R.string.about));
 		AboutAsteroidTracker about = new AboutAsteroidTracker();
 		aboutEntityList.add(about);
 

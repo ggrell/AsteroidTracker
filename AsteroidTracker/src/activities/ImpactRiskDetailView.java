@@ -8,6 +8,7 @@ import adapters.ImpactRiskDetailAdapter;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,7 +43,7 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle("Asteroid Tracker: Impact Risk Summary");
+		setTitle(getResources().getString(R.string.Impact_Detail_ViewTitle));
 		extras = getIntent().getExtras();
 		int asteroidList = extras.getInt("position");
 		NASA_IMPACT_DetailPage.add(AsteroidTrackerActivity.contentManager.List_NASA_IMPACT.get(asteroidList));

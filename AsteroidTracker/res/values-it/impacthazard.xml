@@ -9,13 +9,14 @@
     <string name="Impact_Level_Threatening">Minaccioso</string>
     <string name="Impact_Level_CertainCollisions">Alcune collisioni</string>
 
+    <string name="Impact_Detail_ViewTitle">Riepilogo Analisi del Rischio</string>
     <string name="Impact_Detail_PotentialImpacts">Impatti Potenziali:</string>
     <string name="Impact_Detail_ImpactProbability">Impatto Probabilità:</string>
     <string name="Impact_Detail_AbsoluteMagnitude">Magnitudine Assoluta:</string>
     <string name="Impact_Detail_EstimatedDiameter">Diametro Stimato:</string>
     <string name="Impact_Detail_vInfinity">Vinfinity:</string>
-    <string name="Impact_Detail_TorinoScaleMax">Torino Scale:</string>
-    <string name="Impact_Detail_PalermoScaleMax">Palermo Scale:</string>
+    <string name="Impact_Detail_TorinoScaleMax">Torino Scale (Max):</string>
+    <string name="Impact_Detail_PalermoScaleMax">Palermo Scale (Max):</string>
     <string name="Impact_Button_DetailsPage">NASA Asteroid dettagli page</string>
     <string name="Impact_Button_OrbitalDiagram">Schema di Orbital e gli elementi</string>
 </resources>
