@@ -28,9 +28,9 @@ import android.widget.TextView;
 
 public class About extends ListActivity {
 
-	public static Drawable drawableAbout;
-	static AboutAdapter AboutDapter;
-	ArrayList<AboutAsteroidTracker> aboutEntityList = new ArrayList();
+    public static Drawable drawableAbout;
+    static AboutAdapter AboutDapter;
+    ArrayList<AboutAsteroidTracker> aboutEntityList = new ArrayList();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
