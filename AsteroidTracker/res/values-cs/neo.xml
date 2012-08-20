@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="neoName">Jméno:</string>
+    <string name="neoMissDistance">Slečna-Distance:</string>
+    <string name="neoRelVelocity">Relativní Rychlost:</string>
+    <string name="neoEstDiameter">Předpokládané Průměr:</string>
+    <string name="neoClosAppDate">Nejbližší přístup Date:</string>
+    <string name="neoAlertClosePass">To je kolem blíže než Měsíc!</string>
+    <string name="neoError">Nelze načíst Asteroidu Data</string>
+</resources>

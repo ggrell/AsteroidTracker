@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">AsteroidTracker</string>
+<string name="quit">Přestat</string>
+<string name="settings">Nastavení</string>
+<string name="about">O</string>
+<string name="developedby">Vytvořil: Vitruvious Software (BunnyFish projekty)</string>
+<string name="visit_neoSite">Přejít na NEO stránkách</string>
+<string name="visit_bunnyFish">Přejít na bunnyFish</string>
+<string name="description">\nAndoidTracker je věda agregace aplikace, která zobrazuje informace o objektech v blízkosti Země. </string>
+<string name="neo">Co je Near-Earth Object (NEO)? \n Near-Earth Objects (NEO) jsou komety a asteroidy, které byly šťouchl gravitačním okolních planet na oběžnou dráhu, která jim umožní vstoupit do zemské okolí. Je složen převážně z vodního ledu se zabudovanými prachovými částicemi...</string>
+<string name="alldata">Všechny údaje jsou z NASA Near Earth Object Program\nhttp://neo.jpl.nasa.gov.</string>
+<string name="feedDown">Nelze načíst Asteroid krmiva</string>
+<string name="refresh">Občerstvit</string>
+<string name="about_impactRisk">NASA NEO - Impact Risk - Sentry Risk Table\nhttp://neo.jpl.nasa.gov/risk/</string>
+<string name="about_impactRiskDetail">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
+<string name="about_closeApproaches">NASA NEO - Close Approaches\nhttp://neo.jpl.nasa.gov/ca/</string>
+<string name="about_torinoScale">NASA NEO - The Torino Impact Hazard Scale \nhttp://neo.jpl.nasa.gov/torino_scale.html</string>
+<string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
+<string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
+<string name="networkerror">It seems your mobile/wifi network(s) are unavailable, please check your system settings, airplane mode maybe?? Either way, Sad Panda (Feel free to submit a bug report if you feel this message is in error, though its likely not).</string>
+</resources>
+

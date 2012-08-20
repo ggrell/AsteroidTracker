@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Impact_Name">Jméno:</string>
+    <string name="Impact_YearRange">Rok-Range:</string>
+    <string name="Impact_Level_Title">Dopad Hazard Level:</string>
+    <string name="Impact_Level_NoHazard">No Hazard</string>
+    <string name="Impact_Level_Normal">Normální</string>
+    <string name="Impact_Level_MeritsAttention">Zasluhuje Pozornost</string>
+    <string name="Impact_Level_Threatening">Hrozivý</string>
+    <string name="Impact_Level_CertainCollisions">Některé Kolize</string>
+    
+    <string name="Impact_Detail_ViewTitle">Asteroid Tracker: Impact Shrnutí rizika</string>
+    <string name="Impact_Detail_PotentialImpacts">Potenciální Dopady:</string>
+    <string name="Impact_Detail_ImpactProbability">Dopad Pravděpodobnost</string>
+    <string name="Impact_Detail_AbsoluteMagnitude">Absolutní Hodnota:</string>
+    <string name="Impact_Detail_EstimatedDiameter">Předpokládané Průměr:</string>
+    <string name="Impact_Detail_vInfinity">Vinfinity:</string>
+    <string name="Impact_Detail_TorinoScaleMax">Torino Měřítko:</string>
+    <string name="Impact_Detail_PalermoScaleMax">Palermp Měřítko:</string>
+    <string name="Impact_Button_DetailsPage">NASA Asteroid stránku s podrobnostmi</string>
+    <string name="Impact_Button_OrbitalDiagram">Orbitální diagram a prvky</string>    
+</resources>
