@@ -18,6 +18,6 @@
 <string name="about_torinoScale">NASA NEO - The Torino Impact Hazard Scale \nhttp://neo.jpl.nasa.gov/torino_scale.html</string>
 <string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
 <string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
-<string name="networkerror">It seems your mobile/wifi network(s) are unavailable, please check your system settings, airplane mode maybe?? Either way, Sad Panda (Feel free to submit a bug report if you feel this message is in error, though its likely not).</string>
+<string name="networkerror">Zdá se, že váš mobilní / wifi síť (y) nejsou k dispozici, zkontrolujte nastavení systému, letový režim možná? Ať tak či onak, Sad Panda (Neváhejte bud'to zprávu, pokud se domníváte, že zpráva je v chybě, ačkoli jeho pravděpodobně není).</string>
 </resources>
 
