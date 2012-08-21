@@ -106,7 +106,7 @@ public class AsteroidTrackerActivity extends ListActivity {
         LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         boolean networkAvailable = nUtil.IsNetworkAvailable(this);
         if(networkAvailable){
-            UseGitService = GitService.IsGitServiceAvailable();
+            UseGitService = GitService.isGitServiceAvailable();
             Log.d("gitservice", "UseGitService: " + UseGitService);
             if(UseGitService){
                 processNEOFeedRecent();
@@ -135,8 +135,8 @@ public class AsteroidTrackerActivity extends ListActivity {
                         contentManager.List_NASA_RECENT = contentManager.neo_AstroidFeed.getRecentList(HTTPDATA);
                         contentManager.List_NASA_UPCOMING = contentManager.neo_AstroidFeed.getUpcomingList(HTTPDATA);
                     }
-                    contentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
-                    contentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
+                    contentManager.loadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
+                    contentManager.loadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
                     refresh = true;
                     AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
@@ -154,8 +154,8 @@ public class AsteroidTrackerActivity extends ListActivity {
         Thread checkUpdate = new Thread() {
         public void run() {
             if(!refresh){
-                contentManager.List_NASA_RECENT = (List<NearEarthObject>) GitService.getNEOList(GitService.URIRecent);
-                contentManager.LoadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
+                contentManager.List_NASA_RECENT = (List<NearEarthObject>) GitService.getNEOList(GitService.URI_RECENT);
+                contentManager.loadAdapters_NEO_Recent(AsteroidTrackerActivity.this);
                 refresh = true;
             }
             AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
@@ -173,8 +173,8 @@ public class AsteroidTrackerActivity extends ListActivity {
         Thread checkUpdate = new Thread() {
         public void run() {
             if(!refresh){
-                contentManager.List_NASA_UPCOMING =  GitService.getNEOList(GitService.URIUpcoming);
-                contentManager.LoadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
+                contentManager.List_NASA_UPCOMING =  GitService.getNEOList(GitService.URI_UPCOMING);
+                contentManager.loadAdapters_NEO_Upcoming(AsteroidTrackerActivity.this);
                 refresh = true;
             }
             AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
@@ -194,12 +194,12 @@ public class AsteroidTrackerActivity extends ListActivity {
                 if(!refresh){
                     if(UseGitService){
                         contentManager.List_NASA_IMPACT = GitService.getImpactData();
-                        contentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
+                        contentManager.loadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
                     } else{
                         String HTTP_IMPACT_DATA =  contentManager.neo_AstroidFeed.getAstroidFeedDATA(contentManager.neo_AstroidFeed.URL_NASA_NEO_IMPACT_FEED);
                         contentManager.List_NASA_IMPACT = contentManager.neo_AstroidFeed.getImpactList(HTTP_IMPACT_DATA);
                     }
-                contentManager.LoadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
+                contentManager.loadAdapters_NEO_Impact(AsteroidTrackerActivity.this);
                 refresh = true;
                 }
                 AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
@@ -224,7 +224,7 @@ public class AsteroidTrackerActivity extends ListActivity {
                         contentManager.List_NASA_News = contentManager.neo_AstroidFeed.parseNewsFeed(HTTP_NEWS_DATA);
                     }
                 }
-                contentManager.LoadAdapters_NEO_News(AsteroidTrackerActivity.this);
+                contentManager.loadAdapters_NEO_News(AsteroidTrackerActivity.this);
                 refresh = true;
                 AsteroidTrackerActivity.this.runOnUiThread(new Runnable() {
                        public void run() {

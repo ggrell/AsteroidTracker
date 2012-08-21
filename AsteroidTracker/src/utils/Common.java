@@ -2,7 +2,7 @@ package utils;
 
 import android.util.Log;
 
-public class common {
+public class Common {
 
 	
 	public static XmlParser getXMLData(String URL_FEED) {

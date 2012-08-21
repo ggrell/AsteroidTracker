@@ -14,18 +14,17 @@ import domains.News;
 
 public class AsteroidTrackerService {
 
-    public static String useServiceUri    = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/useService";
-    public static String URIRecent        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_recent/recent";
-    public static String URIUpcoming      = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_upcoming/upcoming";
-    public static String URIImpact        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_impact/impactRisk";
-    public static String URINews          = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_news/latestnews";
+    public static String URI_USESERVICE    = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/useService";
+    public static String URI_RECENT        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_recent/recent";
+    public static String URI_UPCOMING      = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_upcoming/upcoming";
+    public static String URI_IMPACT        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_impact/impactRisk";
+    public static String URI_NEWS          = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_news/latestnews";
     boolean useService = false;
     public static Gson gson = new Gson();
     HttpUtil httputil = new HttpUtil();
     
     public boolean isGitServiceAvailable(){
-        Log.d("gitservice", "IsGitServiceAvailable");
-        if (HttpUtil.get(useServiceUri).trim().equals("true")){
+        if (HttpUtil.get(URI_USESERVICE).trim().equals("true")){
             Log.d("gitservice", "IsGitServiceAvailable: "+ true);
             return true;
         }else {
@@ -55,7 +54,7 @@ public class AsteroidTrackerService {
         ArrayList<News> newslist = new ArrayList<News>();
         try {
             Type collectionType = new TypeToken<ArrayList<News>>(){}.getType();
-            newslist = gson.fromJson(HttpUtil.get(URINews), collectionType);
+            newslist = gson.fromJson(HttpUtil.get(URI_NEWS), collectionType);
             for(int i = 0; i < newslist.size(); i++){
                 try {
                     newslist.get(i).updateImageURLDrawable();
@@ -78,7 +77,7 @@ public class AsteroidTrackerService {
         ArrayList<Impact> impactList = new ArrayList<Impact>();
         try {
             Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
-            impactList = gson.fromJson(HttpUtil.get(URIImpact), collectionType);
+            impactList = gson.fromJson(HttpUtil.get(URI_IMPACT), collectionType);
         } catch (JsonSyntaxException e) {
             Impact impactError = new Impact();
             impactError.setName("Unable to retrieve Asteroid Data");

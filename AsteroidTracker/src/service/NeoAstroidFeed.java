@@ -17,7 +17,7 @@ import java.util.List;
 import javax.xml.xpath.XPathExpressionException;
 
 import utils.XmlParser;
-import utils.common;
+import utils.Common;
 
 
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
@@ -35,8 +35,8 @@ import android.util.Log;
 
 public class NeoAstroidFeed {
 
-	public static final String URL_NearEarthObjects="http://neo.jpl.nasa.gov/ca/";
-	public static final String URL_NEOMain="http://neo.jpl.nasa.gov/";
+	public static final String URL_NEAR_EARTH_OBJECTS="http://neo.jpl.nasa.gov/ca/";
+	public static final String URL_NEOMAIN="http://neo.jpl.nasa.gov/";
 	public static final String URL_NEOImpact_base="http://neo.jpl.nasa.gov/risk/";	
 	public static final String URL_NEOImpact_OrbitalBase="http://ssd.jpl.nasa.gov/sbdb.cgi?sstr={NEONAME};orb=1";			
 	public static final String URL_NASA_NEO = "http://neo.jpl.nasa.gov/ca/";
@@ -71,7 +71,7 @@ public class NeoAstroidFeed {
 	}
 
 	public static List<Nasa_neoEntityDeprecated> getandLoadUSGSData(String URL_FEED){
-		parser = common.getXMLData(URL_FEED);
+		parser = Common.getXMLData(URL_FEED);
 		loadParseEntries(parser);
 		return getEntries();
 	}
@@ -83,7 +83,7 @@ public class NeoAstroidFeed {
 	
 	public static List<Nasa_neoEntityDeprecated> getandLoaAstroidData(String URL_FEED){
 //		Log.i("HTTP", "getandLoaAstroidData");
-		parser = common.getXMLData(URL_FEED);
+		parser = Common.getXMLData(URL_FEED);
 //		parser = getXMLData(URL_pastDay);
 //		usgsEarthQuakeFeed.loadParseEntries(parser);
 		return getEntries();
@@ -91,7 +91,7 @@ public class NeoAstroidFeed {
 
 	public String getAstroidFeedDATA(String URL) {
 		Log.i("HTTPFEED", "Getting data: "+URL);
-		String data = common.getHTTPData(URL);
+		String data = Common.getHTTPData(URL);
 //		Log.i("neo", "DATA: "+data);
 		return data;
 }

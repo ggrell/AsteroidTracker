@@ -12,7 +12,7 @@ public class DownloadManager {
     
     
     public void StartDownloads(){
-        if(AsteroidGitService.IsGitServiceAvailable()){
+        if(AsteroidGitService.isGitServiceAvailable()){
             LoadingDialogHelper.messageTitle = "AsteroidTracker service";
             //Start Git Downloads
         } else{
