@@ -1,7 +1,7 @@
 package activities;
 
 import java.util.ArrayList;
-import service.neoAstroidFeed;
+import service.NeoAstroidFeed;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.Impact;
 import adapters.ImpactRiskDetailAdapter;
@@ -74,7 +74,7 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
 	public void asteroidDetailsPage(View view) {
 //		Log.i("GoToWeb", "Calling");
 //		Log.i("GoToWeb", neoAstroidFeed.URL_NEOImpact_base+NASA_IMPACT_DetailPage.get(0).getName().toLowerCase().replace(" ", "")+".html");
-		String url = neoAstroidFeed.URL_NEOImpact_base+NASA_IMPACT_DetailPage.get(0).getName().toLowerCase().replace(" ", "")+".html";
+		String url = NeoAstroidFeed.URL_NEOImpact_base+NASA_IMPACT_DetailPage.get(0).getName().toLowerCase().replace(" ", "")+".html";
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setData(Uri.parse(url));
 		startActivity(i);
@@ -82,7 +82,7 @@ public class ImpactRiskDetailView extends ListActivity implements OnClickListene
 	
 	public void asteroidOrbitPage(View view) {
 		String name = NASA_IMPACT_DetailPage.get(0).getName().replace(" ", "+");
-		String URL = neoAstroidFeed.URL_NEOImpact_OrbitalBase.replace("{NEONAME}", name);
+		String URL = NeoAstroidFeed.URL_NEOImpact_OrbitalBase.replace("{NEONAME}", name);
 //		Log.i("GoToWeb", "Calling");
 //		Log.i("GoToWeb", URL);
 		Intent i = new Intent(Intent.ACTION_VIEW);

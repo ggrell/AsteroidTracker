@@ -23,7 +23,7 @@ public class AsteroidTrackerService {
     public static Gson gson = new Gson();
     HttpUtil httputil = new HttpUtil();
     
-    public boolean IsGitServiceAvailable(){
+    public boolean isGitServiceAvailable(){
         Log.d("gitservice", "IsGitServiceAvailable");
         if (HttpUtil.get(useServiceUri).trim().equals("true")){
             Log.d("gitservice", "IsGitServiceAvailable: "+ true);

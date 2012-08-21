@@ -33,7 +33,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-public class neoAstroidFeed {
+public class NeoAstroidFeed {
 
 	public static final String URL_NearEarthObjects="http://neo.jpl.nasa.gov/ca/";
 	public static final String URL_NEOMain="http://neo.jpl.nasa.gov/";

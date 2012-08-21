@@ -26,7 +26,7 @@ public class ContentManager {
 		public List<NearEarthObject> List_NASA_UPCOMING;
 		public List<Impact> List_NASA_IMPACT;
 		public List<News> List_NASA_News;
-		public neoAstroidFeed neo_AstroidFeed = new neoAstroidFeed();
+		public NeoAstroidFeed neo_AstroidFeed = new NeoAstroidFeed();
 		
 	    public void LoadAdapters_NEO_Recent(Context ctext){
 	    	adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_RECENT, "RECENT");
