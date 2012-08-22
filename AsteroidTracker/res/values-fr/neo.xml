@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="neoName">Nom:</string>
+    <string name="neoMissDistance">Miss-Distance:</string>
+    <string name="neoRelVelocity">Vitesse Relative:</string>
+    <string name="neoEstDiameter">Diamètre Estimée:</string>
+    <string name="neoClosAppDate">Date de la plus proche approche:</string>
+    <string name="neoAlertClosePass">Il est plus près en passant par celui de la Lune!</string>
+    <string name="neoError">Impossible de récupérer les données d'astéroïdes</string>
+</resources>

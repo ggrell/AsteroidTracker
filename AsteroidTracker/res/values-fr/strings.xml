@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">AsteroidTracker</string>
+<string name="quit">Quitter</string>
+<string name="settings">Réglages</string>
+<string name="about">Sur</string>
+<string name="developedby">Développé par: Logiciel Vitruvious (Projets BunnyFish)</string>
+<string name="visit_neoSite">Aller au site Web NEO</string>
+<string name="visit_bunnyFish">Aller à bunnyFish</string>
+<string name="description">\nAndoidTracker est une application d'agrégation des sciences qui affiche des informations sur les objets proches de la Terre. </string>
+<string name="neo">Qu'est-ce qu'une objets géocroiseurs (NEO)? \n Near-Earth Objects (NEO) sont les comètes et les astéroïdes qui ont été poussé par l'attraction gravitationnelle des planètes sur des orbites proches qui leur permettent d'entrer dans le quartier de la Terre. Composé principalement de glace d'eau avec des particules de poussière intégrés ...</string>
+<string name="alldata">Toutes les données proviennent de la NASA Près programme Earth Object \n http://neo.jpl.nasa.gov.</string>
+<string name="feedDown">Impossible de récupérer les données d'astéroïdes</string>
+<string name="refresh">Rafraîchir</string>
+<string name="about_impactRisk">NASA NEO - Impact Risk - Sentry Risk Table\nhttp://neo.jpl.nasa.gov/risk/</string>
+<string name="about_impactRiskDetail">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
+<string name="about_closeApproaches">NASA NEO - Close Approaches\nhttp://neo.jpl.nasa.gov/ca/</string>
+<string name="about_torinoScale">NASA NEO - The Torino Impact Hazard Scale \nhttp://neo.jpl.nasa.gov/torino_scale.html</string>
+<string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
+<string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
+<string name="networkerror">Il Semble Que your mobile / Réseau wifi (s) ne are Pas disponibles Pour, s'il vous plaît verify Vos parametres de system, le mode avion le Peut-Etre? De toute Facon, Sad Panda (N'hésitez Pas à Soumettre non rapports de bogue If you that Pensez un message this is juin Erreur, bien that fils Probablement pas).</string>
+</resources>
+
