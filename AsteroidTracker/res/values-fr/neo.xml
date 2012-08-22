@@ -6,5 +6,5 @@
     <string name="neoEstDiameter">Diamètre Estimée:</string>
     <string name="neoClosAppDate">Date de la plus proche approche:</string>
     <string name="neoAlertClosePass">Il est plus près en passant par celui de la Lune!</string>
-    <string name="neoError">Impossible de récupérer les données d'astéroïdes</string>
+    <string name="neoError">Impossible de récupérer les données d\'astéroïdes</string>
 </resources>

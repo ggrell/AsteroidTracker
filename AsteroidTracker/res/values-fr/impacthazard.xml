@@ -2,21 +2,21 @@
 <resources>
     <string name="Impact_Name">Nom:</string>
     <string name="Impact_YearRange">Année-Plage:</string>
-    <string name="Impact_Level_Title">Niveau de danger d'impact:</string>
+    <string name="Impact_Level_Title">Niveau de danger d\'impact:</string>
     <string name="Impact_Level_NoHazard">Pas de danger</string>
     <string name="Impact_Level_Normal">Normal</string>
     <string name="Impact_Level_MeritsAttention">Mérite Attention</string>
     <string name="Impact_Level_Threatening">Menaçant</string>
     <string name="Impact_Level_CertainCollisions">Certain Collisions</string>
     
-    <string name="Impact_Detail_ViewTitle">Résumé des risques d'impact</string>
+    <string name="Impact_Detail_ViewTitle">Résumé des risques d\'impact</string>
     <string name="Impact_Detail_PotentialImpacts">Impacts Potentiels:</string>
-    <string name="Impact_Detail_ImpactProbability">Probabilité d'impact:</string>
+    <string name="Impact_Detail_ImpactProbability">Probabilité d\'impact:</string>
     <string name="Impact_Detail_AbsoluteMagnitude">Magnitude Absolue:</string>
     <string name="Impact_Detail_EstimatedDiameter">Diamètre Estimée:</string>
     <string name="Impact_Detail_vInfinity">Vinfinity:</string>
     <string name="Impact_Detail_TorinoScaleMax">Torino échelle:</string>
     <string name="Impact_Detail_PalermoScaleMax">Palermo échelle:</string>
     <string name="Impact_Button_DetailsPage">Asteroid NASA page de détails</string>
-    <string name="Impact_Button_OrbitalDiagram">Schéma de l'orbite et des éléments</string>    
+    <string name="Impact_Button_OrbitalDiagram">Schéma de l\'orbite et des éléments</string>    
 </resources>
