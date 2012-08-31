@@ -72,34 +72,34 @@ public class AsteroidTrackerActivity extends ListActivity {
     }
 
     public void TabAndListViewSetup(){
-        tabHost=(TabHost)findViewById(R.id.tabHost);
-        tabHost.setup();
-        tabHost.getTabWidget().setDividerDrawable(R.drawable.silverbar);
-        
-        ls1_ListView_Recent = new ListView(AsteroidTrackerActivity.this);   
-        TabSpec1_Recent=tabHost.newTabSpec("Tab 1");
-        TabSpec1_Recent.setIndicator("RECENT");
-        TabSpec1_Recent.setContent(R.id.tab1);
-        
-        ls2_ListView_Upcoming = new ListView(AsteroidTrackerActivity.this);  
-        TabSpec2_Upcoming=tabHost.newTabSpec("Tab 2");
-        TabSpec2_Upcoming.setIndicator("UPCOMING");
-        TabSpec2_Upcoming.setContent(R.id.tab2);
-        
-        ls3_ListView_Impact = new ListView(AsteroidTrackerActivity.this);  
-        TabSpec3_Impact=tabHost.newTabSpec("Tab 3");
-        TabSpec3_Impact.setIndicator("IMPACT RISK");
-        TabSpec3_Impact.setContent(R.id.tab3);
-        
-        ls4_ListView_News = new ListView(AsteroidTrackerActivity.this); 
-        TabSpec4_News=tabHost.newTabSpec("Tab 4");
-        TabSpec4_News.setIndicator("NEWS");
-        TabSpec4_News.setContent(R.id.tab4);
-        
-        tabHost.addTab(TabSpec1_Recent);
-        tabHost.addTab(TabSpec2_Upcoming);
-        tabHost.addTab(TabSpec3_Impact);
-        tabHost.addTab(TabSpec4_News);
+//        tabHost=(TabHost)findViewById(R.id.tabHost);
+//        tabHost.setup();
+//        tabHost.getTabWidget().setDividerDrawable(R.drawable.silverbar);
+//        
+//        ls1_ListView_Recent = new ListView(AsteroidTrackerActivity.this);   
+//        TabSpec1_Recent=tabHost.newTabSpec("Tab 1");
+//        TabSpec1_Recentc.setIndicator("RECENT");
+//        TabSpec1_Recent.setContent(R.id.tab1);
+//        
+//        ls2_ListView_Upcoming = new ListView(AsteroidTrackerActivity.this);  
+//        TabSpec2_Upcoming=tabHost.newTabSpec("Tab 2");
+//        TabSpec2_Upcoming.setIndicator("UPCOMING");
+//        TabSpec2_Upcoming.setContent(R.id.tab2);
+//        
+//        ls3_ListView_Impact = new ListView(AsteroidTrackerActivity.this);  
+//        TabSpec3_Impact=tabHost.newTabSpec("Tab 3");
+//        TabSpec3_Impact.setIndicator("IMPACT RISK");
+//        TabSpec3_Impact.setContent(R.id.tab3);
+//        
+//        ls4_ListView_News = new ListView(AsteroidTrackerActivity.this); 
+//        TabSpec4_News=tabHost.newTabSpec("Tab 4");
+//        TabSpec4_News.setIndicator("NEWS");
+//        TabSpec4_News.setContent(R.id.tab4);
+//        
+//        tabHost.addTab(TabSpec1_Recent);
+//        tabHost.addTab(TabSpec2_Upcoming);
+//        tabHost.addTab(TabSpec3_Impact);
+//        tabHost.addTab(TabSpec4_News);
     }
     
     public void processFeeds(){

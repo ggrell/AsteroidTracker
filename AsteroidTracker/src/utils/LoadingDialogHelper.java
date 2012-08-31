@@ -10,7 +10,7 @@ public class LoadingDialogHelper{
     public static ProgressDialog dialog;
     static Handler handler;
     public static int closeDialog = 0;
-    public static int closeDialogLimit = 4;
+    public static int closeDialogLimit = 1;
     public static String messageTitle = "";
 
     public static void progressDialog(Context context, String Title, String message){
