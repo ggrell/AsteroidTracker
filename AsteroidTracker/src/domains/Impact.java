@@ -20,7 +20,7 @@ public class Impact {
 	private String PalermoScaleAve = "";
 	private String PalermoScaleMax = "";
 	private String TorinoScale = "";
-	public Drawable IconD = activities.AsteroidTrackerActivity.drawable;
+	public Drawable IconD = activities.fragment.AsteroidTabFragments.drawable;
 	
 	public void setName(String name) {
 		this.name = name;

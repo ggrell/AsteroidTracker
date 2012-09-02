@@ -31,7 +31,6 @@ public class ContentManager {
         public void loadAdapters_NEO_Upcoming(Context ctext){
             Log.i("adap", "setting"+ this.List_NASA_UPCOMING.size());
             this.adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_UPCOMING, "UPCOMING");
-            this.adapter_UPCOMING.setNotifyOnChange(true);
         }
         
         public void loadAdapters_NEO_News(Context ctext){

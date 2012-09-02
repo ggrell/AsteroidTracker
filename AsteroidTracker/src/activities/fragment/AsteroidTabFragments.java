@@ -14,6 +14,7 @@ import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import activities.AsteroidTrackerActivity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -38,34 +39,62 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
     private FragPageAdapter mPagerAdapter;
     private ViewPager mViewPager;
 
-    TabSpec TabSpec1_Recent;
-    TabSpec TabSpec2_Upcoming;
-    TabSpec TabSpec3_Impact;
-    TabSpec TabSpec4_News;
+    public static TabSpec TabSpec1_Recent;
+    public static TabSpec TabSpec2_Upcoming;
+    public static TabSpec TabSpec3_Impact;
+    public static TabSpec TabSpec4_News;
     public ListView ls1_ListView_Recent;
-    public ListView ls2_ListView_Upcoming;
+    public static ListView ls2_ListView_Upcoming;
     public ListView ls3_ListView_Impact;
     public ListView ls4_ListView_News;
     public static ContentManager contentManager = new ContentManager();
-    AsteroidTrackerService GitService = new AsteroidTrackerService();
-    boolean UseGitService;
+    public static AsteroidTrackerService GitService = new AsteroidTrackerService();
+    public static boolean UseGitService;
     NetworkUtil nUtil = new NetworkUtil();
+    public static Context cText;
+    public static Drawable drawable;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabs_viewpager_layout);
-
+        cText = this;
         LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         boolean networkAvailable = nUtil.IsNetworkAvailable(this);
-
-        initialiseTabHost(savedInstanceState);
-        initFragmentAndPading();
-        
         if(networkAvailable){
             UseGitService = GitService.isGitServiceAvailable();
-            processNEOFeedUpcoming();
         }
+        initTabHost(savedInstanceState);
+        initFragmentAndPading();
+        drawable = getResources().getDrawable(R.drawable.asteroid);
+    }
+
+    private void initTabHost(Bundle args) {
+        mTabHost = (TabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup();
+
+
+        TabSpec1_Recent=mTabHost.newTabSpec("Tab1");
+        TabSpec1_Recent.setIndicator("RECENT");
+        TabSpec1_Recent.setContent(R.id.tabthis);
+        
+        TabSpec2_Upcoming=mTabHost.newTabSpec("Tab2");
+        TabSpec2_Upcoming.setIndicator("UPCOMING");
+        TabSpec2_Upcoming.setContent(R.id.tabthis);
+
+        TabSpec3_Impact=mTabHost.newTabSpec("Tab3");
+        TabSpec3_Impact.setIndicator("IMPACT RISK");
+        TabSpec3_Impact.setContent(R.id.tabthis);
+        
+        TabSpec4_News=mTabHost.newTabSpec("Tab4");
+        TabSpec4_News.setIndicator("NEWS");
+        TabSpec4_News.setContent(R.id.tabthis);
+        
+        AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec1_Recent);
+        AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec2_Upcoming);
+        AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec3_Impact);
+        AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec4_News);
+        mTabHost.setOnTabChangedListener(this);
     }
 
     public void initFragmentAndPading(){
@@ -100,22 +129,6 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
                 }
     }
 
-    private void initialiseTabHost(Bundle args) {
-                mTabHost = (TabHost)findViewById(android.R.id.tabhost);
-                mTabHost.setup();
-                
-                ls2_ListView_Upcoming = new ListView(AsteroidTabFragments.this);
-                TabSpec2_Upcoming=mTabHost.newTabSpec("Tab2");
-                TabSpec2_Upcoming.setIndicator("UPCOMING");
-                TabSpec2_Upcoming.setContent(R.id.tab22);
-                
-                AsteroidTabFragments.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab1").setIndicator("RECENT"));
-                AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec2_Upcoming);
-                AsteroidTabFragments.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab3").setIndicator("IMPACT RISK"));
-                AsteroidTabFragments.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab4").setIndicator("NEWS"));
-                mTabHost.setOnTabChangedListener(this);
-
-            }
 
     private static void AddTab(AsteroidTabFragments activity, TabHost tabHost, TabHost.TabSpec tabSpec) {
         tabSpec.setContent(activity.new TabFactory(activity));
@@ -145,25 +158,4 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
             this.mTabHost.setCurrentTab(position);
         }
 
-    public void processNEOFeedUpcoming(){
-        Thread checkUpdate = new Thread() {
-        public void run() {
-                contentManager.List_NASA_UPCOMING =  GitService.getNEOList(GitService.URI_UPCOMING);
-                contentManager.loadAdapters_NEO_Upcoming(AsteroidTabFragments.this);
-                AsteroidTabFragments.this.runOnUiThread(new Runnable() {
-                   public void run() {
-                       LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Upcoming Feed...");
-//                     TabSpec2_Upcoming.setContent(new TabHost.TabContentFactory(){
-//                     public View createTabContent(String tag)
-//                     {
-//                         ls2_ListView_Upcoming.setAdapter(contentManager.adapter_UPCOMING);
-//                         return ls2_ListView_Upcoming;
-//                     }       
-//                 });
-                   }
-               });
-            LoadingDialogHelper.closeDialog();
-        }};
-        checkUpdate.start();
-        }
 }

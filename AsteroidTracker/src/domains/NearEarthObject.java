@@ -25,7 +25,7 @@ public class NearEarthObject {
 	private String Hmagnitude="";
 	private String relativeVelocity="";
 	private URL url;
-	public Drawable IconD = activities.AsteroidTrackerActivity.drawable;
+	public Drawable IconD = activities.fragment.AsteroidTabFragments.drawable;
 //	private int averageAU = 149598000;
 	private int averageAU = 149597870;
 	private String AlertMessage="";
