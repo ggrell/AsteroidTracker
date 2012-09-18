@@ -1,18 +1,14 @@
 package activities.fragment;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
-
 import service.AsteroidTrackerService;
 import service.ContentManager;
+import service.DownloadManager;
 import utils.LoadingDialogHelper;
 import utils.NetworkUtil;
-
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
-
-import activities.AsteroidTrackerActivity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -35,21 +31,18 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
     ViewPager mPager;
     PageIndicator mIndicator;
     private TabHost mTabHost;
-    private HashMap mapTabInfo = new HashMap();
     private FragPageAdapter mPagerAdapter;
     private ViewPager mViewPager;
-
+    
+    ListView ls1_ListView_Recent;
     public static TabSpec TabSpec1_Recent;
     public static TabSpec TabSpec2_Upcoming;
     public static TabSpec TabSpec3_Impact;
     public static TabSpec TabSpec4_News;
-    public ListView ls1_ListView_Recent;
-    public static ListView ls2_ListView_Upcoming;
-    public ListView ls3_ListView_Impact;
-    public ListView ls4_ListView_News;
     public static ContentManager contentManager = new ContentManager();
     public static AsteroidTrackerService GitService = new AsteroidTrackerService();
     public static boolean UseGitService;
+    DownloadManager dManager = new DownloadManager(); 
     NetworkUtil nUtil = new NetworkUtil();
     public static Context cText;
     public static Drawable drawable;
@@ -73,7 +66,7 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
-
+        ls1_ListView_Recent = new ListView(AsteroidTabFragments.this); 
         TabSpec1_Recent=mTabHost.newTabSpec("Tab1");
         TabSpec1_Recent.setIndicator("RECENT");
         TabSpec1_Recent.setContent(R.id.tabthis);
@@ -89,11 +82,11 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
         TabSpec4_News=mTabHost.newTabSpec("Tab4");
         TabSpec4_News.setIndicator("NEWS");
         TabSpec4_News.setContent(R.id.tabthis);
-        
-        AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec1_Recent);
-        AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec2_Upcoming);
-        AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec3_Impact);
-        AsteroidTabFragments.AddTab(this, this.mTabHost, this.TabSpec4_News);
+
+        AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec1_Recent);
+        AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec2_Upcoming);
+        AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec3_Impact);
+        AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec4_News);
         mTabHost.setOnTabChangedListener(this);
     }
 
@@ -111,7 +104,6 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
 
     class TabFactory implements TabContentFactory {
                 private final Context mContext;
-
                 /**
                  * @param context
                  */
@@ -158,4 +150,13 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
             this.mTabHost.setCurrentTab(position);
         }
 
+    public void setRecentAdapter(){
+        TabSpec1_Recent.setContent(new TabHost.TabContentFactory(){
+        public View createTabContent(String tag)
+        {
+            ls1_ListView_Recent.setAdapter(contentManager.adapter_RECENT);
+            return ls1_ListView_Recent;
+        }       
+    });
+      }
 }

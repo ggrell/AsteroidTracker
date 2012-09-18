@@ -23,8 +23,8 @@ public class LoadingDialogHelper{
   }
     
     public static void closeDialog(){
-        Log.i("closeDialog", "closeDialog "+closeDialog);
         closeDialog++;
+        Log.i("closeDialog", "closeDialog "+closeDialog);
         if(closeDialog >= closeDialogLimit){
             handler.sendEmptyMessage(0);
             }
