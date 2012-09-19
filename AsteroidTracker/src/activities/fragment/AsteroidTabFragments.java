@@ -7,6 +7,10 @@ import service.ContentManager;
 import service.DownloadManager;
 import utils.LoadingDialogHelper;
 import utils.NetworkUtil;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import android.content.Context;
@@ -16,6 +20,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -27,7 +32,7 @@ import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 
 
-public class AsteroidTabFragments extends FragmentActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
+public class AsteroidTabFragments extends SherlockFragmentActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
     ViewPager mPager;
     PageIndicator mIndicator;
     private TabHost mTabHost;
@@ -46,12 +51,15 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
     NetworkUtil nUtil = new NetworkUtil();
     public static Context cText;
     public static Drawable drawable;
+    ActionBar actionBar;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabs_viewpager_layout);
+//        setTheme(Theme.Sherlock);
         cText = this;
+        actionBar=getSupportActionBar();
         LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         boolean networkAvailable = nUtil.IsNetworkAvailable(this);
         if(networkAvailable){
@@ -121,7 +129,6 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
                 }
     }
 
-
     private static void AddTab(AsteroidTabFragments activity, TabHost tabHost, TabHost.TabSpec tabSpec) {
         tabSpec.setContent(activity.new TabFactory(activity));
         tabHost.addTab(tabSpec);
@@ -159,4 +166,29 @@ public class AsteroidTabFragments extends FragmentActivity implements TabHost.On
         }       
     });
       }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.mainmenu, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.quit:
+            finish();
+            return true;
+        case R.id.about:
+//            openAbout();
+            return true;
+        case R.id.refresh:
+//            refresh = false;
+            LoadingDialogHelper.closeDialog = 0;
+//            processFeeds();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+}
 }
