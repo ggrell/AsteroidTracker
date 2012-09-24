@@ -1,5 +1,7 @@
 package activities;
 
+import utils.LoadingDialogHelper;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -39,6 +41,10 @@ public class BaseActivity  extends SherlockFragmentActivity {
 //            LoadingDialogHelper.closeDialog = 0;
 //            processFeeds();
             return true;
+        case R.id.reload:
+          LoadingDialogHelper.closeDialog = 0;
+//          processFeeds();
+          return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -48,4 +54,6 @@ public class BaseActivity  extends SherlockFragmentActivity {
         Intent i = new Intent(thisclass, About.class);
         startActivity(i);    
        }
+
+
 }

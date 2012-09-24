@@ -2,42 +2,37 @@ package activities.fragment;
 
 import java.util.List;
 import java.util.Vector;
+
 import service.AsteroidTrackerService;
 import service.ContentManager;
 import service.DownloadManager;
 import utils.LoadingDialogHelper;
 import utils.NetworkUtil;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.viewpagerindicator.PageIndicator;
-import com.vitruviussoftware.bunifish.asteroidtracker.R;
-
-import activities.About;
-import activities.AsteroidTrackerActivity;
 import activities.BaseActivity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabContentFactory;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.viewpagerindicator.PageIndicator;
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
 import fragments.RecentFragment;
 import fragments.UpcomingFragment;
-
 
 public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
     ViewPager mPager;
@@ -45,7 +40,7 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     private TabHost mTabHost;
     private FragPageAdapter mPagerAdapter;
     private ViewPager mViewPager;
-    
+
     ListView ls1_ListView_Recent;
     public TabSpec TabSpec1_Recent;
     public TabSpec TabSpec2_Upcoming;
@@ -59,9 +54,8 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     public static Context cText;
     public static Drawable drawable;
     ActionBar actionBar;
-    LayoutInflater inflater;
-    
-    
+    String[] tabNames = {"RECENT", "UPCOMING", "IMPACT RISK", "NEWS"};
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,20 +79,10 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
-        ls1_ListView_Recent = new ListView(AsteroidTabFragments.this); 
-//        TabSpec1_Recent=mTabHost.newTabSpec("Tab1");
-//        TabSpec1_Recent.setIndicator("RECENT");
-//        TabSpec1_Recent.setContent(R.id.tabthis);
-
-        TabSpec1_Recent = setupTabSpec(new TextView(this), "RECENT");
-        TabSpec2_Upcoming = setupTabSpec(new TextView(this), "UPCOMING");
-        TabSpec3_Impact = setupTabSpec(new TextView(this), "IMPACT RISK");
-        TabSpec4_News = setupTabSpec(new TextView(this), "NEWS");
-        
-        AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec1_Recent);
-        AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec2_Upcoming);
-        AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec3_Impact);
-        AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec4_News);
+        for (String name: tabNames){
+            TabSpec TabSpec = setupTabSpec(new TextView(this), name);
+            AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec);
+        }
         mTabHost.setOnTabChangedListener(this);
     }
 
@@ -110,10 +94,6 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
             TabSpec.setContent(
                     new TabContentFactory() {public View createTabContent(String tag) {return view;}}
             );
-//            TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview).setContent(
-//                    new TabContentFactory() {public View createTabContent(String tag) {return view;}}
-//                    );
-//            mTabHost.addTab(setContent);
             return TabSpec;
         }
 
@@ -124,7 +104,6 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
             return view;
         }
 
-    
     public void initFragmentAndPading(){
         List<Fragment> fragments = new Vector<Fragment>();
         fragments.add(Fragment.instantiate(this, RecentFragment.class.getName()));
@@ -197,28 +176,5 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         inflater.inflate(R.menu.mainmenu, menu);
         return true;
     }
-    
-//    @Override
-//    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
-//        switch (item.getItemId()) {
-//        case R.id.quit:
-//            finish();
-//            return true;
-//        case R.id.about:
-//            openAbout();
-//            return true;
-//        case R.id.refresh:
-////            refresh = false;
-////            LoadingDialogHelper.closeDialog = 0;
-////            processFeeds();
-//            return true;
-//        default:
-//            return super.onOptionsItemSelected(item);
-//        }
-//}
-    
-//    public void openAbout() {
-//        Intent i = new Intent(AsteroidTabFragments.this, About.class);
-//        startActivity(i);    
-//       }
+
 }
