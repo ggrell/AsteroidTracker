@@ -13,26 +13,33 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import activities.About;
+import activities.AsteroidTrackerActivity;
+import activities.BaseActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabContentFactory;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
 import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 
 
-public class AsteroidTabFragments extends SherlockFragmentActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
+public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
     ViewPager mPager;
     PageIndicator mIndicator;
     private TabHost mTabHost;
@@ -40,10 +47,10 @@ public class AsteroidTabFragments extends SherlockFragmentActivity implements Ta
     private ViewPager mViewPager;
     
     ListView ls1_ListView_Recent;
-    public static TabSpec TabSpec1_Recent;
-    public static TabSpec TabSpec2_Upcoming;
-    public static TabSpec TabSpec3_Impact;
-    public static TabSpec TabSpec4_News;
+    public TabSpec TabSpec1_Recent;
+    public TabSpec TabSpec2_Upcoming;
+    public TabSpec TabSpec3_Impact;
+    public TabSpec TabSpec4_News;
     public static ContentManager contentManager = new ContentManager();
     public static AsteroidTrackerService GitService = new AsteroidTrackerService();
     public static boolean UseGitService;
@@ -52,45 +59,42 @@ public class AsteroidTabFragments extends SherlockFragmentActivity implements Ta
     public static Context cText;
     public static Drawable drawable;
     ActionBar actionBar;
+    LayoutInflater inflater;
+    
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabs_viewpager_layout);
-//        setTheme(Theme.Sherlock);
-        cText = this;
         actionBar=getSupportActionBar();
+        cText = this;
+
         LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         boolean networkAvailable = nUtil.IsNetworkAvailable(this);
         if(networkAvailable){
             UseGitService = GitService.isGitServiceAvailable();
         }
+
         initTabHost(savedInstanceState);
         initFragmentAndPading();
         drawable = getResources().getDrawable(R.drawable.asteroid);
     }
 
     private void initTabHost(Bundle args) {
+
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
         ls1_ListView_Recent = new ListView(AsteroidTabFragments.this); 
-        TabSpec1_Recent=mTabHost.newTabSpec("Tab1");
-        TabSpec1_Recent.setIndicator("RECENT");
-        TabSpec1_Recent.setContent(R.id.tabthis);
-        
-        TabSpec2_Upcoming=mTabHost.newTabSpec("Tab2");
-        TabSpec2_Upcoming.setIndicator("UPCOMING");
-        TabSpec2_Upcoming.setContent(R.id.tabthis);
+//        TabSpec1_Recent=mTabHost.newTabSpec("Tab1");
+//        TabSpec1_Recent.setIndicator("RECENT");
+//        TabSpec1_Recent.setContent(R.id.tabthis);
 
-        TabSpec3_Impact=mTabHost.newTabSpec("Tab3");
-        TabSpec3_Impact.setIndicator("IMPACT RISK");
-        TabSpec3_Impact.setContent(R.id.tabthis);
+        TabSpec1_Recent = setupTabSpec(new TextView(this), "RECENT");
+        TabSpec2_Upcoming = setupTabSpec(new TextView(this), "UPCOMING");
+        TabSpec3_Impact = setupTabSpec(new TextView(this), "IMPACT RISK");
+        TabSpec4_News = setupTabSpec(new TextView(this), "NEWS");
         
-        TabSpec4_News=mTabHost.newTabSpec("Tab4");
-        TabSpec4_News.setIndicator("NEWS");
-        TabSpec4_News.setContent(R.id.tabthis);
-
         AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec1_Recent);
         AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec2_Upcoming);
         AsteroidTabFragments.AddTab(this, this.mTabHost, TabSpec3_Impact);
@@ -98,6 +102,29 @@ public class AsteroidTabFragments extends SherlockFragmentActivity implements Ta
         mTabHost.setOnTabChangedListener(this);
     }
 
+    private TabSpec setupTabSpec(final View view, final String tag) {
+            View tabview = createTabView(mTabHost.getContext(), tag);
+            TabSpec TabSpec;
+            TabSpec=mTabHost.newTabSpec("tag");
+            TabSpec.setIndicator(tabview);
+            TabSpec.setContent(
+                    new TabContentFactory() {public View createTabContent(String tag) {return view;}}
+            );
+//            TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview).setContent(
+//                    new TabContentFactory() {public View createTabContent(String tag) {return view;}}
+//                    );
+//            mTabHost.addTab(setContent);
+            return TabSpec;
+        }
+
+    private static View createTabView(final Context context, final String text) {
+            View view = LayoutInflater.from(context).inflate(R.layout.tabs_custom, null);
+            TextView tv = (TextView) view.findViewById(R.id.tabsText);
+            tv.setText(text);
+            return view;
+        }
+
+    
     public void initFragmentAndPading(){
         List<Fragment> fragments = new Vector<Fragment>();
         fragments.add(Fragment.instantiate(this, RecentFragment.class.getName()));
@@ -112,9 +139,7 @@ public class AsteroidTabFragments extends SherlockFragmentActivity implements Ta
 
     class TabFactory implements TabContentFactory {
                 private final Context mContext;
-                /**
-                 * @param context
-                 */
+
                 public TabFactory(Context context) {
                     mContext = context;
                 }
@@ -173,22 +198,27 @@ public class AsteroidTabFragments extends SherlockFragmentActivity implements Ta
         return true;
     }
     
-    @Override
-    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.quit:
-            finish();
-            return true;
-        case R.id.about:
+//    @Override
+//    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+//        switch (item.getItemId()) {
+//        case R.id.quit:
+//            finish();
+//            return true;
+//        case R.id.about:
 //            openAbout();
-            return true;
-        case R.id.refresh:
-//            refresh = false;
-            LoadingDialogHelper.closeDialog = 0;
-//            processFeeds();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-}
+//            return true;
+//        case R.id.refresh:
+////            refresh = false;
+////            LoadingDialogHelper.closeDialog = 0;
+////            processFeeds();
+//            return true;
+//        default:
+//            return super.onOptionsItemSelected(item);
+//        }
+//}
+    
+//    public void openAbout() {
+//        Intent i = new Intent(AsteroidTabFragments.this, About.class);
+//        startActivity(i);    
+//       }
 }
