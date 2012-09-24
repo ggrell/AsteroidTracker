@@ -2,9 +2,9 @@ package activities;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
-import com.vitruviussoftware.bunifish.asteroidtracker.R.layout;
-
 import domains.AboutAsteroidTracker;
 import domains.Impact;
 import adapters.AboutAdapter;
@@ -24,55 +24,58 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class About extends ListActivity {
-
+public class About extends SherlockListActivity  {
+//    public class About extends ListActivity {
     public static Drawable drawableAbout;
     static AboutAdapter AboutDapter;
     ArrayList<AboutAsteroidTracker> aboutEntityList = new ArrayList();
-	
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setTitle("Asteroid Tracker "+getResources().getString(R.string.about));
-		AboutAsteroidTracker about = new AboutAsteroidTracker();
-		aboutEntityList.add(about);
+    ActionBar actionBar;
+    ListView ListView_acout;
+    
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        actionBar=getSupportActionBar();
+//        setTitle("Asteroid Tracker "+getResources().getString(R.string.about));
+        AboutAsteroidTracker about = new AboutAsteroidTracker();
+        aboutEntityList.add(about);
+        final ProgressDialog ArtcleDialog = ProgressDialog.show(this, "","", true);
+        final Handler Artclehandler = new Handler() {
+            public void handleMessage(Message msg) {
+                ArtcleDialog.dismiss();
+            }
+        };
+        Thread checkUpdate = new Thread() {
+            public void run() {
+                Artclehandler.sendEmptyMessage(0);
+                About.this.runOnUiThread(new Runnable() {
+                       public void run() {
+                           AboutDapter = new AboutAdapter(About.this, R.layout.about_main, aboutEntityList);
+                           setListAdapter(About.this.AboutDapter);
+                       }
+                   });
+            }
+        };
+        checkUpdate.start();
+    }
 
-		final ProgressDialog ArtcleDialog = ProgressDialog.show(this, "","", true);
-		final Handler Artclehandler = new Handler() {
-			public void handleMessage(Message msg) {
-				ArtcleDialog.dismiss();
-			}
-		};
-    	Thread checkUpdate = new Thread() {
-    		public void run() {
-    			Artclehandler.sendEmptyMessage(0);
-    			About.this.runOnUiThread(new Runnable() {
-    	               public void run() {
-    	           		AboutDapter = new AboutAdapter(About.this, R.layout.about_main, aboutEntityList);
-    	               	setListAdapter(About.this.AboutDapter);
-    	               }
-    	           });
-    		}
-    	};
-    	checkUpdate.start();
-	}
-
-	private OnClickListener GoToNASANeoSite = new OnClickListener() {
-		public void onClick(View v) {
-			Intent intent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://neo.jpl.nasa.gov"));
-			startActivity(intent);
-		}
-	};
-	
-	private OnClickListener GoToBFsite = new OnClickListener() {
-		public void onClick(View v) {
-			Log.i("GoToWeb", "Calling");
-			String url = "";
-			Intent i = new Intent(Intent.ACTION_VIEW);
-			i.setData(Uri.parse(url));
-			startActivity(i);
-		}
-	};
+    private OnClickListener GoToNASANeoSite = new OnClickListener() {
+        public void onClick(View v) {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://neo.jpl.nasa.gov"));
+            startActivity(intent);
+        }
+    };
+    
+    private OnClickListener GoToBFsite = new OnClickListener() {
+        public void onClick(View v) {
+            Log.i("GoToWeb", "Calling");
+            String url = "";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
+    };
 }
