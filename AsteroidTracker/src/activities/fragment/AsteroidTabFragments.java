@@ -177,4 +177,32 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.quit:
+            finish();
+            return true;
+        case R.id.about:
+            openAbout(this);
+            return true;
+        case R.id.refresh:
+//            refresh = false;
+//            LoadingDialogHelper.closeDialog = 0;
+//            processFeeds();
+            return true;
+        case R.id.reload:
+          LoadingDialogHelper.closeDialog = 0;
+          int tabtoUpdate = this.mTabHost.getCurrentTab();
+          switch (tabtoUpdate){
+          case 0:
+          case 1:
+          case 2:
+          case 3:
+          }
+          return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+}
 }
