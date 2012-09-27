@@ -15,6 +15,7 @@ public class LoadingDialogHelper{
     public static String messageTitle = "";
 
     public static void progressDialog(Context context, String Title, String message){
+        closeDialog = 0;
         dialog = ProgressDialog.show(context, Title, message, true);
         handler = new Handler() {
             public void handleMessage(Message msg) {

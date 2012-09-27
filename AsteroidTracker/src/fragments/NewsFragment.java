@@ -41,8 +41,6 @@ public class NewsFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    
-    
     public void processAsteroidNewsFeed(){
         Thread NewsUpdate = new Thread() {
             public void run() {

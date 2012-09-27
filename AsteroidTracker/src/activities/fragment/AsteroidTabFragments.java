@@ -138,20 +138,20 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         tabHost.addTab(tabSpec);
     }
 
-    @Override
+//    @Override
     public void onTabChanged(String tabId) {
                 int pos = this.mTabHost.getCurrentTab();
                 Log.i("tabz", "tabz: "+pos);
                 this.mViewPager.setCurrentItem(pos);
     }
 
-    @Override
+//    @Override
     public void onPageScrollStateChanged(int arg0) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
+//    @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
         // TODO Auto-generated method stub
         
@@ -186,19 +186,24 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         case R.id.about:
             openAbout(this);
             return true;
-        case R.id.refresh:
-//            refresh = false;
-//            LoadingDialogHelper.closeDialog = 0;
-//            processFeeds();
-            return true;
         case R.id.reload:
           LoadingDialogHelper.closeDialog = 0;
           int tabtoUpdate = this.mTabHost.getCurrentTab();
+          LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
+          Log.d("case", "tabtoUpdate"+tabtoUpdate);
           switch (tabtoUpdate){
           case 0:
+              //NEO RECENT
+              dManager.processNEOFeedRecent();
           case 1:
+              //NEO UPCOMING
+              dManager.processNEOFeedUpcoming();
           case 2:
+              //IMPACT
+              dManager.processImpactFeed();
           case 3:
+              //NEO News
+              dManager.processAsteroidNewsFeed();
           }
           return true;
         default:
