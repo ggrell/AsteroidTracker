@@ -20,7 +20,7 @@ import android.util.Log;
 
 public class HttpUtil {
 
-     public static String get(String URL) {
+     public String get(String URL) {
        StringBuffer sb = new StringBuffer();
        HttpClient httpClient = new DefaultHttpClient();
        HttpGet request = new HttpGet(URL);

@@ -25,12 +25,12 @@ public class ContentManager {
         public NeoAstroidFeed neo_AstroidFeed = new NeoAstroidFeed();
         
         public void loadAdapters_NEO_Recent(Context ctext){
-            adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_RECENT, "RECENT");
+            adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_RECENT);
         }
         
         public void loadAdapters_NEO_Upcoming(Context ctext){
             Log.i("adap", "setting"+ this.List_NASA_UPCOMING.size());
-            this.adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_UPCOMING, "UPCOMING");
+            adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_UPCOMING);
         }
         
         public void loadAdapters_NEO_News(Context ctext){

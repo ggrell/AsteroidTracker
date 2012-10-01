@@ -20,17 +20,15 @@ import android.widget.TextView;
 
 @SuppressWarnings("rawtypes")
 public class NearEarthObjectAdapter extends ArrayAdapter {
-	private static LayoutInflater inflater = null;
+	private LayoutInflater inflater = null;
 	private int resourceId;
 	List dataObject;
 	private Integer[] imgid = {R.drawable.androidmarker, R.drawable.blue_pin, R.drawable.asteroid};
-	private String NEOType;
 	
 	@SuppressWarnings("unchecked")
-	public NearEarthObjectAdapter(Context context, int textViewResourceId, List objects, String NeoFeedType) {
+	public NearEarthObjectAdapter(Context context, int textViewResourceId, List objects) {
 		super(context, textViewResourceId, objects);
 		resourceId = textViewResourceId;
-		NEOType = NeoFeedType;
 	}
 
 	public static class ViewHolder {

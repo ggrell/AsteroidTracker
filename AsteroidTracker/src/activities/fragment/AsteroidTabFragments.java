@@ -40,17 +40,8 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     private TabHost mTabHost;
     private FragPageAdapter mPagerAdapter;
     private ViewPager mViewPager;
-
-    ListView ls1_ListView_Recent;
-    public TabSpec TabSpec1_Recent;
-    public TabSpec TabSpec2_Upcoming;
-    public TabSpec TabSpec3_Impact;
-    public TabSpec TabSpec4_News;
     public static ContentManager contentManager = new ContentManager();
-    public static AsteroidTrackerService GitService = new AsteroidTrackerService();
-    public static boolean UseGitService;
-    DownloadManager dManager = new DownloadManager(); 
-    NetworkUtil nUtil = new NetworkUtil();
+    public DownloadManager dManager = new DownloadManager(); 
     public static Context cText;
     public static Drawable drawable;
     ActionBar actionBar;
@@ -59,19 +50,17 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cText = this;
+        
         setContentView(R.layout.tabs_viewpager_layout);
         actionBar=getSupportActionBar();
-        cText = this;
-
-        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
-        boolean networkAvailable = nUtil.IsNetworkAvailable(this);
-        if(networkAvailable){
-            UseGitService = GitService.isGitServiceAvailable();
-        }
 
         initTabHost(savedInstanceState);
         initFragmentAndPading();
+
+        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         drawable = getResources().getDrawable(R.drawable.asteroid);
+        dManager.startDownloads();
     }
 
     private void initTabHost(Bundle args) {
@@ -110,7 +99,8 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         fragments.add(Fragment.instantiate(this, UpcomingFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, ImpactFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, NewsFragment.class.getName()));
-        this.mPagerAdapter  = new FragPageAdapter(super.getSupportFragmentManager(), fragments);
+        
+        this.mPagerAdapter = new FragPageAdapter(super.getSupportFragmentManager(), fragments);
         this.mViewPager = (ViewPager)super.findViewById(R.id.viewpager);
         this.mViewPager.setAdapter(this.mPagerAdapter);
         this.mViewPager.setOnPageChangeListener(this);
@@ -161,16 +151,6 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
             this.mTabHost.setCurrentTab(position);
         }
 
-    public void setRecentAdapter(){
-        TabSpec1_Recent.setContent(new TabHost.TabContentFactory(){
-        public View createTabContent(String tag)
-        {
-            ls1_ListView_Recent.setAdapter(contentManager.adapter_RECENT);
-            return ls1_ListView_Recent;
-        }       
-    });
-      }
-
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
@@ -188,23 +168,24 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
             return true;
         case R.id.reload:
           LoadingDialogHelper.closeDialog = 0;
-          int tabtoUpdate = this.mTabHost.getCurrentTab();
+//          int tabtoUpdate = this.mTabHost.getCurrentTab();
           LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
-          Log.d("case", "tabtoUpdate"+tabtoUpdate);
-          switch (tabtoUpdate){
-          case 0:
-              //NEO RECENT
-              dManager.processNEOFeedRecent();
-          case 1:
-              //NEO UPCOMING
-              dManager.processNEOFeedUpcoming();
-          case 2:
-              //IMPACT
-              dManager.processImpactFeed();
-          case 3:
-              //NEO News
-              dManager.processAsteroidNewsFeed();
-          }
+          dManager.startDownloads();
+//          Log.d("case", "tabtoUpdate"+tabtoUpdate);
+//          switch (tabtoUpdate){
+//          case 0:
+//              //NEO RECENT
+//              dManager.processNEOFeedRecent();
+//          case 1:
+//              //NEO UPCOMING
+//              dManager.processNEOFeedUpcoming();
+//          case 2:
+//              //IMPACT
+//              dManager.processImpactFeed();
+//          case 3:
+//              //NEO News
+//              dManager.processAsteroidNewsFeed();
+//          }
           return true;
         default:
             return super.onOptionsItemSelected(item);

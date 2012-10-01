@@ -20,11 +20,11 @@ public class AsteroidTrackerService {
     public static String URI_IMPACT        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_impact/impactRisk";
     public static String URI_NEWS          = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_news/latestnews";
     boolean useService = false;
-    public static Gson gson = new Gson();
+    public Gson gson = new Gson();
     HttpUtil httputil = new HttpUtil();
     
     public boolean isGitServiceAvailable(){
-        if (HttpUtil.get(URI_USESERVICE).trim().equals("true")){
+        if (httputil.get(URI_USESERVICE).trim().equals("true")){
             Log.d("gitservice", "IsGitServiceAvailable: "+ true);
             return true;
         }else {
@@ -37,7 +37,7 @@ public class AsteroidTrackerService {
         ArrayList<NearEarthObject> responseData = new ArrayList<NearEarthObject>();
         try {
             Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
-            responseData = gson.fromJson(HttpUtil.get(URI), collectionType);
+            responseData = gson.fromJson(httputil.get(URI), collectionType);
         } catch (JsonSyntaxException e) {
             NearEarthObject neoerror = new NearEarthObject();
             neoerror.setName("Unable to retrieve Asteroid Data");
@@ -54,7 +54,7 @@ public class AsteroidTrackerService {
         ArrayList<News> newslist = new ArrayList<News>();
         try {
             Type collectionType = new TypeToken<ArrayList<News>>(){}.getType();
-            newslist = gson.fromJson(HttpUtil.get(URI_NEWS), collectionType);
+            newslist = gson.fromJson(httputil.get(URI_NEWS), collectionType);
             for(int i = 0; i < newslist.size(); i++){
                 try {
                     newslist.get(i).updateImageURLDrawable();
@@ -77,7 +77,7 @@ public class AsteroidTrackerService {
         ArrayList<Impact> impactList = new ArrayList<Impact>();
         try {
             Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
-            impactList = gson.fromJson(HttpUtil.get(URI_IMPACT), collectionType);
+            impactList = gson.fromJson(httputil.get(URI_IMPACT), collectionType);
         } catch (JsonSyntaxException e) {
             Impact impactError = new Impact();
             impactError.setName("Unable to retrieve Asteroid Data");

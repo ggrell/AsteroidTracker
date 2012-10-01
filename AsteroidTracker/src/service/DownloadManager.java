@@ -8,38 +8,44 @@ import android.content.Context;
 import android.util.Log;
 import domains.NearEarthObject;
 import utils.LoadingDialogHelper;
+import utils.NetworkUtil;
 
 public class DownloadManager {
 
     AsteroidTrackerService AsteroidGitService =  new AsteroidTrackerService();
+    NetworkUtil nUtil = new NetworkUtil();
+    
+    public DownloadManager(){}
 
-    public DownloadManager(){
-        
-    }
-    
-    
-    public void StartDownloads(){
-        if(AsteroidGitService.isGitServiceAvailable()){
-            LoadingDialogHelper.messageTitle = "AsteroidTracker service";
-            //Start Git Downloads
-        } else{
-            LoadingDialogHelper.messageTitle = "Nasa service";
-            //Start Nasa Downloads
+
+    public void startDownloads(){
+        boolean networkAvailable = nUtil.IsNetworkAvailable(AsteroidTabFragments.cText);
+        if(networkAvailable){
+            if(AsteroidGitService.isGitServiceAvailable()){
+//                LoadingDialogHelper.messageTitle = "AsteroidTracker service";
+                processNEOFeedRecent();
+                processNEOFeedUpcoming();
+                processImpactFeed();
+                processAsteroidNewsFeed();
+            } else{
+                    LoadingDialogHelper.messageTitle = "Nasa service";
+                    //Start Nasa Downloads
+                }
         }
     }
-    
 
     public void processNEOFeedRecent(){
         Thread checkUpdate = new Thread() {
         public void run() {
-                AsteroidTabFragments.contentManager.List_NASA_RECENT = (List<NearEarthObject>) AsteroidTabFragments.GitService.getNEOList(AsteroidTabFragments.GitService.URI_RECENT);
+                AsteroidTabFragments.contentManager.List_NASA_RECENT = (List<NearEarthObject>) AsteroidGitService.getNEOList(AsteroidGitService.URI_RECENT);
                 AsteroidTabFragments.contentManager.loadAdapters_NEO_Recent(AsteroidTabFragments.cText);
-                ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() {
-                   public void run() {
-                       LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
-                       AsteroidTabFragments.contentManager.adapter_RECENT.notifyDataSetChanged();
-                       LoadingDialogHelper.killDialog();
-                       }
+                ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
+                    {
+                        public void run() {
+                            LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
+                            AsteroidTabFragments.contentManager.adapter_RECENT.notifyDataSetChanged();
+                            LoadingDialogHelper.closeDialog();
+                        }
                });
         }};
         checkUpdate.start();
@@ -56,14 +62,14 @@ public class DownloadManager {
 //                        AsteroidTabFragments.contentManager.List_NASA_IMPACT = AsteroidTabFragments.contentManager.neo_AstroidFeed.getImpactList(HTTP_IMPACT_DATA);
 //                    }
 //                    AsteroidTabFragments.contentManager.loadAdapters_NEO_Impact(AsteroidTabFragments.cText);
-                        AsteroidTabFragments.contentManager.List_NASA_IMPACT = AsteroidTabFragments.GitService.getImpactData();
-                        AsteroidTabFragments.contentManager.loadAdapters_NEO_Impact(AsteroidTabFragments.cText);
-                    ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() {
+                AsteroidTabFragments.contentManager.List_NASA_IMPACT = AsteroidGitService.getImpactData();
+                AsteroidTabFragments.contentManager.loadAdapters_NEO_Impact(AsteroidTabFragments.cText);
+                ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() {
                     public void run() {
-                            LoadingDialogHelper.dialog.setMessage("Loading NASA Impact Risk Feed...");
-                            AsteroidTabFragments.contentManager.adapter_IMPACT.notifyDataSetChanged();
-                            LoadingDialogHelper.killDialog();
-                        }
+                        LoadingDialogHelper.dialog.setMessage("Loading NASA Impact Risk Feed...");
+                        AsteroidTabFragments.contentManager.adapter_IMPACT.notifyDataSetChanged();
+                        LoadingDialogHelper.closeDialog();
+                    }
                 });
             }};
         ImpactUpdate.start();
@@ -72,13 +78,13 @@ public class DownloadManager {
     public void processAsteroidNewsFeed(){
         Thread NewsUpdate = new Thread() {
             public void run() {
-                AsteroidTabFragments.contentManager.List_NASA_News = AsteroidTabFragments.GitService.getLatestNews();
+                AsteroidTabFragments.contentManager.List_NASA_News = AsteroidGitService.getLatestNews();
                 AsteroidTabFragments.contentManager.loadAdapters_NEO_News(AsteroidTabFragments.cText);
                 ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() {
                        public void run() {
                            LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
                            AsteroidTabFragments.contentManager.adapter_NEWS.notifyDataSetChanged();
-                           LoadingDialogHelper.killDialog();
+                           LoadingDialogHelper.closeDialog();
                        }
                    });
             }};
@@ -86,18 +92,18 @@ public class DownloadManager {
     }
 
     public void processNEOFeedUpcoming(){
-        Thread checkUpdate = new Thread() {
+        Thread checkUpcoming = new Thread() {
         public void run() {
-            AsteroidTabFragments.contentManager.List_NASA_UPCOMING =  AsteroidTabFragments.GitService.getNEOList(AsteroidTabFragments.GitService.URI_UPCOMING);
+            AsteroidTabFragments.contentManager.List_NASA_UPCOMING =  AsteroidGitService.getNEOList(AsteroidGitService.URI_UPCOMING);
             AsteroidTabFragments.contentManager.loadAdapters_NEO_Upcoming(AsteroidTabFragments.cText);
             ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() {
                    public void run() {
                        LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Upcoming Feed...");
                        AsteroidTabFragments.contentManager.adapter_UPCOMING.notifyDataSetChanged();
-                       LoadingDialogHelper.killDialog();
+                       LoadingDialogHelper.closeDialog();
                    }
             });
         }};
-        checkUpdate.start();
+        checkUpcoming.start();
         }
 }

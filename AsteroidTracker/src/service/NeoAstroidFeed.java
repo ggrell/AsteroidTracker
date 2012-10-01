@@ -43,8 +43,8 @@ public class NeoAstroidFeed {
 	public static final String URL_NASA_NEO_IMPACT_FEED = "http://neo.jpl.nasa.gov/risk/";
 	public static final String URL_JPL_AsteroidNewsFeed="http://www.jpl.nasa.gov/multimedia/rss/asteroid.xml";
 
-	public static XmlParser parser;
-	public static List<Nasa_neoEntityDeprecated> nasa_neoEntries = new ArrayList<Nasa_neoEntityDeprecated>();
+	public XmlParser parser;
+	public List<Nasa_neoEntityDeprecated> nasa_neoEntries = new ArrayList<Nasa_neoEntityDeprecated>();
 	public static String Data;
 	public static String[] index ={"Close Approach Date", "Miss Distance (AU)","Miss Distance (LD)","Estimated Diameter", "H(mag)","Relative Velocity"};
 	public static String XPATH_URL = "//a/@href";
@@ -58,32 +58,32 @@ public class NeoAstroidFeed {
 	public static final String RECENT_endSearchString = "</table>";
 	public static final String UPCOMING_baseSearchString = "UPCOMING CLOSE APPROACHES TO EARTH";
 	public static final String UPCOMING_endSearchString = "</table>";
-
+	Common common = new Common();
 	
-	public static String[] getEntries(XmlParser xmlParser) {
+	public String[] getEntries(XmlParser xmlParser) {
 		String[] entryArray = new String[1];
 		return entryArray;
 	}
 	
-	public static String[] loadParseEntries(XmlParser xmlParser) {
+	public String[] loadParseEntries(XmlParser xmlParser) {
 		String[] entryArray = new String[1];
 		return entryArray;
 	}
 
-	public static List<Nasa_neoEntityDeprecated> getandLoadUSGSData(String URL_FEED){
-		parser = Common.getXMLData(URL_FEED);
+	public List<Nasa_neoEntityDeprecated> getandLoadUSGSData(String URL_FEED){
+		parser = common.getXMLData(URL_FEED);
 		loadParseEntries(parser);
 		return getEntries();
 	}
 	
-	public static List<Nasa_neoEntityDeprecated> getEntries() {
+	public List<Nasa_neoEntityDeprecated> getEntries() {
     	List<Nasa_neoEntityDeprecated> entries = new ArrayList<Nasa_neoEntityDeprecated>();
     	return entries; 
     }
 	
-	public static List<Nasa_neoEntityDeprecated> getandLoaAstroidData(String URL_FEED){
+	public List<Nasa_neoEntityDeprecated> getandLoaAstroidData(String URL_FEED){
 //		Log.i("HTTP", "getandLoaAstroidData");
-		parser = Common.getXMLData(URL_FEED);
+		parser = common.getXMLData(URL_FEED);
 //		parser = getXMLData(URL_pastDay);
 //		usgsEarthQuakeFeed.loadParseEntries(parser);
 		return getEntries();
@@ -91,7 +91,7 @@ public class NeoAstroidFeed {
 
 	public String getAstroidFeedDATA(String URL) {
 		Log.i("HTTPFEED", "Getting data: "+URL);
-		String data = Common.getHTTPData(URL);
+		String data = common.getHTTPData(URL);
 //		Log.i("neo", "DATA: "+data);
 		return data;
 }
@@ -110,7 +110,7 @@ public class NeoAstroidFeed {
 		return NEO_UPCOMINGList;		
 	}
 
-	private static ArrayList wordcount(String data, String searchFOR){
+	private ArrayList wordcount(String data, String searchFOR){
 		ArrayList rowIndex = new ArrayList();
 		int lastIndex = 0;
 		int count =0;

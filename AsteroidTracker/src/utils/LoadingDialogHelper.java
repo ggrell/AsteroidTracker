@@ -11,7 +11,7 @@ public class LoadingDialogHelper{
     public static ProgressDialog dialog;
     static Handler handler;
     public static int closeDialog = 0;
-    public static int closeDialogLimit = 2;
+    public static int closeDialogLimit = 3;
     public static String messageTitle = "";
 
     public static void progressDialog(Context context, String Title, String message){
