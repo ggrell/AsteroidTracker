@@ -1,5 +1,7 @@
 package activities;
 
+import service.DownloadManager;
+
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import activities.fragment.AsteroidTabFragments;
@@ -10,15 +12,18 @@ import android.os.Handler;
 
 public class SplashScreen  extends Activity
 {
+
     private final static int MSG_CONTINUE = 1234;
     private final static long DELAY = 2000;
-
+//    public DownloadManager dManager = new DownloadManager(); 
+    
     @Override
     protected void onCreate(Bundle args)
     {
         super.onCreate(args);
         setContentView(R.layout.splash);
         mHandler.sendEmptyMessageDelayed(MSG_CONTINUE, DELAY);
+//        dManager.startDownloads();
     }
     
     @Override

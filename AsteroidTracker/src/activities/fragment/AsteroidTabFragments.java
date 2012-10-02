@@ -50,10 +50,9 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cText = this;
-        
         setContentView(R.layout.tabs_viewpager_layout);
         actionBar=getSupportActionBar();
+        cText = this;
 
         initTabHost(savedInstanceState);
         initFragmentAndPading();
