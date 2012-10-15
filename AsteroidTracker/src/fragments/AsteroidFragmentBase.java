@@ -1,8 +1,11 @@
 package fragments;
 
+import utils.AsteroidLoader;
+
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,5 +28,6 @@ public class AsteroidFragmentBase extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
 }
 

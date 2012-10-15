@@ -34,7 +34,8 @@ import fragments.NewsFragment;
 import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 
-public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
+public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener 
+{
     ViewPager mPager;
     PageIndicator mIndicator;
     private TabHost mTabHost;
@@ -57,9 +58,9 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         initTabHost(savedInstanceState);
         initFragmentAndPading();
 
-        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
+//        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         drawable = getResources().getDrawable(R.drawable.asteroid);
-        dManager.startDownloads();
+//        dManager.startDownloads();
     }
 
     private void initTabHost(Bundle args) {
