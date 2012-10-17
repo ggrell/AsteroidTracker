@@ -9,15 +9,20 @@ import utils.AsteroidLoader;
 import activities.fragment.AsteroidTabFragments;
 import adapters.NearEarthObjectAdapter;
 import android.app.Activity;
+import android.database.ContentObserver;
+import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.content.Loader.ForceLoadContentObserver;
 import android.util.Log;
 import android.view.LayoutInflater;
 
-public class RecentFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Void>
+public class RecentFragment extends ListFragment implements LoaderCallbacks<List>
 {
     Activity context; 
     private NearEarthObjectAdapter neoAdapter;
@@ -25,31 +30,27 @@ public class RecentFragment extends ListFragment implements LoaderManager.Loader
     private static final int RECENT_LIST_LOADER = 0x01;
     private LayoutInflater mInflater;
     AsteroidTrackerService AsteroidGitService =  new AsteroidTrackerService();
-    
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-////        neoAdapter = new NearEarthObjectAdapter(this.getActivity(), R.layout.nasa_neolistview, List_NASA_RECENT);
-//        getLoaderManager().initLoader(RECENT_LIST_LOADER, null, this);
-//    }
 
+    
     @Override
     public void onActivityCreated(Bundle savedInstanceState) 
     {
-        Log.d("recentFrag", "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-        mInflater = LayoutInflater.from(getActivity());
-        
-        if (neoAdapter == null) {
-            List_NASA_RECENT = new ArrayList();
-            neoAdapter = new NearEarthObjectAdapter(getActivity(), R.layout.nasa_neolistview, List_NASA_RECENT);
+
+
+        if (neoAdapter == null) 
+        {
+            Log.d("recentFrag", "set EVERYTHING");
+//            List_NASA_RECENT = new ArrayList();
+            //TODO may need to update adapter to not take list in constructor
+//            neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.nasa_neolistview, AsteroidTabFragments.contentManager.List_NASA_RECENT);
+            neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.nasa_neolistview);
             setListAdapter(neoAdapter);
-//            getListView().setAdapter(neoAdapter);
 
-
-            LoaderManager lm = getLoaderManager();
-            lm.initLoader(RECENT_LIST_LOADER, null, this);
+//            LoaderManager lm = getLoaderManager();
+//            lm.initLoader(RECENT_LIST_LOADER, null, this);
+            getLoaderManager().initLoader(0, null, this);
 //            if (lm.getLoader(RECENT_LIST_LOADER) != null) {
 //                Log.d("recentFrag", "call init()");
 //                lm.initLoader(RECENT_LIST_LOADER, null, this);
@@ -59,46 +60,47 @@ public class RecentFragment extends ListFragment implements LoaderManager.Loader
     }
 
     protected void startLoading() {
-        Log.d("recentFrag", "onActivityCreated(): start loading!");
+        Log.d("recentFrag", "NEW onActivityCreated(): start loading!");
         getLoaderManager().initLoader(RECENT_LIST_LOADER, null, this);
     }
 
     protected void restartLoading() {
-        List_NASA_RECENT.clear();
-        neoAdapter.notifyDataSetChanged();
-        getListView().invalidateViews();
+//        List_NASA_RECENT.clear();
+//        neoAdapter.notifyDataSetChanged();
+//        getListView().invalidateViews();
 //        Log.d(TAG, "restartLoading(): re-starting loader");
-        getLoaderManager().restartLoader(RECENT_LIST_LOADER, null, this);
+//        getLoaderManager().restartLoader(RECENT_LIST_LOADER, null, this);
     }
 
-    @Override
-    public Loader<Void> onCreateLoader(int id, Bundle args) {
-        AsyncTaskLoader<Void> loader = new AsyncTaskLoader<Void>(getActivity()) {
-
-            @Override
-            public Void loadInBackground() {
-                Log.d("recentFrag", "loadInBackground");
-                List_NASA_RECENT = (AsteroidGitService.getNEOList(AsteroidGitService.URI_RECENT));
-                Log.d("recentFrag", "loadInBackground size "+ List_NASA_RECENT.size());
-                return null;
-            }
-        };
-        // somehow the AsyncTaskLoader doesn't want to start its job without
-        // calling this method
-        loader.forceLoad();
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Void> arg0, Void arg1) {
-        neoAdapter.notifyDataSetChanged();
+    public void onLoadFinished( Loader<List> arg0, List data ) 
+    {
+      //TODO add setDATA to adapter
+        neoAdapter.setData(data);
+//        getListView().invalidateViews();
+//        neoAdapter.notifyDataSetChanged();
         Log.d("recentFrag", "onLoadFinished(): done loading!");
+//        ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
+//        {
+//            public void run() {
+//                getListView().invalidateViews();
+//                neoAdapter.notifyDataSetChanged();
+////                neoAdapter.notifyDataSetInvalidated();
+//                Log.d("recentFrag", "onLoadFinished(): done loading! IN UI");
+//                
+//            }
+//         });
     }
 
-    @Override
-    public void onLoaderReset(Loader<Void> arg0) {
-        // TODO Auto-generated method stub
-        
+
+    public Loader<List> onCreateLoader(int arg0, Bundle arg1) {
+       return new AsteroidLoader(getActivity());
     }
+
+    public void onLoaderReset(Loader<List> loader) {
+        // Clear the data in the adapter.
+        //TODO add setDATA to adapter
+        neoAdapter.setData(null);
+    }
+
 
 }

@@ -18,7 +18,7 @@ public class ContentManager {
         public NearEarthObjectAdapter adapter_UPCOMING; 
         public ImpactAdapter adapter_IMPACT;
         public NewsAdapter adapter_NEWS;
-        public List<NearEarthObject> List_NASA_RECENT;
+        public List<NearEarthObject> List_NASA_RECENT = new ArrayList();
         public List<NearEarthObject> List_NASA_UPCOMING;
         public List<Impact> List_NASA_IMPACT;
         public List<News> List_NASA_News;
