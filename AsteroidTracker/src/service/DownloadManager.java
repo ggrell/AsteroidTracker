@@ -28,13 +28,16 @@ public class DownloadManager {
         boolean networkAvailable = nUtil.IsNetworkAvailable(AsteroidTabFragments.cText);
         if(networkAvailable){
             if(AsteroidGitService.isGitServiceAvailable()){
+                Log.d("DownloadManager", "Git Service");
                             processNEOFeedRecent();
                             processNEOFeedUpcoming();
                             processImpactFeed();
                             processAsteroidNewsFeed();
-            } else{
-                    LoadingDialogHelper.messageTitle = "Nasa service";
-                }
+            } else
+            {
+                Log.d("DownloadManager", "Nasa service");
+//                LoadingDialogHelper.messageTitle = "Nasa service";
+            }
         }
     }
 
