@@ -31,6 +31,7 @@ import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
+import fragments.RecentFragOld;
 import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 
@@ -39,7 +40,7 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     ViewPager mPager;
     PageIndicator mIndicator;
     private TabHost mTabHost;
-    private FragPageAdapter mPagerAdapter;
+    public FragPageAdapter mPagerAdapter;
     private ViewPager mViewPager;
     public static ContentManager contentManager = new ContentManager();
     public DownloadManager dManager = new DownloadManager(); 
@@ -57,10 +58,12 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
 
         initTabHost(savedInstanceState);
         initFragmentAndPading();
-
-//        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
+        
+        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         drawable = getResources().getDrawable(R.drawable.asteroid);
-//        dManager.startDownloads();
+        dManager.startDownloads();
+
+        dManager.setFragPageAdapter(mPagerAdapter);
     }
 
     private void initTabHost(Bundle args) {
@@ -93,9 +96,12 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
             return view;
         }
 
-    public void initFragmentAndPading(){
+    
+    public void initFragmentAndPading()
+    {
         List<Fragment> fragments = new Vector<Fragment>();
-        fragments.add(Fragment.instantiate(this, RecentFragment.class.getName()));
+         fragments.add(Fragment.instantiate(this, RecentFragOld.class.getName()));
+//        fragments.add(Fragment.instantiate(this, RecentFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, UpcomingFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, ImpactFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, NewsFragment.class.getName()));

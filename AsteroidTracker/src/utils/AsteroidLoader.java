@@ -10,8 +10,10 @@ import domains.NearEarthObject;
 import activities.fragment.AsteroidTabFragments;
 import adapters.NearEarthObjectAdapter;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader.ForceLoadContentObserver;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
@@ -66,18 +68,21 @@ public class AsteroidLoader extends AsyncTaskLoader<List>
         
         Log.d("recentFrag", "AsteroidLoader - onStartLoading");
       if (mData != null) {
+        Log.d("recentFrag", "AsteroidLoader - Delivering previous data");
         // Deliver any previously loaded data immediately.
         deliverResult(mData);
       }
    
       // Begin monitoring the underlying data source.
-        // TODO: register the observer
       if (mAsteroidObserver == null) {
-          mAsteroidObserver = new AsteroidReceiver(this);
+//          mAsteroidObserver = new AsteroidReceiver(this);
+          Log.d("recentFrag", "AsteroidLoader - registerReceiver");
+          LocalBroadcastManager.getInstance(this.ctext).registerReceiver(mAsteroidObserver, new IntentFilter("updateui"));
       }
 //      }
 //   
       if (takeContentChanged() || mData == null) {
+          Log.d("recentFrag", "AsteroidLoader - takeContentChanged");
         // When the observer detects a change, it should call onContentChanged()
         // on the Loader, which will cause the next call to takeContentChanged()
         // to return true. If this is ever the case (or if the current data is

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 
 public class AsteroidFragmentBase extends ListFragment {
 
@@ -27,6 +28,10 @@ public class AsteroidFragmentBase extends ListFragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+    
+    public void setAdap(ListAdapter adapter){
+        setListAdapter(adapter);
     }
 
 }

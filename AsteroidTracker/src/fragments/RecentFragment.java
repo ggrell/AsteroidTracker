@@ -47,14 +47,7 @@ public class RecentFragment extends ListFragment implements LoaderCallbacks<List
 //            neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.nasa_neolistview, AsteroidTabFragments.contentManager.List_NASA_RECENT);
             neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.nasa_neolistview);
             setListAdapter(neoAdapter);
-
-//            LoaderManager lm = getLoaderManager();
-//            lm.initLoader(RECENT_LIST_LOADER, null, this);
             getLoaderManager().initLoader(0, null, this);
-//            if (lm.getLoader(RECENT_LIST_LOADER) != null) {
-//                Log.d("recentFrag", "call init()");
-//                lm.initLoader(RECENT_LIST_LOADER, null, this);
-//            }
         }
         
     }
@@ -91,7 +84,6 @@ public class RecentFragment extends ListFragment implements LoaderCallbacks<List
 //         });
     }
 
-
     public Loader<List> onCreateLoader(int arg0, Bundle arg1) {
        return new AsteroidLoader(getActivity());
     }
@@ -101,6 +93,5 @@ public class RecentFragment extends ListFragment implements LoaderCallbacks<List
         //TODO add setDATA to adapter
         neoAdapter.setData(null);
     }
-
 
 }

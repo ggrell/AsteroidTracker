@@ -3,10 +3,15 @@ package service;
 import java.util.List;
 
 import activities.fragment.AsteroidTabFragments;
+import activities.fragment.FragPageAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import domains.NearEarthObject;
+import fragments.ImpactFragment;
+import fragments.NewsFragment;
+import fragments.RecentFragOld;
+import fragments.UpcomingFragment;
 import utils.LoadingDialogHelper;
 import utils.NetworkUtil;
 
@@ -14,7 +19,8 @@ public class DownloadManager {
 
     AsteroidTrackerService AsteroidGitService =  new AsteroidTrackerService();
     NetworkUtil nUtil = new NetworkUtil();
-    
+    private FragPageAdapter adap;
+
     public DownloadManager(){}
 
 
@@ -28,7 +34,6 @@ public class DownloadManager {
                             processAsteroidNewsFeed();
             } else{
                     LoadingDialogHelper.messageTitle = "Nasa service";
-                    //Start Nasa Downloads
                 }
         }
     }
@@ -53,12 +58,15 @@ public class DownloadManager {
                 AsteroidTabFragments.contentManager.List_NASA_RECENT = (List<NearEarthObject>) AsteroidGitService.getNEOList(AsteroidGitService.URI_RECENT);
                 AsteroidTabFragments.contentManager.loadAdapters_NEO_Recent(AsteroidTabFragments.cText);
 
-//                LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
                 ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
                 {
                     public void run() {
                         LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
-                        AsteroidTabFragments.contentManager.adapter_RECENT.notifyDataSetChanged();
+
+//                        AsteroidTabFragments.contentManager.adapter_RECENT.notifyDataSetChanged();
+                        RecentFragOld recentFragzz = (RecentFragOld) adap.getItem(0);
+                        recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+
                         LoadingDialogHelper.closeDialog();
                     }
            });
@@ -66,7 +74,7 @@ public class DownloadManager {
         checkUpdate.start();
         return checkUpdate;
     }
-    
+
     public void processImpactFeed(){
         Thread ImpactUpdate = new Thread() {
             public void run() {
@@ -86,6 +94,10 @@ public class DownloadManager {
                     public void run() {
                         LoadingDialogHelper.dialog.setMessage("Loading NASA Impact Risk Feed...");
                         AsteroidTabFragments.contentManager.adapter_IMPACT.notifyDataSetChanged();
+
+                        ImpactFragment impactFragment = (ImpactFragment) adap.getItem(2);
+                        impactFragment.setAdap(AsteroidTabFragments.contentManager.adapter_IMPACT);
+
                         LoadingDialogHelper.closeDialog();
                     }
            });
@@ -105,6 +117,10 @@ public class DownloadManager {
                     public void run() {
                         LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
                         AsteroidTabFragments.contentManager.adapter_NEWS.notifyDataSetChanged();
+
+                        NewsFragment newsFragment = (NewsFragment) adap.getItem(3);
+                        newsFragment.setAdap(AsteroidTabFragments.contentManager.adapter_NEWS);
+
                         LoadingDialogHelper.closeDialog();
                     }
            });
@@ -122,7 +138,11 @@ public class DownloadManager {
             {
                 public void run() {
                     LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Upcoming Feed...");
-                    AsteroidTabFragments.contentManager.adapter_UPCOMING.notifyDataSetChanged();
+//                    AsteroidTabFragments.contentManager.adapter_UPCOMING.notifyDataSetChanged();
+
+                    UpcomingFragment upcomingFragment = (UpcomingFragment) adap.getItem(1);
+                    upcomingFragment.setAdap(AsteroidTabFragments.contentManager.adapter_UPCOMING);
+
                     LoadingDialogHelper.closeDialog();
                 }
        });
@@ -130,4 +150,10 @@ public class DownloadManager {
         }};
         checkUpcoming.start();
         }
+
+    public void setFragPageAdapter(FragPageAdapter adapter)
+    {
+        this.adap = adapter;
+    }
+
 }
