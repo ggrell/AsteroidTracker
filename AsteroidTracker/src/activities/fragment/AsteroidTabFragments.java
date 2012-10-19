@@ -62,7 +62,6 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         drawable = getResources().getDrawable(R.drawable.asteroid);
         dManager.startDownloads();
-
         dManager.setFragPageAdapter(mPagerAdapter);
     }
 

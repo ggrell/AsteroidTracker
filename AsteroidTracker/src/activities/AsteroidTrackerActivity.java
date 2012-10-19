@@ -215,7 +215,9 @@ public class AsteroidTrackerActivity extends ListActivity {
     
     public void processAsteroidNewsFeed(){
         Thread NewsUpdate = new Thread() {
+
             public void run() {
+
                 if(!refresh){
                     if(UseGitService){
                         contentManager.List_NASA_News = GitService.getLatestNews();
