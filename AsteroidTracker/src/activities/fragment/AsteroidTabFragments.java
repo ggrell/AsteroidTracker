@@ -32,7 +32,6 @@ import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
 import fragments.RecentFragOld;
-import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 
 public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener 

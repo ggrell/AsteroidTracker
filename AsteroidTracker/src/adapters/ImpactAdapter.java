@@ -25,7 +25,7 @@ public class ImpactAdapter extends ArrayAdapter {
 	private static LayoutInflater inflater = null;
 	private int resourceId;
 	List dataObject;
-	private Integer[] imgid = {R.drawable.androidmarker, R.drawable.blue_pin, R.drawable.asteroid};
+	private Integer[] imgid = {R.drawable.asteroid};
 	
 	@SuppressWarnings("unchecked")
 	public ImpactAdapter(Context context, int textViewResourceId, List objects) {

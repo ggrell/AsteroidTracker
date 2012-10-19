@@ -2,15 +2,9 @@ package activities.fragment;
 
 import java.util.List;
 
-import fragments.ImpactDetailsFragment;
-import fragments.NewsFragment;
-import fragments.RecentFragment;
-import fragments.UpcomingFragment;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 public class FragPageAdapter extends FragmentPagerAdapter{
 
