@@ -9,9 +9,23 @@
       android:orderInCategory="0"
       android:showAsAction="ifRoom">
       <menu>
-          <item android:id="@+id/quit" android:title="@string/quit" />
-          <item android:id="@+id/refresh" android:title="@string/refresh" />
-          <item android:id="@+id/about" android:title="@string/about" />
+          <item 
+              android:id="@+id/quit" 
+              android:title="@string/quit" />
+          <item 
+              android:id="@+id/refresh"
+              android:title="@string/refresh" />
+          <item 
+              android:id="@+id/about"
+              android:title="@string/about" />
+          <item 
+              android:id="@+id/share"
+              android:actionProviderClass="com.actionbarsherlock.widget.ShareActionProvider"
+              android:title="Share"
+              android:enabled="true"
+              android:showAsAction="ifRoom"
+              android:visible="true">
+</item>
     </menu>
 </item>
 </menu>

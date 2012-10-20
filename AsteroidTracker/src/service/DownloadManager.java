@@ -10,7 +10,7 @@ import android.util.Log;
 import domains.NearEarthObject;
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
-import fragments.RecentFragOld;
+import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 import utils.LoadingDialogHelper;
 import utils.NetworkUtil;
@@ -77,7 +77,7 @@ public class DownloadManager {
                 public void run() {
                     LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
 
-                        RecentFragOld recentFragzz = (RecentFragOld) adap.getItem(0);
+                        RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
                         recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
 
                         UpcomingFragment upcomingFragment = (UpcomingFragment) adap.getItem(1);
@@ -103,7 +103,7 @@ public class DownloadManager {
                         LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
 
 //                        AsteroidTabFragments.contentManager.adapter_RECENT.notifyDataSetChanged();
-                        RecentFragOld recentFragzz = (RecentFragOld) adap.getItem(0);
+                        RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
                         recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
 
                         LoadingDialogHelper.closeDialog();

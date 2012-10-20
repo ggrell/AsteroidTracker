@@ -6,10 +6,12 @@ import java.util.Vector;
 import service.AsteroidTrackerService;
 import service.ContentManager;
 import service.DownloadManager;
+import service.SharingService;
 import utils.LoadingDialogHelper;
 import utils.NetworkUtil;
 import activities.BaseActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,12 +28,15 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.ShareActionProvider;
+import com.actionbarsherlock.widget.ShareActionProvider.OnShareTargetSelectedListener;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
-import fragments.RecentFragOld;
+import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 
 public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener 
@@ -47,9 +52,12 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     public static Drawable drawable;
     ActionBar actionBar;
     String[] tabNames = {"RECENT", "UPCOMING", "IMPACT RISK", "NEWS"};
-
+    public static SharingService shareSvc = new SharingService();
+    public static ShareActionProvider shareActionProvider;
+    
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabs_viewpager_layout);
         actionBar=getSupportActionBar();
@@ -62,6 +70,7 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         drawable = getResources().getDrawable(R.drawable.asteroid);
         dManager.startDownloads();
         dManager.setFragPageAdapter(mPagerAdapter);
+
     }
 
     private void initTabHost(Bundle args) {
@@ -98,7 +107,7 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     public void initFragmentAndPading()
     {
         List<Fragment> fragments = new Vector<Fragment>();
-         fragments.add(Fragment.instantiate(this, RecentFragOld.class.getName()));
+         fragments.add(Fragment.instantiate(this, RecentFragment.class.getName()));
 //        fragments.add(Fragment.instantiate(this, RecentFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, UpcomingFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, ImpactFragment.class.getName()));
@@ -158,6 +167,10 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.share);
+        shareActionProvider =  (ShareActionProvider) menuItem.getActionProvider();
+        shareActionProvider.setShareIntent(shareSvc.createShareIntent("", "AsteroidTracker on Android (http://bit.ly/nkxCx1)"));
         return true;
     }
 
