@@ -58,14 +58,10 @@ public class RecentFragment extends AsteroidFragmentBase  {
             NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
 
             String headline = "Asteroid " + neo.getName();
-            String message = "Asteroid " + neo.getName() + ", missDistance is " + neo.getMissDistance_AU_Kilometers() + "(km). " +
-                    "Check it out (" + neo.getURL() + ") #AsteroidTracker http://bit.ly/nkxCx1" ;
-
-//            AsteroidTabFragments.shareActionProvider.setShareIntent(AsteroidTabFragments.shareSvc.createShareIntent(headline, message));
-//            AsteroidTabFragments.shareActionProvider.setOnShareTargetSelectedListener(onShareTargetSelected( AsteroidTabFragments.shareActionProvider,new Intent() ));
-//            AsteroidTabFragments.listener.onShareTargetSelected(AsteroidTabFragments.shareActionProvider, AsteroidTabFragments.shareSvc.createShareIntent(headline, message));
-
-            startActivity(Intent.createChooser( AsteroidTabFragments.shareSvc.createShareIntent(headline, message), "Share via"));
+            String message = "Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers() + "(km) " +
+                    "Check it out " + neo.getURL() + " #AsteroidTracker http://bit.ly/nkxCx1";
+            AsteroidTabFragments.shareSvc.createShareIntent(headline, message, getActivity().getApplicationContext());
+//            startActivity(Intent.createChooser( AsteroidTabFragments.shareSvc.createShareIntent(headline, message, getActivity().getApplicationContext()), "Share via"));
         
         };
     };

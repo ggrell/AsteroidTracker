@@ -168,9 +168,6 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.share);
-        shareActionProvider =  (ShareActionProvider) menuItem.getActionProvider();
-        shareActionProvider.setShareIntent(shareSvc.createShareIntent("", "AsteroidTracker on Android (http://bit.ly/nkxCx1)"));
         return true;
     }
 
