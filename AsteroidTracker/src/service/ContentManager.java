@@ -72,4 +72,5 @@ public class ContentManager {
                 Log.d("ContentManager", "printArray:"+i+") "+array.get(i));
             }
         }
+
 }

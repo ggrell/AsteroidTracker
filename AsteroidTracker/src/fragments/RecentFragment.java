@@ -60,9 +60,7 @@ public class RecentFragment extends AsteroidFragmentBase  {
             String headline = "Asteroid " + neo.getName();
             String message = "Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers() + "(km) " +
                     "Check it out " + neo.getURL() + " #AsteroidTracker http://bit.ly/nkxCx1";
-            AsteroidTabFragments.shareSvc.createShareIntent(headline, message, getActivity().getApplicationContext());
-//            startActivity(Intent.createChooser( AsteroidTabFragments.shareSvc.createShareIntent(headline, message, getActivity().getApplicationContext()), "Share via"));
-        
+            AsteroidTabFragments.shareSvc.createAndShowShareIntent(headline, message);
         };
     };
 }

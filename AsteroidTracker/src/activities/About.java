@@ -4,30 +4,26 @@ import java.util.ArrayList;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.AboutAsteroidTracker;
-import domains.Impact;
+import activities.fragment.AsteroidTabFragments;
 import adapters.AboutAdapter;
-import adapters.ImpactRiskDetailAdapter;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-public class About extends SherlockListActivity  {
+public class About extends SherlockListActivity 
+{
 //    public class About extends ListActivity {
     public static Drawable drawableAbout;
     static AboutAdapter AboutDapter;
@@ -38,7 +34,7 @@ public class About extends SherlockListActivity  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBar=getSupportActionBar();
-//        setTitle("Asteroid Tracker "+getResources().getString(R.string.about));
+        setTitle(getResources().getString(R.string.about));
         AboutAsteroidTracker about = new AboutAsteroidTracker();
         aboutEntityList.add(about);
         final ProgressDialog ArtcleDialog = ProgressDialog.show(this, "","", true);
@@ -68,7 +64,7 @@ public class About extends SherlockListActivity  {
             startActivity(intent);
         }
     };
-    
+
     private OnClickListener GoToBFsite = new OnClickListener() {
         public void onClick(View v) {
             Log.i("GoToWeb", "Calling");
@@ -78,4 +74,5 @@ public class About extends SherlockListActivity  {
             startActivity(i);
         }
     };
+
 }

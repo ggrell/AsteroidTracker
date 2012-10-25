@@ -1,120 +1,161 @@
 package activities;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import service.NeoAstroidFeed;
+import utils.LoadingDialogHelper;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.Impact;
 import activities.fragment.AsteroidTabFragments;
+import adapters.ImpactAdapter;
 import adapters.ImpactRiskDetailAdapter;
+import adapters.ImpactAdapter.ViewHolder;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.util.Linkify;
+import android.text.util.Linkify.TransformFilter;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.Patterns;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.widget.ShareActionProvider;
+
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.ShareActionProvider;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ImpactRiskDetailView extends ListActivity implements OnClickListener{
+public class ImpactRiskDetailView extends SherlockListActivity implements OnClickListener {
 
-	Bundle extras;
-	public Intent asteroidDetails;
-	TextView name;
-	TextView year_range;
-	TextView potential_impacts;
-	TextView impact_prob;
-	TextView vinfinity;
-	TextView absolute_magnitude;
-	TextView estimated_diameter;
-	TextView torino_scale;
-	TextView palermo_scale;
-	ListView ls1;
-	static ImpactRiskDetailAdapter adapter_IMPACTRisk_DetailView;
-	Impact asteroid =  new Impact();
-	ArrayList<Impact> NASA_IMPACT_DetailPage = new ArrayList();
+    public static ShareActionProvider shareActionProvider;
 
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setTitle(getResources().getString(R.string.Impact_Detail_ViewTitle));
-		extras = getIntent().getExtras();
-		int asteroidList = extras.getInt("position");
-		NASA_IMPACT_DetailPage.add(AsteroidTabFragments.contentManager.List_NASA_IMPACT.get(asteroidList));
-		
-		Button button_AsteroidDetailPageButton = (Button) findViewById(R.id.ImpactRisk_Button_AsteroidDetailPage);
-	 	Button button_AsteroidOrbitalPageButton = (Button) findViewById(R.id.ImpactRisk_Button_AsteroidOrbitDiagrams);
+    Bundle extras;
+    public Intent asteroidDetails;
+    TextView name;
+    TextView year_range;
+    TextView potential_impacts;
+    TextView impact_prob;
+    TextView vinfinity;
+    TextView absolute_magnitude;
+    TextView estimated_diameter;
+    TextView torino_scale;
+    TextView palermo_scale;
+    ListView ls1;
+    static ImpactRiskDetailAdapter adapter_IMPACTRisk_DetailView;
+    Impact asteroid;
+    ActionBar actionBar;
+    ArrayList<Impact> NASA_IMPACT_DetailPage = new ArrayList<Impact>();
+    String DetailPageURL;
+    String OrbitPageURL;
+    String shareMessage;
 
+    TransformFilter filter = new TransformFilter() {
+        public final String transformUrl(final Matcher match, String url) {
+            return match.group();
+        }
+    };
+    
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle(getResources().getString(R.string.Impact_Detail_ViewTitle));
+        actionBar=getSupportActionBar();
+        extras = getIntent().getExtras();
+        int asteroidList = extras.getInt("position");
+        asteroid = AsteroidTabFragments.contentManager.List_NASA_IMPACT.get(asteroidList);
+        NASA_IMPACT_DetailPage.add(asteroid);
+        DetailPageURL = NeoAstroidFeed.URL_NEOImpact_base+asteroid.getName().toLowerCase().replace(" ", "")+".html";
+        OrbitPageURL = NeoAstroidFeed.URL_NEOImpact_OrbitalBase.replace("{NEONAME}", asteroid.getName().replace(" ", "+"));
+
+        //TODO Intl string to prop files
+        
+        TextView tv = (TextView) findViewById(R.id.shareHolder);
+        String StringBy = " #AsteroidTracker <http://bit.ly/S7t9Wv>";
+        shareMessage = "Asteroid(" + asteroid.getName() + ") risk level: " +getHazardLevel(Integer.parseInt(asteroid.getTorinoScale()))+ ", See Details "+DetailPageURL +" "+StringBy;
+
+        //TODO Fix how this adap is loaded.  SAD PANDA
         final ProgressDialog ArtcleDialog = ProgressDialog.show(this, "","Loading Asteroid Data...", true);
-		final Handler Artclehandler = new Handler() {
-			public void handleMessage(Message msg) {
-				ArtcleDialog.dismiss();
-			}
-		};
-    	Thread checkUpdate = new Thread() {
-    		public void run() {
-    			Artclehandler.sendEmptyMessage(0);
-    			ImpactRiskDetailView.this.runOnUiThread(new Runnable() {
-    	               public void run() {
-    	               	adapter_IMPACTRisk_DetailView = new ImpactRiskDetailAdapter(ImpactRiskDetailView.this, R.layout.impactrisk_detail_view, NASA_IMPACT_DetailPage);
-    	               	setListAdapter(ImpactRiskDetailView.this.adapter_IMPACTRisk_DetailView);
-    	               }
-    	           });
-    		}
-    	};
-    	checkUpdate.start();
+        final Handler Artclehandler = new Handler() {
+            public void handleMessage(Message msg) {
+                ArtcleDialog.dismiss();
+            }
+        };
+        Thread checkUpdate = new Thread() {
+            public void run() {
+                Artclehandler.sendEmptyMessage(0);
+                ImpactRiskDetailView.this.runOnUiThread(new Runnable() {
+                       public void run() {
+                           adapter_IMPACTRisk_DetailView = new ImpactRiskDetailAdapter(ImpactRiskDetailView.this, R.layout.impactrisk_detail_view, NASA_IMPACT_DetailPage);
+                           setListAdapter(ImpactRiskDetailView.this.adapter_IMPACTRisk_DetailView);
+                       }
+                   });
+            }
+        };
+        checkUpdate.start();
   }
-	
-	public void asteroidDetailsPage(View view) {
-//		Log.i("GoToWeb", "Calling");
-//		Log.i("GoToWeb", neoAstroidFeed.URL_NEOImpact_base+NASA_IMPACT_DetailPage.get(0).getName().toLowerCase().replace(" ", "")+".html");
-		String url = NeoAstroidFeed.URL_NEOImpact_base+NASA_IMPACT_DetailPage.get(0).getName().toLowerCase().replace(" ", "")+".html";
-		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setData(Uri.parse(url));
-		startActivity(i);
-		}
-	
-	public void asteroidOrbitPage(View view) {
-		String name = NASA_IMPACT_DetailPage.get(0).getName().replace(" ", "+");
-		String URL = NeoAstroidFeed.URL_NEOImpact_OrbitalBase.replace("{NEONAME}", name);
-//		Log.i("GoToWeb", "Calling");
-//		Log.i("GoToWeb", URL);
-		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setData(Uri.parse(URL));
-		startActivity(i);
-		}
-	
-	
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.impactdetails, menu);
-		return true;
-	}
-	
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.about:
-			openAbout();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-}
-	
-	public void openAbout() {
-		Intent i = new Intent(ImpactRiskDetailView.this, About.class);
-        startActivity(i);	
+    
+    public void asteroidDetailsPage(View view) {
+        String url = DetailPageURL;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+        }
+    
+    public void asteroidOrbitPage(View view) {
+        String URL = OrbitPageURL;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(URL));
+        startActivity(i);
+        }
+
+    public void openAbout() {
+        Intent i = new Intent(ImpactRiskDetailView.this, About.class);
+        startActivity(i);    
        }
 
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void onClick(View v) {}
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.impactsummary, menu);
+        MenuItem menuItem = menu.findItem(R.id.share);
+        shareActionProvider =  (ShareActionProvider) menuItem.getActionProvider();
+        shareActionProvider.setShareHistoryFileName(null);
+        shareActionProvider.setShareIntent(AsteroidTabFragments.shareSvc.createShareIntent("AsteroidTracker", shareMessage));
+        return true;
+    }
+
+    public String getHazardLevel(int torinoScale){
+        if(torinoScale == 0) {
+            return ImpactRiskDetailView.this.getBaseContext().getString(R.string.Impact_Level_NoHazard);
+        }else if(torinoScale == 1){
+            return ImpactRiskDetailView.this.getBaseContext().getString(R.string.Impact_Level_Normal);
+        }else if(torinoScale >= 2 || torinoScale <= 4){
+            ImpactRiskDetailView.this.getBaseContext().getString(R.string.Impact_Level_MeritsAttention);
+        }else if(torinoScale >= 5 || torinoScale <= 7){
+            ImpactRiskDetailView.this.getBaseContext().getString(R.string.Impact_Level_Threatening);
+        }else if(torinoScale >= 8|| torinoScale <= 10){
+            ImpactRiskDetailView.this.getBaseContext().getString(R.string.Impact_Level_CertainCollisions);
+        }
+        return "";
+    }
 }

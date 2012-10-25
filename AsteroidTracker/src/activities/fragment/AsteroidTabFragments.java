@@ -53,8 +53,8 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     ActionBar actionBar;
     String[] tabNames = {"RECENT", "UPCOMING", "IMPACT RISK", "NEWS"};
     public static SharingService shareSvc = new SharingService();
-    public static ShareActionProvider shareActionProvider;
-    
+//    public static ShareActionProvider shareActionProvider;
+
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {

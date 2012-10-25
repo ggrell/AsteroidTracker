@@ -2,11 +2,15 @@ package service;
 
 import java.util.List;
 
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
 import activities.fragment.AsteroidTabFragments;
 import activities.fragment.FragPageAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 import domains.NearEarthObject;
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
@@ -24,6 +28,7 @@ public class DownloadManager {
     public DownloadManager(){}
 
     public void startDownloads(){
+
         boolean networkAvailable = nUtil.IsNetworkAvailable(AsteroidTabFragments.cText);
         if(networkAvailable){
             if(AsteroidGitService.isGitServiceAvailable())
@@ -42,6 +47,9 @@ public class DownloadManager {
                 processImpactFeed(false);
                 processAsteroidNewsFeed(false);
             }
+            
+        }else{
+            Toast.makeText(AsteroidTabFragments.cText, "The Network is Unavailable, please check mobile/wifi connection", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -76,7 +84,6 @@ public class DownloadManager {
             {
                 public void run() {
                     LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
-
                         RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
                         recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
 
@@ -121,7 +128,7 @@ public class DownloadManager {
             ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
             {
                 public void run() {
-                    LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Upcoming Feed...");
+                    LoadingDialogHelper.dialog.setMessage("Loading NEO Upcoming Feed...");
 
                     UpcomingFragment upcomingFragment = (UpcomingFragment) adap.getItem(1);
                     upcomingFragment.setAdap(AsteroidTabFragments.contentManager.adapter_UPCOMING);
@@ -175,7 +182,7 @@ public class DownloadManager {
                 ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
                 {
                     public void run() {
-                        LoadingDialogHelper.dialog.setMessage("Loading NASA News Feed...");
+                        LoadingDialogHelper.dialog.setMessage("Loading News Feed...");
                         AsteroidTabFragments.contentManager.adapter_NEWS.notifyDataSetChanged();
 
                         NewsFragment newsFragment = (NewsFragment) adap.getItem(3);

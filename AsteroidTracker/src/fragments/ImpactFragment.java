@@ -14,7 +14,6 @@ public class ImpactFragment extends AsteroidFragmentBase {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setListAdapter(AsteroidTabFragments.contentManager.adapter_IMPACT);
     }
 
     @Override
@@ -22,11 +21,11 @@ public class ImpactFragment extends AsteroidFragmentBase {
         super.onActivityCreated(savedInstanceState);
         getListView().setOnItemClickListener(ImpactRiskClickListener);
     }
-    
+
     public OnItemClickListener ImpactRiskClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            Object object = getListAdapter().getItem(position);    
-            Impact asteroidEntity = (Impact) object;
+//            Object object = getListAdapter().getItem(position);    
+//            Impact asteroidEntity = (Impact) object;
             Intent openArticleView = new Intent(getActivity(), activities.ImpactRiskDetailView.class);
             openArticleView.putExtra("position", position);
             startActivity(openArticleView);

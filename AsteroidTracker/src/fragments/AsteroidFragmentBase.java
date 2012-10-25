@@ -1,5 +1,8 @@
 package fragments;
 
+import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import android.content.res.Resources;
@@ -12,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
-public class AsteroidFragmentBase extends ListFragment {
+public class AsteroidFragmentBase extends SherlockListFragment {
 
     Resources resources;
     
@@ -35,6 +38,10 @@ public class AsteroidFragmentBase extends ListFragment {
     
     public void setAdap(ListAdapter adapter){
         setListAdapter(adapter);
+    }
+
+    public void clearAdap(){
+        setListAdapter(null);
     }
 
 }

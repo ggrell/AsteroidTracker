@@ -19,5 +19,14 @@
               android:id="@+id/about"
               android:title="@string/about" />
     </menu>
-</item>
+    </item>
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_margin="10dip"
+        android:visibility="gone" >
+    </ProgressBar>
+  
 </menu>

@@ -30,7 +30,7 @@ import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import activities.fragment.AsteroidTabFragments;
 import adapters.ShareAdapter;
 
-import android.app.Activity;
+import android.app.Activity; 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,30 +42,24 @@ import android.util.Log;
 
 public class SharingService {
 
-    PackageManager pkgMngr;
+//    PackageManager pkgMngr;
 
-    public void createShareIntent(final String headline, final String message, final Context cText)
-    {
-        
-        pkgMngr = cText.getPackageManager();        
+    public void createAndShowShareIntent(final String headline, final String message) {
+        PackageManager pkgMngr = AsteroidTabFragments.cText.getPackageManager();        
         Intent intent=new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("text/plain");
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-//        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, headline);
-//        intent.putExtra(android.content.Intent.EXTRA_TEXT, message);
-
         List<ResolveInfo> activityList = pkgMngr.queryIntentActivities(intent, 0);
-//        Log.e("share", "activityList: "+ activityList.size());
+        Log.e("share", "activityList: "+ activityList.size());
+        final ShareAdapter adapter = new ShareAdapter((Activity)AsteroidTabFragments.cText, R.layout.share, activityList);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(AsteroidTabFragments.cText);
         builder.setTitle("Share Via...");
-//        try {
-            final ShareAdapter adapter = new ShareAdapter((Activity)AsteroidTabFragments.cText, R.layout.share, activityList);
-
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() 
         {
             public void onClick(DialogInterface dialog, int which) {
                     ResolveInfo info = (ResolveInfo) adapter.getItem(which);
                     if(info.activityInfo.packageName.contains("facebook")) {
+//                        TODO Fix facebook share
 //                        new PostToFacebookDialog(context, body).show();
                     } else {
                         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
@@ -77,21 +71,14 @@ public class SharingService {
                     }
             }
         });
-            builder.create().show();
-//        } catch(Exception e)
-//        {
-//            Log.e("share", "ISSUE" +e.getMessage());
-//            Log.e("share", "ISSUE" +e.getCause());
-//            throw new Exception();
-//        }
-//        return intent;
+        builder.create().show();
         }
 
-    public Intent createShareIntent() {
-        Intent I= new Intent(Intent.ACTION_SEND);
+    public Intent createShareIntent(String headline, String message) {
+        Intent I= new Intent(android.content.Intent.ACTION_SEND);
         I.setType("text/plain");
-        I.putExtra(android.content.Intent.EXTRA_SUBJECT, "TEST - Disregard");
-        I.putExtra(android.content.Intent.EXTRA_TEXT, Uri.parse("http://test.com"));
+        I.putExtra(Intent.EXTRA_SUBJECT, headline);
+        I.putExtra(Intent.EXTRA_TEXT, message);
         return I;
     }
 }

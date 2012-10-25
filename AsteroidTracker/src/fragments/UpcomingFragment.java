@@ -32,15 +32,10 @@ public class UpcomingFragment extends AsteroidFragmentBase  {
     public OnItemClickListener clickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
-
             String headline = "Asteroid " + " " + neo.getName() + ",";
-//            String message =shareName + " " + neo.getName() + "," + R.string.shareDist +" "+ neo.getMissDistance_AU_Kilometers() + 
-//                    R.string.shareDist2 +" "+ R.string.shareLink +" "+ neo.getURL() +" by "+ R.string.sharePlayLink;
-            String message = "Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers() + "(km) " +
-                    "Check it out " + neo.getURL() + " #AsteroidTracker http://bit.ly/nkxCx1" ;
-            AsteroidTabFragments.shareSvc.createShareIntent(headline, message, getActivity().getApplicationContext());
-//            startActivity(Intent.createChooser( AsteroidTabFragments.shareSvc.createShareIntent(headline, message, getActivity().getApplicationContext()), "Share via"));
-        
+            String message = "#Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers() + "km " +
+                    "See Details "  + neo.getURL() + " #AsteroidTracker<http://bit.ly/nkxCx1>" ;
+            AsteroidTabFragments.shareSvc.createAndShowShareIntent(headline, message);
         };
     };
 

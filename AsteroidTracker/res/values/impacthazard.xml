@@ -9,7 +9,7 @@
     <string name="Impact_Level_Threatening">Threatening</string>
     <string name="Impact_Level_CertainCollisions">Certain Collisions</string>
     
-    <string name="Impact_Detail_ViewTitle">Asteroid Tracker: Impact Risk Summary</string>
+    <string name="Impact_Detail_ViewTitle">Impact Risk Summary</string>
     <string name="Impact_Detail_PotentialImpacts">Potential Impacts:</string>
     <string name="Impact_Detail_ImpactProbability">Impact Probability:</string>
     <string name="Impact_Detail_AbsoluteMagnitude">Absolute Magnitude:</string>

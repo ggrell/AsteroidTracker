@@ -21,6 +21,7 @@ public class Impact {
 	private String PalermoScaleMax = "";
 	private String TorinoScale = "";
 	public Drawable IconD = activities.fragment.AsteroidTabFragments.drawable;
+	public String ImpactRiskLevel;
 	
 	public void setName(String name) {
 		this.name = name;

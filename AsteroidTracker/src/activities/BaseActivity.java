@@ -26,6 +26,7 @@ public class BaseActivity  extends SherlockFragmentActivity {
         inflater.inflate(R.menu.mainmenu, menu);
         return true;
     }
+
     
     @Override
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
@@ -52,8 +53,13 @@ public class BaseActivity  extends SherlockFragmentActivity {
     
     public void openAbout(Context thisclass) {
         Intent i = new Intent(thisclass, About.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);    
        }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        }
 
 
 }

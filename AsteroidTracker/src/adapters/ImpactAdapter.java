@@ -91,7 +91,6 @@ public class ImpactAdapter extends ArrayAdapter {
 	}
 	
 	public ViewHolder getHazardLevel(int torinoScale, ViewHolder holder){
-		//TODO Move string to values
 		String hazardText = ImpactAdapter.this.getContext().getString(R.string.Impact_Level_Title);
 		if(torinoScale == 0){
 			holder.HazardScale.setTextColor(Color.WHITE);
