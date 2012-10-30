@@ -59,9 +59,9 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         initTabHost(savedInstanceState);
         initFragmentAndPading();
         
-        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
+//        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         drawable = getResources().getDrawable(R.drawable.asteroid);
-        dManager.startDownloads();
+//        dManager.startDownloads();
         dManager.setFragPageAdapter(mPagerAdapter);
     }
 
@@ -99,8 +99,8 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     public void initFragmentAndPading()
     {
         List<Fragment> fragments = new Vector<Fragment>();
-         fragments.add(Fragment.instantiate(this, RecentFragOld.class.getName()));
-//        fragments.add(Fragment.instantiate(this, RecentFragment.class.getName()));
+//         fragments.add(Fragment.instantiate(this, RecentFragOld.class.getName()));
+        fragments.add(Fragment.instantiate(this, RecentFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, UpcomingFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, ImpactFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, NewsFragment.class.getName()));
@@ -176,6 +176,7 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
 //          int tabtoUpdate = this.mTabHost.getCurrentTab();
           LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
           dManager.startDownloads();
+//          this.mPagerAdapter.getItem(0).getLoaderManager().restartLoader(0, null, this);
 //          Log.d("case", "tabtoUpdate"+tabtoUpdate);
 //          switch (tabtoUpdate){
 //          case 0:

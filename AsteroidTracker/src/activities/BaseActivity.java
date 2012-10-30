@@ -1,5 +1,6 @@
 package activities;
 
+import service.AsteroidTrackerService;
 import utils.LoadingDialogHelper;
 
 import com.actionbarsherlock.app.ActionBar;
