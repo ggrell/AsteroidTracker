@@ -57,6 +57,6 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
 
     public void onLoaderReset(Loader<List> arg0) {}
 
-    public void restartLoad();
+    public void restartLoad(){}
 }
 

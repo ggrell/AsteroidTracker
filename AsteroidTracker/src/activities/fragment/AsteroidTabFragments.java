@@ -175,8 +175,8 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
           LoadingDialogHelper.closeDialog = 0;
 //          int tabtoUpdate = this.mTabHost.getCurrentTab();
           LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
-          dManager.startDownloads();
-//          this.mPagerAdapter.getItem(0).getLoaderManager().restartLoader(0, null, this);
+//          dManager.startDownloads();
+//          Fragment test = (RecentFragment) this.mPagerAdapter.getItem(0);
 //          Log.d("case", "tabtoUpdate"+tabtoUpdate);
 //          switch (tabtoUpdate){
 //          case 0:

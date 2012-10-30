@@ -36,12 +36,11 @@ public class RecentFragment extends AsteroidFragmentBase {
         
     }
 
-    protected void restartLoading() {
-//        List_NASA_RECENT.clear();
-//        neoAdapter.notifyDataSetChanged();
-//        getListView().invalidateViews();
-//        Log.d(TAG, "restartLoading(): re-starting loader");
-//        getLoaderManager().restartLoader(RECENT_LIST_LOADER, null, this);
+    public void refreshFragment() {
+        setListAdapter(null);
+        neoAdapter.notifyDataSetChanged();
+        getListView().invalidateViews();
+        getLoaderManager().restartLoader(0, null, this);
     }
     
     @Override
