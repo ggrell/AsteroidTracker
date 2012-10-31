@@ -53,7 +53,7 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     ActionBar actionBar;
     String[] tabNames = {"RECENT", "UPCOMING", "IMPACT RISK", "NEWS"};
     public static SharingService shareSvc = new SharingService();
-//    public static ShareActionProvider shareActionProvider;
+    static com.actionbarsherlock.view.MenuItem reloadItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -167,8 +167,16 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
-
+        reloadItem = menu.findItem(R.id.reload);
         return true;
+    }
+    
+    public static void setRefreshIcon( boolean IsEnabled) {
+        if(IsEnabled) {
+            reloadItem.setActionView(R.layout.inderterminate_progress);
+        }else {
+            reloadItem.setActionView(null);
+        }
     }
 
     @Override
@@ -181,25 +189,10 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
             openAbout(this);
             return true;
         case R.id.reload:
+          setRefreshIcon(true);
           LoadingDialogHelper.closeDialog = 0;
-//          int tabtoUpdate = this.mTabHost.getCurrentTab();
           LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
           dManager.startDownloads();
-//          Log.d("case", "tabtoUpdate"+tabtoUpdate);
-//          switch (tabtoUpdate){
-//          case 0:
-//              //NEO RECENT
-//              dManager.processNEOFeedRecent();
-//          case 1:
-//              //NEO UPCOMING
-//              dManager.processNEOFeedUpcoming();
-//          case 2:
-//              //IMPACT
-//              dManager.processImpactFeed();
-//          case 3:
-//              //NEO News
-//              dManager.processAsteroidNewsFeed();
-//          }
           return true;
         default:
             return super.onOptionsItemSelected(item);

@@ -1,5 +1,6 @@
 package utils;
 
+import activities.fragment.AsteroidTabFragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
@@ -27,6 +28,7 @@ public class LoadingDialogHelper{
         closeDialog++;
         Log.i("closeDialog", "closeDialog "+closeDialog);
         if(closeDialog >= closeDialogLimit){
+            AsteroidTabFragments.setRefreshIcon(false);
             handler.sendEmptyMessage(0);
             }
         }
