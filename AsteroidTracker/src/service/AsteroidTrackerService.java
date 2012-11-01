@@ -19,6 +19,7 @@ public class AsteroidTrackerService {
     public static String URI_UPCOMING      = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_upcoming/upcoming";
     public static String URI_IMPACT        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_impact/impactRisk";
     public static String URI_NEWS          = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_news/latestnews";
+
     boolean useService = false;
     public Gson gson = new Gson();
     HttpUtil httputil = new HttpUtil();

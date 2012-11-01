@@ -30,7 +30,8 @@ public class DownloadManager {
     public void startDownloads(){
 
         boolean networkAvailable = nUtil.IsNetworkAvailable(AsteroidTabFragments.cText);
-        if(networkAvailable){
+        if(networkAvailable) {
+
             if(AsteroidGitService.isGitServiceAvailable())
             {
                 LoadingDialogHelper.dialog.setMessage("Calling AsteroidTracker Service");
@@ -53,15 +54,19 @@ public class DownloadManager {
         }
     }
 
-    public void NotifyUIOfDataChange(){
+    public void clearAdapters(){
         ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
         {
             public void run() {
-                AsteroidTabFragments.contentManager.adapter_RECENT.notifyDataSetChanged();
-                AsteroidTabFragments.contentManager.adapter_UPCOMING.notifyDataSetChanged();
-                AsteroidTabFragments.contentManager.adapter_IMPACT.notifyDataSetChanged();
-                AsteroidTabFragments.contentManager.adapter_NEWS.notifyDataSetChanged();
-                LoadingDialogHelper.killDialog();
+                RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
+                UpcomingFragment upcomingFragment = (UpcomingFragment) adap.getItem(1);
+                ImpactFragment impactFragment = (ImpactFragment) adap.getItem(2);
+                NewsFragment newsFragment = (NewsFragment) adap.getItem(3);
+
+                recentFragzz.setAdap(null);
+                upcomingFragment.setAdap(null);
+                impactFragment.setAdap(null);
+                newsFragment.setAdap(null);
             }
    });
 
@@ -79,7 +84,7 @@ public class DownloadManager {
 
                 AsteroidTabFragments.contentManager.loadAdapters_NEO_Recent(AsteroidTabFragments.cText);
                 AsteroidTabFragments.contentManager.loadAdapters_NEO_Upcoming(AsteroidTabFragments.cText);
-                
+
             ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
             {
                 public void run() {
@@ -109,7 +114,6 @@ public class DownloadManager {
                     public void run() {
                         LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
 
-//                        AsteroidTabFragments.contentManager.adapter_RECENT.notifyDataSetChanged();
                         RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
                         recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
 

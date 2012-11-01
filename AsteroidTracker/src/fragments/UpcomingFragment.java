@@ -28,7 +28,7 @@ public class UpcomingFragment extends AsteroidFragmentBase  {
         getListView().setOnItemClickListener(clickListener);
         
     }
-    
+
     public OnItemClickListener clickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
