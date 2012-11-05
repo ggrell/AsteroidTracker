@@ -170,10 +170,12 @@ public class AsteroidTabFragments extends BaseActivity implements TabHost.OnTabC
         return true;
     }
     
-    public static void setRefreshIcon( boolean IsEnabled) {
+    public static void setRefreshIcon( boolean IsEnabled ) {
         if(IsEnabled) {
+            reloadItem.setEnabled(false);
             reloadItem.setActionView(R.layout.inderterminate_progress);
         }else {
+            reloadItem.setEnabled(true);
             reloadItem.setActionView(null);
         }
     }

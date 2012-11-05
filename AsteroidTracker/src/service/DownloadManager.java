@@ -115,6 +115,8 @@ public class DownloadManager {
                         LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
 
                         RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
+                        Toast.makeText(AsteroidTabFragments.cText, "Test " + AsteroidTabFragments.contentManager.adapter_RECENT.getCount(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(AsteroidTabFragments.cText, "Test " + AsteroidTabFragments.contentManager.adapter_RECENT.isEmpty(), Toast.LENGTH_LONG).show();
                         recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
 
                         LoadingDialogHelper.closeDialog();

@@ -31,6 +31,7 @@ public class AsteroidFragmentBase extends SherlockListFragment {
         super.onCreate(savedInstanceState);
     }
 
+    
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         resources= getResources();

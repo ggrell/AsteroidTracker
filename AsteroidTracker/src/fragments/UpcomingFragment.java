@@ -28,6 +28,10 @@ public class UpcomingFragment extends AsteroidFragmentBase  {
         getListView().setOnItemClickListener(clickListener);
         
     }
+    
+    public void onResume(Bundle savedInstanceState) {
+        setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+    }
 
     public OnItemClickListener clickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {

@@ -22,6 +22,10 @@ public class ImpactFragment extends AsteroidFragmentBase {
         getListView().setOnItemClickListener(ImpactRiskClickListener);
     }
 
+    public void onResume(Bundle savedInstanceState) {
+        setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+    }
+    
     public OnItemClickListener ImpactRiskClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
 //            Object object = getListAdapter().getItem(position);    

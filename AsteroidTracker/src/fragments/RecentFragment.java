@@ -1,30 +1,8 @@
-/*
- * @(#)RecentFragOld
- *
- * Copyright 2012 by Constant Contact Inc.,
- * Waltham, MA 02451, USA
- * Phone: (781) 472-8100
- * Fax: (781) 472-8101
- *
- * All rights reserved.
- *
- * This software is the confidential and proprietary information
- * of Constant Contact, Inc. created for Constant Contact, Inc.
- * You shall not disclose such Confidential Information and shall use
- * it only in accordance with the terms of the license agreement
- * you entered into with Constant Contact, Inc.
- * 
- * History
- *
- * Date         Author      Comments
- * ====         ======      ========
- *
- * 
- **/
 package fragments;
 
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.actionbarsherlock.widget.ShareActionProvider.OnShareTargetSelectedListener;
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import domains.Impact;
 import domains.NearEarthObject;
@@ -33,10 +11,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class RecentFragment extends AsteroidFragmentBase  {
@@ -45,11 +27,18 @@ public class RecentFragment extends AsteroidFragmentBase  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+    
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setOnItemClickListener(clickListener);
+    }
+
+    public void onResume(Bundle savedInstanceState) {
+        setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+        Toast.makeText(AsteroidTabFragments.cText, "Test onResume " + AsteroidTabFragments.contentManager.adapter_RECENT.getCount(), Toast.LENGTH_LONG).show();
+        Toast.makeText(AsteroidTabFragments.cText, "Test onResume" + AsteroidTabFragments.contentManager.adapter_RECENT.isEmpty(), Toast.LENGTH_LONG).show();
     }
 
 

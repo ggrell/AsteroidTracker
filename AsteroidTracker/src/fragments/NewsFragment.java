@@ -25,6 +25,10 @@ public class NewsFragment extends AsteroidFragmentBase {
         super.onActivityCreated(savedInstanceState);
         getListView().setOnItemClickListener(Asteroid_NewsArticle_ClickListener);
     }
+
+    public void onResume(Bundle savedInstanceState) {
+        setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+    }
     
     public OnItemClickListener Asteroid_NewsArticle_ClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
