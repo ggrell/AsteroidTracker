@@ -23,24 +23,31 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class RecentFragment extends AsteroidFragmentBase  {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-    
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//    }
+//    
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setOnItemClickListener(clickListener);
+        Toast.makeText(AsteroidTabFragments.cText, "TEST onActivityCreated" , Toast.LENGTH_LONG).show();
     }
 
     public void onResume(Bundle savedInstanceState) {
-        setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
-        Toast.makeText(AsteroidTabFragments.cText, "Test onResume " + AsteroidTabFragments.contentManager.adapter_RECENT.getCount(), Toast.LENGTH_LONG).show();
-        Toast.makeText(AsteroidTabFragments.cText, "Test onResume" + AsteroidTabFragments.contentManager.adapter_RECENT.isEmpty(), Toast.LENGTH_LONG).show();
+      //setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+      Toast.makeText(AsteroidTabFragments.cText, "TEST ONRESUME" , Toast.LENGTH_LONG).show();
     }
 
+
+    public void onStop(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        clearAdap();
+        Toast.makeText(AsteroidTabFragments.cText, "ONSTOP" , Toast.LENGTH_LONG).show();
+
+    }
 
     public OnItemClickListener clickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {

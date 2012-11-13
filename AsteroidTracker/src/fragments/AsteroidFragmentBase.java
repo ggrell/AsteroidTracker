@@ -5,6 +5,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
+import activities.fragment.AsteroidTabFragments;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
 public class AsteroidFragmentBase extends SherlockListFragment {
 
@@ -29,13 +31,18 @@ public class AsteroidFragmentBase extends SherlockListFragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            return;
+        }
+
     }
 
     
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         resources= getResources();
-        }
+    }
     
     public void setAdap(ListAdapter adapter){
         setListAdapter(adapter);

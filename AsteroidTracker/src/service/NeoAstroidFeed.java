@@ -128,7 +128,7 @@ public class NeoAstroidFeed {
 	public ArrayList<NearEarthObject> parseDATA(String data, String startingPoint, String endingPoint, String type){
 		ArrayList<NearEarthObject> nasaNeoList = new ArrayList<NearEarthObject>();
 		ArrayList<NearEarthObject> nasaNeoList_SortingList = new ArrayList<NearEarthObject>();
-		if(data == null || data.length() == 0){
+		if(data == null || data.length() == 0 || data.equals("Exception")) {
 			NearEarthObject astroid = new NearEarthObject();
 			astroid.setName("Unable to retrieve Asteroid feed");
 			nasaNeoList.add(astroid);
@@ -192,7 +192,7 @@ public class NeoAstroidFeed {
 	public ArrayList<Impact> parseImpactDATA(String data, String startingPoint, String endingPoint, String type){
 		ArrayList<Impact> nasaNeoList = new ArrayList<Impact>();
 
-		if(data == null || data.length() == 0){
+		if(data == null || data.length() == 0 ||  data.equals("Exception")) {
 //			Log.e("parsedata", "IM EMPTY");
 			Impact astroid = new Impact();
 			astroid.setName("Unable to retrieve Asteroid feed");

@@ -31,15 +31,17 @@ public class DownloadManager {
 
         boolean networkAvailable = nUtil.IsNetworkAvailable(AsteroidTabFragments.cText);
         if(networkAvailable) {
-
+            
+//            clearAdapters();
+            
             if(AsteroidGitService.isGitServiceAvailable())
             {
                 LoadingDialogHelper.dialog.setMessage("Calling AsteroidTracker Service");
                 Log.d("DownloadManager", "Git Service");
-                            processNEOFeedRecent();
-                            processNEOFeedUpcoming();
-                            processImpactFeed(true);
-                            processAsteroidNewsFeed(true);
+                processNEOFeedRecent();
+                processNEOFeedUpcoming();
+                processImpactFeed(true);
+                processAsteroidNewsFeed(true);
             } else
             {
                 LoadingDialogHelper.dialog.setMessage("Calling AsteroidTracker Nasa Service");
@@ -51,26 +53,27 @@ public class DownloadManager {
             
         }else{
             Toast.makeText(AsteroidTabFragments.cText, "The Network is Unavailable, please check mobile/wifi connection", Toast.LENGTH_LONG).show();
+            LoadingDialogHelper.killDialog();
         }
     }
 
-    public void clearAdapters(){
-        ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
-        {
-            public void run() {
-                RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
-                UpcomingFragment upcomingFragment = (UpcomingFragment) adap.getItem(1);
-                ImpactFragment impactFragment = (ImpactFragment) adap.getItem(2);
-                NewsFragment newsFragment = (NewsFragment) adap.getItem(3);
-
-                recentFragzz.setAdap(null);
-                upcomingFragment.setAdap(null);
-                impactFragment.setAdap(null);
-                newsFragment.setAdap(null);
-            }
-   });
-
-    }
+//    public void clearAdapters(){
+//        ((Activity) AsteroidTabFragments.cText).runOnUiThread(new Runnable() 
+//        {
+//            public void run() {
+//                RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
+//                UpcomingFragment upcomingFragment = (UpcomingFragment) adap.getItem(1);
+//                ImpactFragment impactFragment = (ImpactFragment) adap.getItem(2);
+//                NewsFragment newsFragment = (NewsFragment) adap.getItem(3);
+//
+//                recentFragzz.setAdap(null);
+//                upcomingFragment.setAdap(null);
+//                impactFragment.setAdap(null);
+//                newsFragment.setAdap(null);
+//            }
+//   });
+//
+//    }
 
     public void processNeoNasaFeeds(){
         Thread update = new Thread() 
@@ -89,10 +92,10 @@ public class DownloadManager {
             {
                 public void run() {
                     LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
-                        RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
+                        RecentFragment recentFragzz = (RecentFragment) AsteroidTabFragments.mPagerAdapter.getItem(0);
                         recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
 
-                        UpcomingFragment upcomingFragment = (UpcomingFragment) adap.getItem(1);
+                        UpcomingFragment upcomingFragment = (UpcomingFragment) AsteroidTabFragments.mPagerAdapter.getItem(1);
                         upcomingFragment.setAdap(AsteroidTabFragments.contentManager.adapter_UPCOMING);
 
                         LoadingDialogHelper.closeDialog();
@@ -114,10 +117,11 @@ public class DownloadManager {
                     public void run() {
                         LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
 
-                        RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
-                        Toast.makeText(AsteroidTabFragments.cText, "Test " + AsteroidTabFragments.contentManager.adapter_RECENT.getCount(), Toast.LENGTH_LONG).show();
-                        Toast.makeText(AsteroidTabFragments.cText, "Test " + AsteroidTabFragments.contentManager.adapter_RECENT.isEmpty(), Toast.LENGTH_LONG).show();
-                        recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+//                        RecentFragment recentFragzz = (RecentFragment) AsteroidTabFragments.mPagerAdapter.getItem(0);
+//                        recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+//
+//                        Toast.makeText(AsteroidTabFragments.cText, "Check List adapCoubt " + recentFragzz.getListAdapter().getCount(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(AsteroidTabFragments.cText, "Check List adapSize " + recentFragzz.getListAdapter().isEmpty(), Toast.LENGTH_LONG).show();;
 
                         LoadingDialogHelper.closeDialog();
                     }
@@ -136,8 +140,8 @@ public class DownloadManager {
                 public void run() {
                     LoadingDialogHelper.dialog.setMessage("Loading NEO Upcoming Feed...");
 
-                    UpcomingFragment upcomingFragment = (UpcomingFragment) adap.getItem(1);
-                    upcomingFragment.setAdap(AsteroidTabFragments.contentManager.adapter_UPCOMING);
+//                    UpcomingFragment upcomingFragment = (UpcomingFragment) AsteroidTabFragments.mPagerAdapter.getItem(1);
+//                    upcomingFragment.setAdap(AsteroidTabFragments.contentManager.adapter_UPCOMING);
 
                     LoadingDialogHelper.closeDialog();
                     }
@@ -162,8 +166,8 @@ public class DownloadManager {
                         LoadingDialogHelper.dialog.setMessage("Loading Impact Risk Feed...");
                         AsteroidTabFragments.contentManager.adapter_IMPACT.notifyDataSetChanged();
 
-                        ImpactFragment impactFragment = (ImpactFragment) adap.getItem(2);
-                        impactFragment.setAdap(AsteroidTabFragments.contentManager.adapter_IMPACT);
+//                        ImpactFragment impactFragment = (ImpactFragment) AsteroidTabFragments.mPagerAdapter.getItem(2);
+//                        impactFragment.setAdap(AsteroidTabFragments.contentManager.adapter_IMPACT);
 
                         LoadingDialogHelper.closeDialog();
                     }
@@ -191,8 +195,8 @@ public class DownloadManager {
                         LoadingDialogHelper.dialog.setMessage("Loading News Feed...");
                         AsteroidTabFragments.contentManager.adapter_NEWS.notifyDataSetChanged();
 
-                        NewsFragment newsFragment = (NewsFragment) adap.getItem(3);
-                        newsFragment.setAdap(AsteroidTabFragments.contentManager.adapter_NEWS);
+//                        NewsFragment newsFragment = (NewsFragment) AsteroidTabFragments.mPagerAdapter.getItem(3);
+//                        newsFragment.setAdap(AsteroidTabFragments.contentManager.adapter_NEWS);
 
                         LoadingDialogHelper.closeDialog();
                     }

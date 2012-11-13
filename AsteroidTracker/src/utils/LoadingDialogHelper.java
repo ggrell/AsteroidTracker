@@ -28,7 +28,7 @@ public class LoadingDialogHelper{
         closeDialog++;
         Log.i("closeDialog", "closeDialog "+closeDialog);
         if(closeDialog >= closeDialogLimit){
-            AsteroidTabFragments.setRefreshIcon(false);
+//            AsteroidTabFragments.setRefreshIcon(false);
             handler.sendEmptyMessage(0);
             }
         }
