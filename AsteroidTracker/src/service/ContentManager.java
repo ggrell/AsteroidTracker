@@ -25,20 +25,20 @@ public class ContentManager {
         public NeoAstroidFeed neo_AstroidFeed = new NeoAstroidFeed();
         
         public void loadAdapters_NEO_Recent(Context ctext){
-            adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.view_neolist, this.List_NASA_RECENT);
+            adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.view_neo_fragment, this.List_NASA_RECENT);
         }
         
         public void loadAdapters_NEO_Upcoming(Context ctext){
             Log.i("adap", "setting"+ this.List_NASA_UPCOMING.size());
-            adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.view_neolist, this.List_NASA_UPCOMING);
+            adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.view_neo_fragment, this.List_NASA_UPCOMING);
         }
         
         public void loadAdapters_NEO_News(Context ctext){
-            adapter_NEWS = new NewsAdapter(ctext, R.layout.jpl_asteroid_news, this.List_NASA_News);
+            adapter_NEWS = new NewsAdapter(ctext, R.layout.view_news_fragment, this.List_NASA_News);
         }
         
         public void loadAdapters_NEO_Impact(Context ctext){
-            adapter_IMPACT = new ImpactAdapter(ctext, R.layout.nasa_neo_impact_listview, this.List_NASA_IMPACT);
+            adapter_IMPACT = new ImpactAdapter(ctext, R.layout.view_impact_fragment, this.List_NASA_IMPACT);
         }
         
         public void loadEntityLists_NEO(String HTTPDATA){

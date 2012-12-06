@@ -74,7 +74,7 @@ public class NearEarthObjectAdapter extends ArrayAdapter<NearEarthObject> {
         View vi = convertView;
         ViewHolder holder;
         if (convertView == null) {
-            vi = inflater.inflate(R.layout.view_neolist, null);        
+            vi = inflater.inflate(R.layout.view_neo_fragment, null);        
             holder = new ViewHolder();
             holder.title            =     (TextView) vi.findViewById(R.id.asteroidName);
             holder.title_error      =     (TextView) vi.findViewById(R.id.nasaNeo_error);

@@ -59,17 +59,12 @@ public class SharingService {
         {
             public void onClick(DialogInterface dialog, int which) {
                     ResolveInfo info = (ResolveInfo) adapter.getItem(which);
-//                    if(info.activityInfo.packageName.contains("facebook")) {
-////                        TODO Fix facebook share
-////                        new PostToFacebookDialog(context, body).show();
-//                    } else {
                         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                         intent.setClassName(info.activityInfo.packageName, info.activityInfo.name);
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, headline);
                         intent.putExtra(Intent.EXTRA_TEXT, message);
                         ((Activity)AsteroidTabFragments.cText).startActivity(intent);
-//                    }
             }
         });
         builder.create().show();

@@ -73,7 +73,7 @@ public class ImpactAdapter extends ArrayAdapter {
 		View vi = convertView;
 		ViewHolder holder;
 		if (convertView == null) {
-			vi = inflater.inflate(R.layout.nasa_neo_impact_listview, null);		
+			vi = inflater.inflate(R.layout.view_impact_fragment, null);		
 			holder = new ViewHolder();
 			holder.title 				= 	(TextView) vi.findViewById(R.id.Impact_Name);
 			holder.title_error 			= 	(TextView) vi.findViewById(R.id.nasaNeoImpact_error);

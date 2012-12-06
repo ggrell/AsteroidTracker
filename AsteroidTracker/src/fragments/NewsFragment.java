@@ -73,7 +73,7 @@ public class NewsFragment extends AsteroidFragmentBase {
         super.onLoadFinished(arg0, data);
         Log.d("newsFrag", "onLoadFinished(): done loading!"+data.size());
         if (this.adapter_NEWS == null) {
-            adapter_NEWS = new NewsAdapter(AsteroidTabFragments.cText, R.layout.jpl_asteroid_news, data);
+            adapter_NEWS = new NewsAdapter(AsteroidTabFragments.cText, R.layout.view_news_fragment, data);
             setListAdapter(adapter_NEWS);
         }
     }

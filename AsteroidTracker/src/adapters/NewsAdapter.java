@@ -48,7 +48,7 @@ public class NewsAdapter extends ArrayAdapter{
 		View vi = convertView;
 		ViewHolder holder;
 		if (convertView == null) {
-			vi = inflater.inflate(R.layout.jpl_asteroid_news, null);		
+			vi = inflater.inflate(R.layout.view_news_fragment, null);		
 			holder = new ViewHolder();
 			holder.title 		=	(TextView) vi.findViewById(R.id.jpl_news_title);
 			holder.title_error  =   (TextView) vi.findViewById(R.id.news_error);

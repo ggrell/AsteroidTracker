@@ -36,7 +36,7 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
             if (container == null) {
                 return null;
             }
-            return (RelativeLayout)inflater.inflate(R.layout.loading_content, container, false);
+            return (RelativeLayout)inflater.inflate(R.layout.view_loading_content, container, false);
     }
 
     public void onCreate(Bundle savedInstanceState) {

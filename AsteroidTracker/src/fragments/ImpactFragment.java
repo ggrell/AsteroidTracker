@@ -69,7 +69,7 @@ public class ImpactFragment extends AsteroidFragmentBase {
         super.onLoadFinished(arg0, data);
         Log.d("impactFrag", "onLoadFinished(): done loading!"+data.size());
         if (this.adapter_IMPACT == null) {
-            adapter_IMPACT = new ImpactAdapter(AsteroidTabFragments.cText, R.layout.nasa_neo_impact_listview, data);
+            adapter_IMPACT = new ImpactAdapter(AsteroidTabFragments.cText, R.layout.view_impact_fragment, data);
             setListAdapter(adapter_IMPACT);
         }
         dataList = (ArrayList) data;

@@ -71,7 +71,7 @@ public class RecentFragment extends AsteroidFragmentBase {
         super.onLoadFinished(list, data);
         Log.d("recentFrag", "onLoadFinished(): done loading!" + data.size());
         if (this.neoAdapter == null) {
-            neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.view_neolist, data);
+            neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.view_neo_fragment, data);
             setListAdapter(neoAdapter);
         }
     }
