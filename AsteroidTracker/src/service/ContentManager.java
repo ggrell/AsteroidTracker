@@ -14,10 +14,10 @@ import android.util.Log;
 
 public class ContentManager {
 
-        public NearEarthObjectAdapter adapter_RECENT; 
-        public NearEarthObjectAdapter adapter_UPCOMING; 
-        public ImpactAdapter adapter_IMPACT;
-        public NewsAdapter adapter_NEWS;
+        public NearEarthObjectAdapter adapter_RECENT = null; 
+        public NearEarthObjectAdapter adapter_UPCOMING = null; 
+        public ImpactAdapter adapter_IMPACT = null;
+        public NewsAdapter adapter_NEWS = null;
         public List<NearEarthObject> List_NASA_RECENT = new ArrayList();
         public List<NearEarthObject> List_NASA_UPCOMING;
         public List<Impact> List_NASA_IMPACT;
@@ -25,12 +25,12 @@ public class ContentManager {
         public NeoAstroidFeed neo_AstroidFeed = new NeoAstroidFeed();
         
         public void loadAdapters_NEO_Recent(Context ctext){
-            adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_RECENT);
+            adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.view_neolist, this.List_NASA_RECENT);
         }
         
         public void loadAdapters_NEO_Upcoming(Context ctext){
             Log.i("adap", "setting"+ this.List_NASA_UPCOMING.size());
-            adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.nasa_neolistview, this.List_NASA_UPCOMING);
+            adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.view_neolist, this.List_NASA_UPCOMING);
         }
         
         public void loadAdapters_NEO_News(Context ctext){

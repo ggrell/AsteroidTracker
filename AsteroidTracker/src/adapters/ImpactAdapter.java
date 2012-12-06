@@ -6,12 +6,15 @@ import java.util.List;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import domains.Impact;
+import domains.NearEarthObject;
 import android.R.color;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +51,21 @@ public class ImpactAdapter extends ArrayAdapter {
 		public TextView HazardScale;
 		public ImageView Icon;
 	}
+	
+    @TargetApi(11)
+    public void setData(List<Impact> data) {
+        clear();
+        if (data != null) {
+            //If the platform supports it, use addAll, otherwise add in loop
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                addAll(data);
+            }else{
+                for(Impact item: data){
+                    add(item);
+                }
+            }
+        }
+    }
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Impact entityObject = (Impact) getItem(position);

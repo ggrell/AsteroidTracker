@@ -92,11 +92,11 @@ public class DownloadManager {
             {
                 public void run() {
                     LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
-                        RecentFragment recentFragzz = (RecentFragment) AsteroidTabFragments.mPagerAdapter.getItem(0);
-                        recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
-
-                        UpcomingFragment upcomingFragment = (UpcomingFragment) AsteroidTabFragments.mPagerAdapter.getItem(1);
-                        upcomingFragment.setAdap(AsteroidTabFragments.contentManager.adapter_UPCOMING);
+//                        RecentFragment recentFragzz = (RecentFragment) AsteroidTabFragments.mPagerAdapter.getItem(0);
+//                        recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
+//
+//                        UpcomingFragment upcomingFragment = (UpcomingFragment) AsteroidTabFragments.mPagerAdapter.getItem(1);
+//                        upcomingFragment.setAdap(AsteroidTabFragments.contentManager.adapter_UPCOMING);
 
                         LoadingDialogHelper.closeDialog();
                         LoadingDialogHelper.closeDialog();
@@ -117,12 +117,14 @@ public class DownloadManager {
                     public void run() {
                         LoadingDialogHelper.dialog.setMessage("Loading NASA NEO Recent Feed...");
 
-//                        RecentFragment recentFragzz = (RecentFragment) AsteroidTabFragments.mPagerAdapter.getItem(0);
+//                        RecentFragment recentFragzz = (RecentFragment) adap.getItem(0);
+//                        AsteroidTabFragments.mPagerAdapter.getSupportFragmentManager().findFragmentByTag
 //                        recentFragzz.setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
 //
 //                        Toast.makeText(AsteroidTabFragments.cText, "Check List adapCoubt " + recentFragzz.getListAdapter().getCount(), Toast.LENGTH_LONG).show();
 //                        Toast.makeText(AsteroidTabFragments.cText, "Check List adapSize " + recentFragzz.getListAdapter().isEmpty(), Toast.LENGTH_LONG).show();;
 
+                        AsteroidTabFragments.contentManager.adapter_RECENT.notifyDataSetChanged();
                         LoadingDialogHelper.closeDialog();
                     }
            });
@@ -142,6 +144,8 @@ public class DownloadManager {
 
 //                    UpcomingFragment upcomingFragment = (UpcomingFragment) AsteroidTabFragments.mPagerAdapter.getItem(1);
 //                    upcomingFragment.setAdap(AsteroidTabFragments.contentManager.adapter_UPCOMING);
+
+                    AsteroidTabFragments.contentManager.adapter_UPCOMING.notifyDataSetChanged();
 
                     LoadingDialogHelper.closeDialog();
                     }
@@ -168,6 +172,7 @@ public class DownloadManager {
 
 //                        ImpactFragment impactFragment = (ImpactFragment) AsteroidTabFragments.mPagerAdapter.getItem(2);
 //                        impactFragment.setAdap(AsteroidTabFragments.contentManager.adapter_IMPACT);
+                        AsteroidTabFragments.contentManager.adapter_IMPACT.notifyDataSetChanged();
 
                         LoadingDialogHelper.closeDialog();
                     }
@@ -197,7 +202,8 @@ public class DownloadManager {
 
 //                        NewsFragment newsFragment = (NewsFragment) AsteroidTabFragments.mPagerAdapter.getItem(3);
 //                        newsFragment.setAdap(AsteroidTabFragments.contentManager.adapter_NEWS);
-
+                        AsteroidTabFragments.contentManager.adapter_NEWS.notifyDataSetChanged();
+                        
                         LoadingDialogHelper.closeDialog();
                     }
                 });

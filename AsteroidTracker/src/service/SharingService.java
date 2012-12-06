@@ -42,14 +42,15 @@ import android.util.Log;
 
 public class SharingService {
 
-//    PackageManager pkgMngr;
+    PackageManager pkgMngr;
 
     public void createAndShowShareIntent(final String headline, final String message) {
-        PackageManager pkgMngr = AsteroidTabFragments.cText.getPackageManager();        
-        Intent intent=new Intent(android.content.Intent.ACTION_SEND);
+        pkgMngr = AsteroidTabFragments.cText.getPackageManager();
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("text/plain");
+
         List<ResolveInfo> activityList = pkgMngr.queryIntentActivities(intent, 0);
-        Log.e("share", "activityList: "+ activityList.size());
+        Log.d("share", "activityList: "+ activityList.size());
         final ShareAdapter adapter = new ShareAdapter((Activity)AsteroidTabFragments.cText, R.layout.share, activityList);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AsteroidTabFragments.cText);
@@ -58,17 +59,17 @@ public class SharingService {
         {
             public void onClick(DialogInterface dialog, int which) {
                     ResolveInfo info = (ResolveInfo) adapter.getItem(which);
-                    if(info.activityInfo.packageName.contains("facebook")) {
-//                        TODO Fix facebook share
-//                        new PostToFacebookDialog(context, body).show();
-                    } else {
+//                    if(info.activityInfo.packageName.contains("facebook")) {
+////                        TODO Fix facebook share
+////                        new PostToFacebookDialog(context, body).show();
+//                    } else {
                         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                         intent.setClassName(info.activityInfo.packageName, info.activityInfo.name);
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, headline);
                         intent.putExtra(Intent.EXTRA_TEXT, message);
                         ((Activity)AsteroidTabFragments.cText).startActivity(intent);
-                    }
+//                    }
             }
         });
         builder.create().show();

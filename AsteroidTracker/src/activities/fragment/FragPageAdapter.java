@@ -51,9 +51,8 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
             clss = _class;
             args = _args;
         }
-
     }
-    
+
     @Override
     public Fragment getItem(int position) {
         TabInfo info = (TabInfo) mTabs.get(position);
@@ -65,6 +64,7 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
         tabSpec.setContent(new TabFactory(mContext));
 //        tabSpec.setContent(new TabContentFactory() {public View createTabContent(String tag) {return view;}});
         String tag = tabSpec.getTag();
+        Log.e("tag", "tag" + tag);
         tabSpec.setIndicator(tabview);
 
         TabInfo info = new TabInfo(clss, args);
@@ -79,13 +79,11 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
         public TabFactory(Context context) {
             mContext = context;
         }
-        /** (non-Javadoc)
-         * @see android.widget.TabHost.TabContentFactory#createTabContent(java.lang.String)
-         */
+
         public View createTabContent(String tag) {
             View v = new View(mContext);
-            v.setMinimumWidth(0);
-            v.setMinimumHeight(0);
+//            v.setMinimumWidth(0);
+//            v.setMinimumHeight(0);
             return v;
         }
 }

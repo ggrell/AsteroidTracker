@@ -23,7 +23,8 @@ public class AsteroidTrackerService {
     boolean useService = false;
     public Gson gson = new Gson();
     HttpUtil httputil = new HttpUtil();
-    
+    boolean IsMocking = false;
+
     public boolean isGitServiceAvailable(){
         if (httputil.get(URI_USESERVICE).trim().equals("true")){
             Log.d("gitservice", "IsGitServiceAvailable: "+ true);
@@ -33,6 +34,40 @@ public class AsteroidTrackerService {
             return false;
         }
     }
+
+    public ArrayList getMockedList(Object dataType, int setCount){
+        ArrayList responseData = null;
+        if (dataType instanceof NearEarthObject) {
+            responseData = new ArrayList<NearEarthObject>();
+            for (int i=0; i < setCount; i++){
+                NearEarthObject mock = new NearEarthObject();
+                mock.setName("TestName "+setCount);
+                mock.setEstimatedDiameter("");
+                mock.setHmagnitude("test");
+                mock.setDate("test");
+                mock.SetMissDistance_AU("test");
+                mock.setMissDistance_LD("test");
+                mock.setRelativeVelocity("test");
+                responseData.add(mock);
+            }
+        }
+        if (dataType instanceof News) {
+            responseData = new ArrayList<News>();
+            for (int i=0; i < setCount; i++){
+                News mock = new News();
+                mock.description = "This is mock data";
+                mock.title = "Asteroid news title";
+                mock.artcileUrl = "http://asteroidmock.com";
+                responseData.add(mock);
+            }
+        }
+        if (dataType instanceof Impact) {
+            responseData = new ArrayList<Impact>();
+            for (int i=0; i < setCount; i++){}
+        }
+        return responseData;
+    }
+    
     
     public ArrayList<NearEarthObject> getNEOList(String URI){
         ArrayList<NearEarthObject> responseData = new ArrayList<NearEarthObject>();
@@ -79,6 +114,7 @@ public class AsteroidTrackerService {
         try {
             Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
             impactList = gson.fromJson(httputil.get(URI_IMPACT), collectionType);
+            Log.d("impactFrag", "getImpacted Data");
         } catch (JsonSyntaxException e) {
             Impact impactError = new Impact();
             impactError.setName("Unable to retrieve Asteroid Data");

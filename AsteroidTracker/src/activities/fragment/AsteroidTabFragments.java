@@ -10,6 +10,7 @@ import service.SharingService;
 import utils.LoadingDialogHelper;
 import utils.NetworkUtil;
 import activities.BaseActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -24,6 +25,7 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabContentFactory;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -33,7 +35,9 @@ import com.actionbarsherlock.widget.ShareActionProvider;
 import com.actionbarsherlock.widget.ShareActionProvider.OnShareTargetSelectedListener;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+import com.vitruviussoftware.bunifish.asteroidtracker.R.menu;
 
+import fragments.AsteroidFragmentBase;
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
 import fragments.RecentFragment;
@@ -44,8 +48,8 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
 //    private ViewPager mPager;
     PageIndicator mIndicator;
     private TabHost mTabHost;
-    public FragPageAdapter mPagerAdapter;
-    public ViewPager mViewPager;
+    public static FragPageAdapter mPagerAdapter;
+    public static ViewPager mViewPager;
     public static ContentManager contentManager = new ContentManager();
     public DownloadManager dManager = new DownloadManager(); 
     public static Context cText;
@@ -62,32 +66,36 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         setContentView(R.layout.tabs_viewpager_layout);
         actionBar=getSupportActionBar();
         cText = this;
-
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
+//        reloadItem = (MenuItem) findViewById(R.id.reload);
+//        reloadItem.setVisible(false);
+        
+//        menu.findItem(R.id.refresh);
         initFragmentAndPading();
-
-        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
+//        LoadingDialogHelper.dialog = new ProgressDialog(this);
+//        LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
         drawable = getResources().getDrawable(R.drawable.asteroid);
-//        dManager.setFragPageAdapter(AsteroidTabFragments.mPagerAdapter);
-        dManager.startDownloads();
+
+//        dManager.setFragPageAdapter(this.mPagerAdapter);
+//        dManager.startDownloads();
     }
 
     public FragPageAdapter getAdap(){
         return this.mPagerAdapter;
     }
-    
+
     public void initFragmentAndPading()
     {
         mViewPager = (ViewPager)super.findViewById(R.id.viewpager);
         mPagerAdapter = new FragPageAdapter(this, mTabHost, mViewPager);
         mPagerAdapter.addTab(mTabHost.newTabSpec("RECENT").setIndicator("Recent"),RecentFragment.class, null);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("UPCOMING").setIndicator("Upcoming"),RecentFragment.class, null);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("IMPACTRISK").setIndicator("Impact Risk"),RecentFragment.class, null);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("News").setIndicator("News"),RecentFragment.class, null);
+        mPagerAdapter.addTab(mTabHost.newTabSpec("UPCOMING").setIndicator("Upcoming"),UpcomingFragment.class, null);
+        mPagerAdapter.addTab(mTabHost.newTabSpec("IMPACTRISK").setIndicator("Impact Risk"),ImpactFragment.class, null);
+        mPagerAdapter.addTab(mTabHost.newTabSpec("News").setIndicator("News"),NewsFragment.class, null);
         mViewPager.setAdapter(mPagerAdapter);
-//        mViewPager.setOnPageChangeListener(this);
+        mViewPager.setOffscreenPageLimit(4);
     }
 
     public static void setRefreshIcon( boolean IsEnabled ) {
@@ -110,10 +118,18 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
             openAbout(this);
             return true;
         case R.id.reload:
-          setRefreshIcon(true);
-          LoadingDialogHelper.closeDialog = 0;
-          LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
-          dManager.startDownloads();
+            int position = mViewPager.getCurrentItem();
+            if( position == 0 ) {
+//              RecentFragment frag = (RecentFragment) getSupportFragmentManager().findFragmentByTag("RECENT");
+//              frag.refreshFragment();
+            }
+            Toast.makeText(AsteroidTabFragments.cText, "Found recen fragment "+mViewPager.getCurrentItem() , Toast.LENGTH_LONG).show();
+            //Log.e("frag", "Found recen fragment");
+            //Toast.makeText(AsteroidTabFragments.cText, "Found recen fragment" , Toast.LENGTH_LONG).show();
+//            setRefreshIcon(true);
+//          LoadingDialogHelper.closeDialog = 0;
+//          LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
+//          dManager.startDownloads();
           return true;
         default:
             return super.onOptionsItemSelected(item);
