@@ -2,24 +2,18 @@ package fragments;
 
 import java.util.List;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
-
 import domains.NearEarthObject;
 import activities.fragment.AsteroidTabFragments;
 import adapters.NearEarthObjectAdapter;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class UpcomingFragment extends AsteroidFragmentBase {
@@ -42,12 +36,7 @@ public class UpcomingFragment extends AsteroidFragmentBase {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setRetainInstance(true);
-//        if (this.neoAdapter == null) 
-//        {
-            Log.d("updateFrag", "Call Loader");
-            getLoaderManager().initLoader(1, null, this);
-//        }
+        Log.d("updateFrag", "Call Loader");
         getListView().setOnItemClickListener(clickListener);
     }
 
@@ -88,5 +77,24 @@ public class UpcomingFragment extends AsteroidFragmentBase {
             AsteroidTabFragments.shareSvc.createAndShowShareIntent(headline, message);
         };
     };
+
+    protected void restartLoading(MenuItem item) {
+        Log.d("updateFrag", "onOptionsItemSelected menu");
+        Toast.makeText(AsteroidTabFragments.cText, "updateFrag fragment " , Toast.LENGTH_LONG).show();
+        reloadItem = item;
+        setRefreshIcon(true);
+        Log.d("updateFrag", "restartLoading(): re-starting loader");
+        getLoaderManager().restartLoader(1, null, this);
+  }
+
+    public boolean onOptionsItemSelected(final MenuItem item) {
+      switch (item.getItemId()) {
+      case R.id.reload:
+          restartLoading(item);
+          return super.onOptionsItemSelected(item);
+      default:
+        return false;
+        }
+    }
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import utils.LoadingDialogHelper;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import domains.NearEarthObject;
@@ -21,6 +22,7 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ProgressBar;
 
@@ -44,13 +46,6 @@ public class NewsFragment extends AsteroidFragmentBase {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setRetainInstance(true);
-//        if (this.adapter_NEWS == null) 
-//        {
-//            Log.d("newsFrag", "Call Loader");
-//            LoadingDialogHelper.progressDialog(AsteroidTabFragments.cText, "", "Loading News Feed");
-//            getLoaderManager().initLoader(3, null, this);
-//        }
         getListView().setOnItemClickListener(Asteroid_NewsArticle_ClickListener);
     }
 
@@ -77,10 +72,7 @@ public class NewsFragment extends AsteroidFragmentBase {
             setListAdapter(adapter_NEWS);
         }
     }
-//    public void onResume(Bundle savedInstanceState) {
-//        setAdap(AsteroidTabFragments.contentManager.adapter_RECENT);
-//    }
-    
+
     public OnItemClickListener Asteroid_NewsArticle_ClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             Object object = getListAdapter().getItem(position);    
@@ -94,4 +86,25 @@ public class NewsFragment extends AsteroidFragmentBase {
             }
         };
     };
+    
+    protected void restartLoading(MenuItem item) {
+        Log.d("newsFrag", "onOptionsItemSelected menu");
+        Toast.makeText(AsteroidTabFragments.cText, "newsFrag fragment " , Toast.LENGTH_LONG).show();
+        reloadItem = item;
+        setRefreshIcon(true);
+        Log.d("newsFrag", "restartLoading(): re-starting loader");
+        getLoaderManager().restartLoader(3, null, this);
+    }
+
+    public boolean onOptionsItemSelected(final MenuItem item) 
+    {
+      switch (item.getItemId()) {
+      case R.id.reload:
+          restartLoading(item);
+          return super.onOptionsItemSelected(item);
+    default:
+        return false;
+        }
+    }
+
 }

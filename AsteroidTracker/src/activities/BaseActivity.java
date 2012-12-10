@@ -37,11 +37,6 @@ public class BaseActivity  extends SherlockFragmentActivity {
         case R.id.about:
             openAbout(this);
             return true;
-        case R.id.refresh:
-//            refresh = false;
-//            LoadingDialogHelper.closeDialog = 0;
-//            processFeeds();
-            return true;
         case R.id.reload:
           LoadingDialogHelper.closeDialog = 0;
 //          processFeeds();

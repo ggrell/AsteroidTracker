@@ -2,52 +2,36 @@ package activities;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import service.NeoAstroidFeed;
-import utils.LoadingDialogHelper;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.Impact;
+import fragments.ImpactFragment;
 import activities.fragment.AsteroidTabFragments;
-import adapters.ImpactAdapter;
 import adapters.ImpactRiskDetailAdapter;
-import adapters.ImpactAdapter.ViewHolder;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.util.Linkify;
 import android.text.util.Linkify.TransformFilter;
 import android.util.Log;
-import android.util.Patterns;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.widget.ShareActionProvider;
-
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
-
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ImpactRiskDetailView extends SherlockListActivity implements OnClickListener {
 
-    public static ShareActionProvider shareActionProvider;
-
+    public ShareActionProvider shareActionProvider;
     Bundle extras;
     public Intent asteroidDetails;
     TextView name;
@@ -80,13 +64,12 @@ public class ImpactRiskDetailView extends SherlockListActivity implements OnClic
         actionBar=getSupportActionBar();
         extras = getIntent().getExtras();
         int asteroidList = extras.getInt("position");
-        asteroid = AsteroidTabFragments.contentManager.List_NASA_IMPACT.get(asteroidList);
+        asteroid = (Impact) ImpactFragment.dataList.get(asteroidList);
         NASA_IMPACT_DetailPage.add(asteroid);
         DetailPageURL = NeoAstroidFeed.URL_NEOImpact_base+asteroid.getName().toLowerCase().replace(" ", "")+".html";
         OrbitPageURL = NeoAstroidFeed.URL_NEOImpact_OrbitalBase.replace("{NEONAME}", asteroid.getName().replace(" ", "+"));
 
         //TODO Intl string to prop files
-        
         TextView tv = (TextView) findViewById(R.id.shareHolder);
         String StringBy = " #AsteroidTracker <http://bit.ly/S7t9Wv>";
         shareMessage = "Asteroid(" + asteroid.getName() + ") risk level: " +getHazardLevel(Integer.parseInt(asteroid.getTorinoScale()))+ ", See Details "+DetailPageURL +" "+StringBy;
@@ -133,18 +116,20 @@ public class ImpactRiskDetailView extends SherlockListActivity implements OnClic
 
     public void onClick(View v) {}
 
+    @Override
+    public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+        Log.d("impactFrag", "setup onCreateOptionsMenu");
 
-    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.impactsummary, menu);
         MenuItem menuItem = menu.findItem(R.id.share);
-        shareActionProvider =  (ShareActionProvider) menuItem.getActionProvider();
+        shareActionProvider = (ShareActionProvider) menuItem.getActionProvider();
         shareActionProvider.setShareHistoryFileName(null);
         shareActionProvider.setShareIntent(AsteroidTabFragments.shareSvc.createShareIntent("AsteroidTracker", shareMessage));
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
-    public String getHazardLevel(int torinoScale){
+    public String getHazardLevel(int torinoScale) {
         if(torinoScale == 0) {
             return ImpactRiskDetailView.this.getBaseContext().getString(R.string.Impact_Level_NoHazard);
         }else if(torinoScale == 1){

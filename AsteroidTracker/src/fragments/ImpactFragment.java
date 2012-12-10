@@ -3,6 +3,7 @@ package fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.Impact;
 import activities.fragment.AsteroidTabFragments;
@@ -14,12 +15,13 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ImpactFragment extends AsteroidFragmentBase {
 
     public ImpactAdapter adapter_IMPACT;
-    public ArrayList dataList;
+    public static ArrayList<Impact> dataList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,12 +39,7 @@ public class ImpactFragment extends AsteroidFragmentBase {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setRetainInstance(true);
-//        if (this.adapter_IMPACT == null) 
-//        {
             Log.d("impactFrag", "Call Loader");
-//            getLoaderManager().initLoader(2, null, this);
-////        }
             getListView().setOnItemClickListener(ImpactRiskClickListener);
     }
 
@@ -74,18 +71,33 @@ public class ImpactFragment extends AsteroidFragmentBase {
         }
         dataList = (ArrayList) data;
     }
-//    public void onResume(Bundle savedInstanceState) {
-//        setAdap(adapter_IMPACT);
-//    }
-    
+
     public OnItemClickListener ImpactRiskClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-//            Object object = getListAdapter().getItem(position);    
-//            Impact asteroidEntity = (Impact) object;
             Intent openArticleView = new Intent(getActivity(), activities.ImpactRiskDetailView.class);
             openArticleView.putExtra("position", position);
-            openArticleView.putStringArrayListExtra("impactlist", dataList);
             startActivity(openArticleView);
         };
     };
+
+    protected void restartLoading(MenuItem item) {
+        Log.d("impactFrag", "onOptionsItemSelected menu");
+        Toast.makeText(AsteroidTabFragments.cText, "impactFrag fragment " , Toast.LENGTH_LONG).show();
+        reloadItem = item;
+        setRefreshIcon(true);
+        Log.d("impactFrag", "restartLoading(): re-starting loader");
+        getLoaderManager().restartLoader(2, null, this);
+    }
+
+    public boolean onOptionsItemSelected(final MenuItem item) 
+    {
+      switch (item.getItemId()) {
+      case R.id.reload:
+          restartLoading(item);
+          return super.onOptionsItemSelected(item);
+      default:
+        return false;
+        }
+    }
+
 }

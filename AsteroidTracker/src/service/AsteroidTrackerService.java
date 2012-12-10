@@ -20,6 +20,7 @@ public class AsteroidTrackerService {
     public static String URI_IMPACT        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_impact/impactRisk";
     public static String URI_NEWS          = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_news/latestnews";
 
+//    public static String URI_RECENT        = "https://raw.github.com/dgreenfield0/TestGitService/master/test";
     boolean useService = false;
     public Gson gson = new Gson();
     HttpUtil httputil = new HttpUtil();

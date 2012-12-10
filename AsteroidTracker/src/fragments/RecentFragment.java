@@ -10,10 +10,11 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import com.actionbarsherlock.view.MenuItem;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.NearEarthObject;
-;
 
 public class RecentFragment extends AsteroidFragmentBase {
 
@@ -23,8 +24,6 @@ public class RecentFragment extends AsteroidFragmentBase {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadingMessage = resources.getString(R.string.text_content_loading_neo);
-        // progress = View.inflate(AsteroidTabFragments.cText,
-        // R.layout.loading_content, null);
     }
 
     @Override
@@ -37,13 +36,6 @@ public class RecentFragment extends AsteroidFragmentBase {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setRetainInstance(true);
-        // text.setText("Loading NASA NEO Feed ");
-
-        // if (this.neoAdapter == null)
-        // {
-        // getLoaderManager().initLoader(0, null, this);
-        // }
         Log.d("recentFrag", "Call Loader (onActivityCreated)");
         getListView().setOnItemClickListener(neoClickListener);
     }
@@ -70,17 +62,19 @@ public class RecentFragment extends AsteroidFragmentBase {
     {
         super.onLoadFinished(list, data);
         Log.d("recentFrag", "onLoadFinished(): done loading!" + data.size());
-        if (this.neoAdapter == null) {
-            neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.view_neo_fragment, data);
-            setListAdapter(neoAdapter);
-        }
+        neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.view_neo_fragment, data);
+        setListAdapter(neoAdapter);
     }
 
-    public void refreshFragment() {
-        // setListAdapter(null);
-        neoAdapter.notifyDataSetChanged();
+    protected void restartLoading(MenuItem item) {
+        Log.d("recentFrag", "onOptionsItemSelected menu");
+        Toast.makeText(AsteroidTabFragments.cText, "Recent fragment " , Toast.LENGTH_LONG).show();
+        reloadItem = item;
+        setRefreshIcon(true);
+        Log.d("recentFrag", "restartLoading(): re-starting loader");
         getLoaderManager().restartLoader(0, null, this);
     }
+
 
     public OnItemClickListener neoClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -94,4 +88,18 @@ public class RecentFragment extends AsteroidFragmentBase {
             AsteroidTabFragments.shareSvc.createAndShowShareIntent(headline, message);
         };
     };
+
+    
+    @Override
+
+    public boolean onOptionsItemSelected(final MenuItem item) 
+    {
+      switch (item.getItemId()) {
+      case R.id.reload:
+          restartLoading(item);
+          return super.onOptionsItemSelected(item);
+      default:
+          return false;
+          }
+    }
 }

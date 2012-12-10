@@ -294,7 +294,7 @@ public class AsteroidTrackerActivity extends ListActivity {
         case R.id.about:
             openAbout();
             return true;
-        case R.id.refresh:
+        case R.id.reload:
             refresh = false;
             LoadingDialogHelper.closeDialog = 0;
             processFeeds();
