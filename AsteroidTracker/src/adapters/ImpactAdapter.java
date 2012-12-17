@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 @SuppressWarnings("rawtypes")
-public class ImpactAdapter extends ArrayAdapter {
+public class ImpactAdapter extends ArrayAdapter<Impact> {
 	private static LayoutInflater inflater = null;
 	private int resourceId;
 	List dataObject;

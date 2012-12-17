@@ -15,6 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.actionbarsherlock.view.MenuItem;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.NearEarthObject;
+import domains.News;
 
 public class RecentFragment extends AsteroidFragmentBase {
 
@@ -42,11 +43,12 @@ public class RecentFragment extends AsteroidFragmentBase {
 
     @Override
     public Loader<List> onCreateLoader(int id, Bundle args) {
+        super.onCreateLoader(id, args);
         AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
-            @Override
-            public List<NearEarthObject> loadInBackground() {
-                Log.d("recentFrag", "loadInBackground(): doing some work....");
-                return AsteroidGitService.getNEOList(AsteroidGitService.URI_RECENT);
+        @Override
+        public List<NearEarthObject> loadInBackground() {
+            Log.d("recentFrag", "loadInBackground(): doing some work....");
+            return downloadManager.retrieveAsteroidData(downloadManager.AsteroidGitService.URI_RECENT, isNetworkAvailable);
             }
         };
         loader.forceLoad();
@@ -62,13 +64,28 @@ public class RecentFragment extends AsteroidFragmentBase {
     {
         super.onLoadFinished(list, data);
         Log.d("recentFrag", "onLoadFinished(): done loading!" + data.size());
+        //Check if view is bad, try to update.
+        //If the view if good, but data is bad...dont update
+        if (neoAdapter != null) {
+            if (neoAdapter.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
+                loadContent(data);
+            } else {
+                if(data.size() > 1){
+                    loadContent(data);
+                }
+            }
+        } else {
+            loadContent(data);
+        }
+    }
+
+    public void loadContent(List data){
         neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.view_neo_fragment, data);
         setListAdapter(neoAdapter);
     }
 
     protected void restartLoading(MenuItem item) {
         Log.d("recentFrag", "onOptionsItemSelected menu");
-        Toast.makeText(AsteroidTabFragments.cText, "Recent fragment " , Toast.LENGTH_LONG).show();
         reloadItem = item;
         setRefreshIcon(true);
         Log.d("recentFrag", "restartLoading(): re-starting loader");
@@ -78,14 +95,14 @@ public class RecentFragment extends AsteroidFragmentBase {
 
     public OnItemClickListener neoClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            Log.d("OnItemClickListener", "HERE");
-            NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
-
-            String headline = "Asteroid " + neo.getName();
-            String message = "Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers()
-                    + "(km) " +
-                    "Check it out " + neo.getURL() + " #AsteroidTracker http://bit.ly/nkxCx1";
-            AsteroidTabFragments.shareSvc.createAndShowShareIntent(headline, message);
+            if (!neoAdapter.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
+                NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
+                String headline = "Asteroid " + neo.getName();
+                String message = "Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers()
+                        + "(km) " +
+                        "Check it out " + neo.getURL() + " #AsteroidTracker http://bit.ly/nkxCx1";
+                AsteroidTabFragments.shareSvc.createAndShowShareIntent(headline, message);
+            }
         };
     };
 

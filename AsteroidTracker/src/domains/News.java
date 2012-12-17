@@ -14,7 +14,7 @@ import android.util.Log;
  * @author spaceMonkey
  *
  */
-public class News {
+public class News extends baseEntity {
 
 	//XPath for Rss Feed (putting these in pojo class for Android optimization
 	public static String XPath_News_title = "//item/title/text()";

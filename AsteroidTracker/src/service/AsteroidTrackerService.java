@@ -2,6 +2,8 @@ package service;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+
 import utils.HttpUtil;
 import android.util.Log;
 import com.google.gson.Gson;
@@ -10,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import domains.NearEarthObject;
 import domains.Impact;
 import domains.News;
+import domains.baseEntity;
 
 
 public class AsteroidTrackerService {
@@ -68,25 +71,51 @@ public class AsteroidTrackerService {
         }
         return responseData;
     }
-    
-    
-    public ArrayList<NearEarthObject> getNEOList(String URI){
-        ArrayList<NearEarthObject> responseData = new ArrayList<NearEarthObject>();
-        try {
-            Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
-            responseData = gson.fromJson(httputil.get(URI), collectionType);
-        } catch (JsonSyntaxException e) {
-            NearEarthObject neoerror = new NearEarthObject();
-            neoerror.setName("Unable to retrieve Asteroid Data");
-            if(responseData.size() > 0){
-                responseData.clear();
+
+
+    public ArrayList<NearEarthObject> getNEOList(String URI) 
+    {
+            ArrayList<NearEarthObject> responseData = new ArrayList<NearEarthObject>();
+            try {
+                Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
+                responseData = gson.fromJson(httputil.get(URI), collectionType);
+            } catch (JsonSyntaxException e) {
+                NearEarthObject neoerror = new NearEarthObject();
+                neoerror.setName("Unable to retrieve Asteroid Data");
+                if(responseData.size() > 0){
+                    responseData.clear();
+                }
+                responseData.add(neoerror);
+                Log.e("AsteroidTrackerService", "Error on getList" +e);
             }
-            responseData.add(neoerror);
-            Log.e("AsteroidTrackerService", "Error on getList" +e);
-        }
-        return responseData;
+            return responseData;
     }
-    
+
+    //TODO refactor this!!!
+    public ArrayList<NearEarthObject> getNeoErrorList(){
+        ArrayList<NearEarthObject> errorData = new ArrayList<NearEarthObject>();
+        NearEarthObject neoerror = new NearEarthObject();
+        neoerror.name = "Unable to retrieve Asteroid Data";
+        errorData.add(neoerror);
+        return errorData;
+    }
+
+    public ArrayList<News> getNewsErrorList(){
+        ArrayList<News> errorData = new ArrayList<News>();
+        News error = new News();
+        error.title = "Unable to retrieve Asteroid Data";
+        errorData.add(error);
+        return errorData;
+    }
+
+    public ArrayList<Impact> getImpactErrorList(){
+        ArrayList<Impact> errorData = new ArrayList<Impact>();
+        Impact error = new Impact();
+        error.name ="Unable to retrieve Asteroid Data"; 
+        errorData.add(error);
+        return errorData;
+    }
+
     public ArrayList<News> getLatestNews(){
         ArrayList<News> newslist = new ArrayList<News>();
         try {

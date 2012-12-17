@@ -3,6 +3,7 @@ package fragments;
 import java.util.List;
 
 import service.AsteroidTrackerService;
+import service.DownloadManager;
 import activities.fragment.AsteroidTabFragments;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     View progress;
     String loadingMessage = "Loading...";
     public static com.actionbarsherlock.view.MenuItem reloadItem;
+    DownloadManager downloadManager = new DownloadManager();
+    boolean isNetworkAvailable;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -65,7 +68,13 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     }
 
     public Loader<List> onCreateLoader(int arg0, Bundle arg1) {
-        // TODO Auto-generated method stub
+        if (!AsteroidTabFragments.nUtil.IsNetworkAvailable(AsteroidTabFragments.cText)) {
+            Toast.makeText(AsteroidTabFragments.cText, "The Network is Unavailable, please check mobile/wifi connection", Toast.LENGTH_SHORT).show();   
+            isNetworkAvailable = false;
+        } else {
+//            Toast.makeText(AsteroidTabFragments.cText, "The Network is Available", Toast.LENGTH_LONG).show();
+            isNetworkAvailable = true;
+        }
         return null;
     }
 
@@ -92,7 +101,6 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     public void onStop(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         clearAdap();
-        Toast.makeText(AsteroidTabFragments.cText, "ONSTOP" , Toast.LENGTH_LONG).show();
     }
 
     public static void setRefreshIcon( boolean IsEnabled ) {

@@ -15,8 +15,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.content.res.Resources;
 
-public class NearEarthObject {
-	private String name="";
+public class NearEarthObject extends baseEntity {
+
 	private Date closeApproachDate;
 	private String closeApproachDate_Str;
 	private String missDistance_AU="";
@@ -40,14 +40,6 @@ public class NearEarthObject {
 	
 	public void setIcon(Drawable Icon){
 		this.IconD = Icon;
-	}
-	
-	public void setName(String astroidName){
-		this.name = astroidName;
-	}
-	
-	public String getName(){
-		return this.name;
 	}
 	
 	public void setURL(String AstroidURL) throws MalformedURLException{

@@ -8,9 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-public class Impact {
+public class Impact extends baseEntity {
 
-	private String name = "";
 	private String YearRange = "";
 	private String potentialImpacts = "";
 	private String impactProbabilites = "";
@@ -23,12 +22,6 @@ public class Impact {
 	public Drawable IconD = activities.fragment.AsteroidTabFragments.drawable;
 	public String ImpactRiskLevel;
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getName() {
-		return name;
-	}
 	public void setYearRange(String yearRange) {
 		YearRange = yearRange;
 	}

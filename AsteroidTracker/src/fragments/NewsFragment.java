@@ -51,11 +51,12 @@ public class NewsFragment extends AsteroidFragmentBase {
 
     @Override
     public Loader<List> onCreateLoader(int id, Bundle args) {
+        super.onCreateLoader(id, args);
         AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
         @Override
         public List<News> loadInBackground() {
             Log.d("newsFrag", "loadInBackground(): doing some work....");
-            return AsteroidGitService.getLatestNews();
+            return downloadManager.retrieveAsteroidNews(isNetworkAvailable);
             }
         };
     loader.forceLoad();
@@ -67,29 +68,41 @@ public class NewsFragment extends AsteroidFragmentBase {
     {
         super.onLoadFinished(arg0, data);
         Log.d("newsFrag", "onLoadFinished(): done loading!"+data.size());
-        if (this.adapter_NEWS == null) {
-            adapter_NEWS = new NewsAdapter(AsteroidTabFragments.cText, R.layout.view_news_fragment, data);
-            setListAdapter(adapter_NEWS);
+        if (adapter_NEWS != null) {
+            if (adapter_NEWS.getItem(0).title.equals("Unable to retrieve Asteroid Data")) {
+                loadContent(data);
+            } else {
+                if(data.size() > 1){
+                    loadContent(data);
+                }
+            }
+        } else {
+            loadContent(data);
         }
     }
 
+    public void loadContent(List data){
+        adapter_NEWS = new NewsAdapter(AsteroidTabFragments.cText, R.layout.view_news_fragment, data);
+        setListAdapter(adapter_NEWS);
+    }
     public OnItemClickListener Asteroid_NewsArticle_ClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            Object object = getListAdapter().getItem(position);    
-            News asteroidEntity = (News) object;
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            try {
-                i.setData(Uri.parse(asteroidEntity.artcileUrl));
-                startActivity(i);
-            } catch (ActivityNotFoundException e){
-                Log.d("News", "ActivityNotFound on news article listner", e);
-            }
-        };
+            if (!adapter_NEWS.getItem(0).title.equals("Unable to retrieve Asteroid Data")) {
+                Object object = getListAdapter().getItem(position);    
+                News asteroidEntity = (News) object;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                try {
+                    i.setData(Uri.parse(asteroidEntity.artcileUrl));
+                    startActivity(i);
+                } catch (ActivityNotFoundException e){
+                    Log.d("News", "ActivityNotFound on news article listner", e);
+                }
+                }
+            };
     };
     
     protected void restartLoading(MenuItem item) {
         Log.d("newsFrag", "onOptionsItemSelected menu");
-        Toast.makeText(AsteroidTabFragments.cText, "newsFrag fragment " , Toast.LENGTH_LONG).show();
         reloadItem = item;
         setRefreshIcon(true);
         Log.d("newsFrag", "restartLoading(): re-starting loader");

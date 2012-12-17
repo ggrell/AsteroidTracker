@@ -91,6 +91,12 @@ public class NearEarthObjectAdapter extends ArrayAdapter<NearEarthObject> {
         
         if (entityObject.getName().equals("Unable to retrieve Asteroid Data")){
             holder.title_error.setText("Unable to retrieve Asteroid Data");
+            holder.title.setText("");
+            holder.missDistance.setText("");
+            holder.relativeVelocity.setText("");
+            holder.estimatedDiameter.setText("");
+            holder.date.setText("");
+
         }else{
             holder.title.setText(NearEarthObjectAdapter.this.getContext().getString(R.string.neoName)+" "+entityObject.getName());
             holder.Icon.setImageDrawable(entityObject.IconD);

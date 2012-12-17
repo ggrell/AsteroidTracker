@@ -6,21 +6,24 @@ import android.util.Log;
 
 public class NetworkUtil {
 
+    ConnectivityManager connMgr;
+
         public boolean IsNetworkAvailable(Context ctext) {
-            boolean IsNetworkAvailable = false;
+
             Log.d("NetworkUtil", "Checking Network");
                 try {
-                    ConnectivityManager connMgr = (ConnectivityManager) ctext.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    connMgr = (ConnectivityManager) ctext.getSystemService(Context.CONNECTIVITY_SERVICE);
                     if(connMgr.getActiveNetworkInfo() == null){
                           Log.d("NetworkUtil", "getActiveNetworkInfo is null");
-                          return IsNetworkAvailable;
+                          return false;
                      }else{
-                         IsNetworkAvailable = true;
-                         return IsNetworkAvailable;
+                         //Network is available
+                         Log.d("NetworkUtil", "getActiveNetworkInfo is ok");
+                         return true;
                      }
                 } catch (Exception e) {
                     Log.e("NetworkUtil", "Network available:Exception", e);
-                    return IsNetworkAvailable;
+                    return false;
                 }
             }
          

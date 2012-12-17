@@ -3,6 +3,7 @@ package activities.fragment;
 import service.ContentManager;
 import service.DownloadManager;
 import service.SharingService;
+import utils.NetworkUtil;
 import activities.BaseActivity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -25,13 +26,14 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
     public static FragPageAdapter mPagerAdapter;
     public static ViewPager mViewPager;
     public static ContentManager contentManager = new ContentManager();
-    public DownloadManager dManager = new DownloadManager(); 
+//    public static DownloadManager dManager = new DownloadManager(); 
     public static Context cText;
     public static Drawable drawable;
     ActionBar actionBar;
     String[] tabNames = {"RECENT", "UPCOMING", "IMPACT RISK", "NEWS"};
     public static SharingService shareSvc = new SharingService();
     static com.actionbarsherlock.view.MenuItem reloadItem;
+    public static NetworkUtil nUtil = new NetworkUtil();
 
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -43,12 +45,10 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
+        NetworkUtil nUtil = new NetworkUtil();
+        
         initFragmentAndPading();
         drawable = getResources().getDrawable(R.drawable.asteroid);
-//      LoadingDialogHelper.dialog = new ProgressDialog(this);
-//      LoadingDialogHelper.progressDialog(this, "", "Checking Asteroid Service");
-//      dManager.setFragPageAdapter(this.mPagerAdapter);
-//      dManager.startDownloads();
     }
 
     public FragPageAdapter getAdap(){

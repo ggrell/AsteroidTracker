@@ -6,8 +6,10 @@ import java.util.List;
 import com.actionbarsherlock.view.MenuItem;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.Impact;
+import domains.NearEarthObject;
 import activities.fragment.AsteroidTabFragments;
 import adapters.ImpactAdapter;
+import adapters.NearEarthObjectAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
@@ -45,11 +47,12 @@ public class ImpactFragment extends AsteroidFragmentBase {
 
     @Override
     public Loader<List> onCreateLoader(int id, Bundle args) {
+        super.onCreateLoader(id, args);
         AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
         @Override
         public List<Impact> loadInBackground() {
             Log.d("impactFrag", "loadInBackground(): doing some work....");
-            return AsteroidGitService.getImpactData(); 
+            return (List<Impact>) downloadManager.retrieveAsteroidImpact(isNetworkAvailable);
             }
         };
     loader.forceLoad();
@@ -65,24 +68,39 @@ public class ImpactFragment extends AsteroidFragmentBase {
     {
         super.onLoadFinished(arg0, data);
         Log.d("impactFrag", "onLoadFinished(): done loading!"+data.size());
-        if (this.adapter_IMPACT == null) {
-            adapter_IMPACT = new ImpactAdapter(AsteroidTabFragments.cText, R.layout.view_impact_fragment, data);
-            setListAdapter(adapter_IMPACT);
+        if (adapter_IMPACT != null) {
+
+            if (adapter_IMPACT.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
+                loadContent(data);
+            } else {
+                if(data.size() > 1){
+                    loadContent(data);
+                }
+            }
+        } else {
+            loadContent(data);
         }
-        dataList = (ArrayList) data;
     }
 
+    public void loadContent(List data){
+        adapter_IMPACT = new ImpactAdapter(AsteroidTabFragments.cText, R.layout.view_impact_fragment, data);
+        setListAdapter(adapter_IMPACT);
+        dataList = (ArrayList) data;
+    }
+    
     public OnItemClickListener ImpactRiskClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            Intent openArticleView = new Intent(getActivity(), activities.ImpactRiskDetailView.class);
-            openArticleView.putExtra("position", position);
-            startActivity(openArticleView);
+            if (!adapter_IMPACT.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
+                Intent openArticleView = new Intent(getActivity(), activities.ImpactRiskDetailView.class);
+                openArticleView.putExtra("position", position);
+                startActivity(openArticleView);
+            }
         };
     };
 
     protected void restartLoading(MenuItem item) {
         Log.d("impactFrag", "onOptionsItemSelected menu");
-        Toast.makeText(AsteroidTabFragments.cText, "impactFrag fragment " , Toast.LENGTH_LONG).show();
+//        Toast.makeText(AsteroidTabFragments.cText, "impactFrag fragment " , Toast.LENGTH_LONG).show();
         reloadItem = item;
         setRefreshIcon(true);
         Log.d("impactFrag", "restartLoading(): re-starting loader");

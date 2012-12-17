@@ -18,7 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class UpcomingFragment extends AsteroidFragmentBase {
 
-    private NearEarthObjectAdapter neoAdapter;
+    private NearEarthObjectAdapter recentNeoAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,11 +42,12 @@ public class UpcomingFragment extends AsteroidFragmentBase {
 
     @Override
     public Loader<List> onCreateLoader(int id, Bundle args) {
+        super.onCreateLoader(id, args);
         AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
         @Override
         public List<NearEarthObject> loadInBackground() {
             Log.d("updateFrag", "loadInBackground(): doing some work....");
-            return AsteroidGitService.getNEOList(AsteroidGitService.URI_UPCOMING); 
+            return (List<NearEarthObject>) downloadManager.retrieveAsteroidData(downloadManager.AsteroidGitService.URI_UPCOMING, isNetworkAvailable);
             }
         };
     loader.forceLoad();
@@ -54,33 +55,49 @@ public class UpcomingFragment extends AsteroidFragmentBase {
     }
 
     public void onLoaderReset(Loader<List> loader) {
-        neoAdapter.setData(null);
+        recentNeoAdapter.setData(null);
     }
 
     @Override
-    public void onLoadFinished( Loader<List> arg0, List data ) 
+    public void onLoadFinished(Loader<List> list, List data)
     {
-        super.onLoadFinished(arg0, data);
-        Log.d("updateFrag", "onLoadFinished(): done loading!"+data.size());
-        if (this.neoAdapter == null) {
-            neoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.view_neo_fragment, data);
-            setListAdapter(neoAdapter);
+        super.onLoadFinished(list, data);
+        Log.d("updateFrag", "onLoadFinished(): done loading!" + data.size());
+        //Check if view is bad, try to update.
+        //If the view if good, but data is bad...dont update
+        if (recentNeoAdapter != null) {
+            
+            if (recentNeoAdapter.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
+                loadContent(data);
+            } else {
+                if(data.size() > 1){
+                    loadContent(data);
+                }
+            }
+        } else {
+            loadContent(data);
         }
+    }
+
+    public void loadContent(List data){
+        recentNeoAdapter = new NearEarthObjectAdapter(AsteroidTabFragments.cText, R.layout.view_neo_fragment, data);
+        setListAdapter(recentNeoAdapter);
     }
 
     public OnItemClickListener clickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
-            String headline = "Asteroid " + " " + neo.getName() + ",";
-            String message = "#Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers() + "km " +
-                    "See Details "  + neo.getURL() + " #AsteroidTracker<http://bit.ly/nkxCx1>" ;
-            AsteroidTabFragments.shareSvc.createAndShowShareIntent(headline, message);
-        };
+            if (!recentNeoAdapter.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
+                NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
+                String headline = "Asteroid " + " " + neo.getName() + ",";
+                String message = "#Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers() + "km " +
+                        "See Details "  + neo.getURL() + " #AsteroidTracker<http://bit.ly/nkxCx1>" ;
+                AsteroidTabFragments.shareSvc.createAndShowShareIntent(headline, message);
+                }
+            };
     };
 
     protected void restartLoading(MenuItem item) {
         Log.d("updateFrag", "onOptionsItemSelected menu");
-        Toast.makeText(AsteroidTabFragments.cText, "updateFrag fragment " , Toast.LENGTH_LONG).show();
         reloadItem = item;
         setRefreshIcon(true);
         Log.d("updateFrag", "restartLoading(): re-starting loader");
