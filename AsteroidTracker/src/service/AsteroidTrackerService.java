@@ -23,7 +23,6 @@ public class AsteroidTrackerService {
     public static String URI_IMPACT        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_impact/impactRisk";
     public static String URI_NEWS          = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_news/latestnews";
 
-//    public static String URI_RECENT        = "https://raw.github.com/dgreenfield0/TestGitService/master/test";
     boolean useService = false;
     public Gson gson = new Gson();
     HttpUtil httputil = new HttpUtil();
@@ -39,38 +38,38 @@ public class AsteroidTrackerService {
         }
     }
 
-    public ArrayList getMockedList(Object dataType, int setCount){
-        ArrayList responseData = null;
-        if (dataType instanceof NearEarthObject) {
-            responseData = new ArrayList<NearEarthObject>();
-            for (int i=0; i < setCount; i++){
-                NearEarthObject mock = new NearEarthObject();
-                mock.setName("TestName "+setCount);
-                mock.setEstimatedDiameter("");
-                mock.setHmagnitude("test");
-                mock.setDate("test");
-                mock.SetMissDistance_AU("test");
-                mock.setMissDistance_LD("test");
-                mock.setRelativeVelocity("test");
-                responseData.add(mock);
-            }
-        }
-        if (dataType instanceof News) {
-            responseData = new ArrayList<News>();
-            for (int i=0; i < setCount; i++){
-                News mock = new News();
-                mock.description = "This is mock data";
-                mock.title = "Asteroid news title";
-                mock.artcileUrl = "http://asteroidmock.com";
-                responseData.add(mock);
-            }
-        }
-        if (dataType instanceof Impact) {
-            responseData = new ArrayList<Impact>();
-            for (int i=0; i < setCount; i++){}
-        }
-        return responseData;
-    }
+//    public ArrayList getMockedList(Object dataType, int setCount){
+//        ArrayList responseData = null;
+//        if (dataType instanceof NearEarthObject) {
+//            responseData = new ArrayList<NearEarthObject>();
+//            for (int i=0; i < setCount; i++){
+//                NearEarthObject mock = new NearEarthObject();
+//                mock.setName("TestName "+setCount);
+//                mock.setEstimatedDiameter("");
+//                mock.setHmagnitude("test");
+//                mock.setDate("test");
+//                mock.SetMissDistance_AU("test");
+//                mock.setMissDistance_LD("test");
+//                mock.setRelativeVelocity("test");
+//                responseData.add(mock);
+//            }
+//        }
+//        if (dataType instanceof News) {
+//            responseData = new ArrayList<News>();
+//            for (int i=0; i < setCount; i++){
+//                News mock = new News();
+//                mock.description = "This is mock data";
+//                mock.title = "Asteroid news title";
+//                mock.artcileUrl = "http://asteroidmock.com";
+//                responseData.add(mock);
+//            }
+//        }
+//        if (dataType instanceof Impact) {
+//            responseData = new ArrayList<Impact>();
+//            for (int i=0; i < setCount; i++){}
+//        }
+//        return responseData;
+//    }
 
 
     public ArrayList<NearEarthObject> getNEOList(String URI) 

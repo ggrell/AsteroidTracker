@@ -2,6 +2,8 @@ package fragments;
 
 import java.util.List;
 
+import service.baseLoader;
+
 import activities.fragment.AsteroidTabFragments;
 import adapters.NearEarthObjectAdapter;
 import android.os.Bundle;
@@ -44,9 +46,10 @@ public class RecentFragment extends AsteroidFragmentBase {
     @Override
     public Loader<List> onCreateLoader(int id, Bundle args) {
         super.onCreateLoader(id, args);
-        AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
+        baseLoader loader = new baseLoader(getActivity()) {
         @Override
         public List<NearEarthObject> loadInBackground() {
+            super.loadInBackground();
             Log.d("recentFrag", "loadInBackground(): doing some work....");
             return downloadManager.retrieveAsteroidData(downloadManager.AsteroidGitService.URI_RECENT, isNetworkAvailable);
             }

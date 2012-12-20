@@ -1,19 +1,20 @@
 package activities.fragment;
 
-import service.ContentManager;
-import service.DownloadManager;
 import service.SharingService;
 import utils.NetworkUtil;
 import activities.BaseActivity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.widget.TabHost;
+
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.app.ActionBar.Tab;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
 import fragments.RecentFragment;
@@ -25,15 +26,12 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
     private TabHost mTabHost;
     public static FragPageAdapter mPagerAdapter;
     public static ViewPager mViewPager;
-    public static ContentManager contentManager = new ContentManager();
-//    public static DownloadManager dManager = new DownloadManager(); 
     public static Context cText;
     public static Drawable drawable;
     ActionBar actionBar;
     String[] tabNames = {"RECENT", "UPCOMING", "IMPACT RISK", "NEWS"};
     public static SharingService shareSvc = new SharingService();
     static com.actionbarsherlock.view.MenuItem reloadItem;
-    public static NetworkUtil nUtil = new NetworkUtil();
 
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -61,8 +59,8 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         mPagerAdapter = new FragPageAdapter(this, mTabHost, mViewPager);
         mPagerAdapter.addTab(mTabHost.newTabSpec("RECENT").setIndicator("Recent"),RecentFragment.class, null);
         mPagerAdapter.addTab(mTabHost.newTabSpec("UPCOMING").setIndicator("Upcoming"),UpcomingFragment.class, null);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("IMPACTRISK").setIndicator("Impact Risk"),ImpactFragment.class, null);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("News").setIndicator("News"),NewsFragment.class, null);
+        mPagerAdapter.addTab(mTabHost.newTabSpec("IMPACT RISK").setIndicator("ImpactRisk"),ImpactFragment.class, null);
+        mPagerAdapter.addTab(mTabHost.newTabSpec("NEWS").setIndicator("News"),NewsFragment.class, null);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
     }
@@ -78,4 +76,19 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         return false;
         }
     }
-}
+
+    private class MyTabListener implements ActionBar.TabListener
+    {
+        public void onTabSelected(Tab tab, FragmentTransaction ft) {}
+
+        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        public void onTabReselected(Tab tab, FragmentTransaction ft) {
+            // TODO Auto-generated method stub
+            
+        }
+    }
+    }
