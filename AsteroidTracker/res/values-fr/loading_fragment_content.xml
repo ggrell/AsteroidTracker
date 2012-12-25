@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_content_loading_neo">Chargement NASA NEO RSS</string>
+    <string name="text_content_loading_news">Chargement RSS Nouvelles</string>
+    <string name="text_content_loading_impact">Chargement RSS Impact</string>
+</resources>

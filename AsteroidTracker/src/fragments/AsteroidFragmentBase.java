@@ -71,7 +71,7 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
 
     public Loader<List> onCreateLoader(int arg0, Bundle arg1) {
         if (!downloadManager.nUtil.IsNetworkAvailable(AsteroidTabFragments.cText)) {
-            Toast.makeText(AsteroidTabFragments.cText, "The Network is Unavailable, please check mobile/wifi connection", Toast.LENGTH_SHORT).show();   
+            Toast.makeText(AsteroidTabFragments.cText, getActivity().getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();   
             isNetworkAvailable = false;
         } else {
             isNetworkAvailable = true;

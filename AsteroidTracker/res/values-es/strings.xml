@@ -18,4 +18,5 @@
 <string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
 <string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
 <string name="networkerror">Su red wifi (s) no están disponibles, por favor verifica la configuración del sistema, el modo de avión tal vez? De cualquier manera, Panda triste (no dude en enviar un informe de error si se siente este mensaje es un error, aunque su probable es que no)</string>
+<string name="feedDown">No se puede cargar alimentación Asteroid</string>
 </resources>

@@ -27,7 +27,7 @@
 				android:id="@+id/tab_neoUPCOMING"
 				android:orientation="vertical" 
 				android:paddingTop="60px">
-						android:orientation="vertical">
+				android:orientation="vertical">
 			<ListView
     			android:id="@+id/list2"
     			android:layout_width="fill_parent"

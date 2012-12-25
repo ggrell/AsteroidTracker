@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Name">Nombre</string>
-    <string name="YearRange">Año de rango</string>
-    <string name="Level_NoHazard">No Peligro</string>
-   <string name="Impact_Level_Title">Nivel de Peligrosidad:</string>
-    <string name="Level_Normal">Normal</string>
-    <string name="Level_MeritsAttention">Digna de atención</string>
-    <string name="Level_Threatening">Amenazante</string>
-    <string name="Level_CertainCollisions">Ciertas Colisiones</string>
+    <string name="Impact_Name">Nombre</string>
+    <string name="Impact_YearRange">Año de rango</string>
+    <string name="Impact_Level_NoHazard">No Peligro</string>
+    <string name="Impact_Level_Title">Nivel de Peligrosidad:</string>
+    <string name="Impact_Level_Normal">Normal</string>
+    <string name="Impact_Level_MeritsAttention">Digna de atención</string>
+    <string name="Impact_Level_Threatening">Amenazante</string>
+    <string name="Impact_Level_CertainCollisions">Ciertas Colisiones</string>
     
     <string name="Impact_Detail_ViewTitle">Análisis de Riesgo Resumen</string>
     <string name="Impact_Detail_PotentialImpacts">Impactos Potenciales:</string>
@@ -15,8 +15,8 @@
     <string name="Impact_Detail_AbsoluteMagnitude">Magnitud Absoluta:</string>
     <string name="Impact_Detail_EstimatedDiameter">Diámetro Estimado:</string>
     <string name="Impact_Detail_vInfinity">Vinfinity:</string>
-    <string name="Impact_Detail_TorinoScale">Torino Scale:</string>
-    <string name="Impact_Detail_PalermoScale">Palermo Scale:</string>
+    <string name="Impact_Detail_TorinoScaleMax">Torino Scale:</string>
+    <string name="Impact_Detail_PalermoScaleMax">Palermo Scale:</string>
     <string name="Impact_Button_DetailsPage">El asteroide NASA página de detalles</string>
     <string name="Impact_Button_OrbitalDiagram">Diagrama orbital y los elementos</string>    
 </resources>

@@ -22,17 +22,17 @@
 <string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
 
 <!-- Error -->
-<string name="feedDown">Unable to retrieve Asteroid feed</string>
+<string name="feedDown">Unable to load Asteroid feed</string>
 <string name="refresh">Refresh</string>
 <string name="networkerror">It seems your mobile/wifi network(s) are unavailable, please check your system settings, airplane mode maybe?? Either way, Sad Panda (Feel free to submit a bug report if you feel this message is in error, though its likely not).</string>
 
 <!-- Share -->
-<string name="shareName">Asteroid</string>
-<string name="shareDist">missDistance is</string>
-<string name="shareDist2">(km)</string>
-<string name="shareLink">Check it out</string>
-<string name="shareHash">#AsteroidTrackert</string>
-<string name="sharePlayLink">http://bit.ly/n</string>
+<!-- <string name="shareName">Asteroid</string> -->
+<!-- <string name="shareDist">missDistance is</string> -->
+<!-- <string name="shareDist2">(km)</string> -->
+<!-- <string name="shareLink">Check it out</string> -->
+<!-- <string name="shareHash">#AsteroidTrackert</string> -->
+<!-- <string name="sharePlayLink">http://bit.ly/n</string> -->
 
 </resources>
 
