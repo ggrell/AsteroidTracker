@@ -12,6 +12,7 @@ import android.widget.TabHost;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.view.Window;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
@@ -39,6 +40,8 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabs_viewpager_layout);
         actionBar=getSupportActionBar();
+        setSupportProgressBarIndeterminateVisibility(false); 
+        
         cText = this;
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();

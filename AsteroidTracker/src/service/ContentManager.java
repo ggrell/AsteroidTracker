@@ -27,9 +27,8 @@ public class ContentManager {
         public void loadAdapters_NEO_Recent(Context ctext){
             adapter_RECENT = new NearEarthObjectAdapter(ctext, R.layout.view_neo_fragment, this.List_NASA_RECENT);
         }
-        
-        public void loadAdapters_NEO_Upcoming(Context ctext){
-            Log.i("adap", "setting"+ this.List_NASA_UPCOMING.size());
+
+        public void loadAdapters_NEO_Upcoming(Context ctext) {
             adapter_UPCOMING = new NearEarthObjectAdapter(ctext, R.layout.view_neo_fragment, this.List_NASA_UPCOMING);
         }
         
@@ -62,7 +61,6 @@ public class ContentManager {
                     arraytoTrim.remove(i);
                 }
             }
-            Log.v("ContentManager", "trimArray end size: "+arraytoTrim.size());
             return arraytoTrim;
         }
         

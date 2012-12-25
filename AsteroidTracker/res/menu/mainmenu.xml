@@ -20,7 +20,8 @@
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:layout_margin="10dip"
-        android:visibility="gone" >
+        android:visibility="gone"
+        android:showAsAction="always">
     </ProgressBar>
   
 </menu>

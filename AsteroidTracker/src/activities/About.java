@@ -67,7 +67,6 @@ public class About extends SherlockListActivity
 
     private OnClickListener GoToBFsite = new OnClickListener() {
         public void onClick(View v) {
-            Log.i("GoToWeb", "Calling");
             String url = "";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));

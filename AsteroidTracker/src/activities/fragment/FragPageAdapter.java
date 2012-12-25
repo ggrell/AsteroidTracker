@@ -62,11 +62,7 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
     public void addTab(TabHost.TabSpec tabSpec, Class clss, Bundle args) {
         View tabview = createTabView(mTabHost.getContext(), tabSpec.getTag());
         tabSpec.setContent(new TabFactory(mContext));
-//        tabSpec.setContent(new TabContentFactory() {public View createTabContent(String tag) {return view;}});
-        String tag = tabSpec.getTag();
-        Log.e("tag", "tag" + tag);
         tabSpec.setIndicator(tabview);
-
         TabInfo info = new TabInfo(clss, args);
         mTabs.add(info);
         mTabHost.addTab(tabSpec);
@@ -82,8 +78,6 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
 
         public View createTabContent(String tag) {
             View v = new View(mContext);
-//            v.setMinimumWidth(0);
-//            v.setMinimumHeight(0);
             return v;
         }
 }
@@ -102,22 +96,16 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
     }
 
     public void onPageScrollStateChanged(int arg0) {
-//        Log.i("tabz", "tabz Scroll state");
         int pos =  this.mViewPager.getCurrentItem();
         mTabHost.setCurrentTab(pos);
     }
 
-    public void onPageScrolled(int arg0, float arg1, int arg2) {
-//        Log.i("tabz", "frag tabz Scroll");
-    }
+    public void onPageScrolled(int arg0, float arg1, int arg2) {}
 
-    public void onPageSelected(int arg0) {
-        // TODO Auto-generated method stub
-    }
+    public void onPageSelected(int arg0) {}
 
   public void onTabChanged(String tabId) {
       int pos = mTabHost.getCurrentTab();
-//      Log.i("tabz", "tabz: "+pos);
       this.mViewPager.setCurrentItem(pos);
   }
 

@@ -10,24 +10,24 @@ import android.util.Log;
 public class LoadingDialogHelper{
 
     public static ProgressDialog dialog;
-    static Handler handler;
+    public static Handler handler;
     public static int closeDialog = 0;
     public static int closeDialogLimit = 4;
     public static String messageTitle = "";
-
+    public static boolean hasStarted  = false;
+    
     public static void progressDialog(Context context, String Title, String message) {
             closeDialog = 0;
-
-            if ( !dialog.isShowing() ) {
+//            if ( !dialog.isShowing() ) {
                 dialog = ProgressDialog.show(context, Title, message, true);
                 dialog.setCancelable(true);
                 handler = new Handler() {
                     public void handleMessage(Message msg) {
                         dialog.dismiss();}
                 };
-            } else {
-                setMessage(message);
-            }
+//            } else {
+//                setMessage(message);
+//            }
 
     }
 
@@ -41,7 +41,7 @@ public class LoadingDialogHelper{
         }
     
     public static void killDialog(){
-        closeDialog = closeDialogLimit;
+//        closeDialog = closeDialogLimit;
         handler.sendEmptyMessage(0);
     }
     

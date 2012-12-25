@@ -32,14 +32,12 @@ public class RecentFragment extends AsteroidFragmentBase {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("recentFrag", "onStadt - Call Loader");
         getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d("recentFrag", "Call Loader (onActivityCreated)");
         getListView().setOnItemClickListener(neoClickListener);
     }
 
@@ -50,7 +48,6 @@ public class RecentFragment extends AsteroidFragmentBase {
         @Override
         public List<NearEarthObject> loadInBackground() {
             super.loadInBackground();
-            Log.d("recentFrag", "loadInBackground(): doing some work....");
             return downloadManager.retrieveAsteroidData(downloadManager.AsteroidGitService.URI_RECENT, isNetworkAvailable);
             }
         };
@@ -66,7 +63,6 @@ public class RecentFragment extends AsteroidFragmentBase {
     public void onLoadFinished(Loader<List> list, List data)
     {
         super.onLoadFinished(list, data);
-        Log.d("recentFrag", "onLoadFinished(): done loading!" + data.size());
         //Check if view is bad, try to update.
         //If the view if good, but data is bad...dont update
         if (neoAdapter != null) {
@@ -88,10 +84,8 @@ public class RecentFragment extends AsteroidFragmentBase {
     }
 
     protected void restartLoading(MenuItem item) {
-        Log.d("recentFrag", "onOptionsItemSelected menu");
         reloadItem = item;
-        setRefreshIcon(true);
-        Log.d("recentFrag", "restartLoading(): re-starting loader");
+        setRefreshIcon(true, "RECENT");
         getLoaderManager().restartLoader(0, null, this);
     }
 

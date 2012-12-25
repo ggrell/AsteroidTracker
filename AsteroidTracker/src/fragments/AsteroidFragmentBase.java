@@ -4,8 +4,10 @@ import java.util.List;
 
 import service.AsteroidTrackerService;
 import service.DownloadManager;
+import utils.LoadingDialogHelper;
 import activities.fragment.AsteroidTabFragments;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -29,7 +31,7 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     ProgressBar bar;
     View progress;
     String loadingMessage = "Loading...";
-    public static com.actionbarsherlock.view.MenuItem reloadItem;
+    public com.actionbarsherlock.view.MenuItem reloadItem;
     DownloadManager downloadManager = new DownloadManager();
     boolean isNetworkAvailable;
 
@@ -77,38 +79,46 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
         return null;
     }
 
-    public void onLoaderReset(Loader<List> arg0) {
-        // TODO Auto-generated method stub
-        
-    }
-    
+    public void onLoaderReset(Loader<List> arg0) {}
+
     public void onLoadFinished(Loader<List> arg0, List arg1) {
+        if (LoadingDialogHelper.hasStarted) {
+            if (Build.VERSION.SDK_INT <= 8) {
+                LoadingDialogHelper.killDialog();
+                LoadingDialogHelper.hasStarted = false;
+            }
+        }
         text.setVisibility(View.GONE);
         bar.setVisibility(View.GONE);
         if (reloadItem == null) {
-            Log.d("recentFrag", "its null");
         } else {
-            Log.d("recentFrag", "turn off image");
-            setRefreshIcon(false);
+            setRefreshIcon(false, "");
         }
     }
 
-    public void onResume(Bundle savedInstanceState) {
-        Toast.makeText(AsteroidTabFragments.cText, "TEST ONRESUME" , Toast.LENGTH_LONG).show();
-      }
+    public void onResume(Bundle savedInstanceState) {}
 
     public void onStop(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         clearAdap();
     }
 
-    public static void setRefreshIcon( boolean IsEnabled ) {
+    public void setRefreshIcon( boolean IsEnabled, String updateTag) {
         if(IsEnabled) {
+            if (updateTag.length() != 0){
+                if (Build.VERSION.SDK_INT <= 8) {
+                    LoadingDialogHelper.progressDialog(AsteroidTabFragments.cText, "", "Retrieving "+ updateTag + " Service");
+                    LoadingDialogHelper.hasStarted = true;
+                }
+            }
             reloadItem.setEnabled(false);
+            getSherlockActivity().getSupportActionBar();
             reloadItem.setActionView(R.layout.inderterminate_progress);
+            getSherlockActivity().setProgressBarIndeterminateVisibility(Boolean.TRUE);
         }else {
             reloadItem.setEnabled(true);
             reloadItem.setActionView(null);
+            getActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
         }
     }
 

@@ -29,14 +29,12 @@ public class UpcomingFragment extends AsteroidFragmentBase {
     @Override
     public void onStart(){
         super.onStart();
-        Log.d("updateFrag", "onStart - Call Loader");
         getLoaderManager().initLoader(1, null, this);
     }
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d("updateFrag", "Call Loader");
         getListView().setOnItemClickListener(clickListener);
     }
 
@@ -46,7 +44,6 @@ public class UpcomingFragment extends AsteroidFragmentBase {
         AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
         @Override
         public List<NearEarthObject> loadInBackground() {
-            Log.d("updateFrag", "loadInBackground(): doing some work....");
             return (List<NearEarthObject>) downloadManager.retrieveAsteroidData(downloadManager.AsteroidGitService.URI_UPCOMING, isNetworkAvailable);
             }
         };
@@ -62,9 +59,6 @@ public class UpcomingFragment extends AsteroidFragmentBase {
     public void onLoadFinished(Loader<List> list, List data)
     {
         super.onLoadFinished(list, data);
-        Log.d("updateFrag", "onLoadFinished(): done loading!" + data.size());
-        //Check if view is bad, try to update.
-        //If the view if good, but data is bad...dont update
         if (recentNeoAdapter != null) {
             
             if (recentNeoAdapter.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
@@ -97,10 +91,8 @@ public class UpcomingFragment extends AsteroidFragmentBase {
     };
 
     protected void restartLoading(MenuItem item) {
-        Log.d("updateFrag", "onOptionsItemSelected menu");
         reloadItem = item;
-        setRefreshIcon(true);
-        Log.d("updateFrag", "restartLoading(): re-starting loader");
+        setRefreshIcon(true, "Upcoming");
         getLoaderManager().restartLoader(1, null, this);
   }
 

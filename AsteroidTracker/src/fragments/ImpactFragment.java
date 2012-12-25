@@ -34,14 +34,12 @@ public class ImpactFragment extends AsteroidFragmentBase {
     @Override
     public void onStart(){
         super.onStart();
-        Log.d("impactFrag", "onStadt - Call Loader");
         getLoaderManager().initLoader(2, null, this);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-            Log.d("impactFrag", "Call Loader");
             getListView().setOnItemClickListener(ImpactRiskClickListener);
     }
 
@@ -51,7 +49,6 @@ public class ImpactFragment extends AsteroidFragmentBase {
         AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
         @Override
         public List<Impact> loadInBackground() {
-            Log.d("impactFrag", "loadInBackground(): doing some work....");
             return (List<Impact>) downloadManager.retrieveAsteroidImpact(isNetworkAvailable);
             }
         };
@@ -67,7 +64,6 @@ public class ImpactFragment extends AsteroidFragmentBase {
     public void onLoadFinished( Loader<List> arg0, List data ) 
     {
         super.onLoadFinished(arg0, data);
-        Log.d("impactFrag", "onLoadFinished(): done loading!"+data.size());
         if (adapter_IMPACT != null) {
 
             if (adapter_IMPACT.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
@@ -99,11 +95,8 @@ public class ImpactFragment extends AsteroidFragmentBase {
     };
 
     protected void restartLoading(MenuItem item) {
-        Log.d("impactFrag", "onOptionsItemSelected menu");
-//        Toast.makeText(AsteroidTabFragments.cText, "impactFrag fragment " , Toast.LENGTH_LONG).show();
         reloadItem = item;
-        setRefreshIcon(true);
-        Log.d("impactFrag", "restartLoading(): re-starting loader");
+        setRefreshIcon(true, "Impact");
         getLoaderManager().restartLoader(2, null, this);
     }
 

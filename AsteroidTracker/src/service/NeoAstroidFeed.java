@@ -90,7 +90,6 @@ public class NeoAstroidFeed {
     }
 
     public String getAstroidFeedDATA(String URL) {
-        Log.i("HTTPFEED", "Getting data: "+URL);
         String data = common.getHTTPData(URL);
 //        Log.i("neo", "DATA: "+data);
         return data;
@@ -260,7 +259,6 @@ public class NeoAstroidFeed {
 }
 
     public ArrayList<News> parseNewsFeed(String data){
-        Log.i("news", "data2"+data);
         XmlParser xmlParser = new XmlParser(data);
         return xmlParser.getXpath_getNewsItem();
     }

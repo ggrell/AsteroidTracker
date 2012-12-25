@@ -29,11 +29,9 @@ public class AsteroidTrackerService {
     boolean IsMocking = false;
 
     public boolean isGitServiceAvailable(){
-        if (httputil.get(URI_USESERVICE).trim().equals("true")){
-            Log.d("gitservice", "IsGitServiceAvailable: "+ true);
+        if (httputil.get(URI_USESERVICE).trim().equals("true")) {
             return true;
         }else {
-            Log.d("gitservice", "IsGitServiceAvailable: "+ false);
             return false;
         }
     }
@@ -143,7 +141,6 @@ public class AsteroidTrackerService {
         try {
             Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
             impactList = gson.fromJson(httputil.get(URI_IMPACT), collectionType);
-            Log.d("impactFrag", "getImpacted Data");
         } catch (JsonSyntaxException e) {
             Impact impactError = new Impact();
             impactError.setName("Unable to retrieve Asteroid Data");

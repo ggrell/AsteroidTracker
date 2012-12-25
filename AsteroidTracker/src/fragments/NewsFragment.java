@@ -39,7 +39,6 @@ public class NewsFragment extends AsteroidFragmentBase {
     @Override
     public void onStart(){
         super.onStart();
-        Log.d("newsFrag", "onStadt - Call Loader");
         getLoaderManager().initLoader(3, null, this);
     }
 
@@ -55,7 +54,6 @@ public class NewsFragment extends AsteroidFragmentBase {
         AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
         @Override
         public List<News> loadInBackground() {
-            Log.d("newsFrag", "loadInBackground(): doing some work....");
             return downloadManager.retrieveAsteroidNews(isNetworkAvailable);
             }
         };
@@ -67,7 +65,6 @@ public class NewsFragment extends AsteroidFragmentBase {
     public void onLoadFinished( Loader<List> arg0, List data ) 
     {
         super.onLoadFinished(arg0, data);
-        Log.d("newsFrag", "onLoadFinished(): done loading!"+data.size());
         if (adapter_NEWS != null) {
             if (adapter_NEWS.getItem(0).title.equals("Unable to retrieve Asteroid Data")) {
                 loadContent(data);
@@ -102,10 +99,8 @@ public class NewsFragment extends AsteroidFragmentBase {
     };
     
     protected void restartLoading(MenuItem item) {
-        Log.d("newsFrag", "onOptionsItemSelected menu");
         reloadItem = item;
-        setRefreshIcon(true);
-        Log.d("newsFrag", "restartLoading(): re-starting loader");
+        setRefreshIcon(true, "News");
         getLoaderManager().restartLoader(3, null, this);
     }
 
