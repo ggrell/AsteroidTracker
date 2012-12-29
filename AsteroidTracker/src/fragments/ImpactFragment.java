@@ -83,7 +83,7 @@ public class ImpactFragment extends AsteroidFragmentBase {
         setListAdapter(adapter_IMPACT);
         dataList = (ArrayList) data;
     }
-    
+
     public OnItemClickListener ImpactRiskClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             if (!adapter_IMPACT.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {

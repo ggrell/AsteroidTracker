@@ -40,14 +40,12 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabs_viewpager_layout);
         actionBar=getSupportActionBar();
-        setSupportProgressBarIndeterminateVisibility(false); 
-        
+        setSupportProgressBarIndeterminateVisibility(false);
+
         cText = this;
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
-        NetworkUtil nUtil = new NetworkUtil();
-        
         initFragmentAndPading();
         drawable = getResources().getDrawable(R.drawable.asteroid);
     }
