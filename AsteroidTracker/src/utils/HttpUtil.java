@@ -35,6 +35,7 @@ public class HttpUtil {
                ByteArrayOutputStream ostream = new ByteArrayOutputStream();
                response.getEntity().writeTo(ostream);
                Log.d("HTTPCLIENT", "sb: "+response.getEntity().getContent().toString());
+               throw new Exception();
            } else {
                InputStream content = response.getEntity().getContent();
                BufferedReader in = new BufferedReader(new InputStreamReader(content));

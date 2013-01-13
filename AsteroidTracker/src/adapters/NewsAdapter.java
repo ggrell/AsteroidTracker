@@ -8,6 +8,7 @@ import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.Impact;
 import domains.NearEarthObject;
 import domains.News;
+import domains.baseEntity;
 import android.R.color;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -79,7 +80,7 @@ public class NewsAdapter extends ArrayAdapter<News>{
         } else {
             holder = (ViewHolder) vi.getTag();
         }
-        if(entityObject.title.equals("Unable to retrieve Asteroid News")){
+        if(entityObject.title.equals(baseEntity.FAILURELOADING)){
             holder.title_error.setText(entityObject.getName());
         } else {
             holder.title.setText(entityObject.title);

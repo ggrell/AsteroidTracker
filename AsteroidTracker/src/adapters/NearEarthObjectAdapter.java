@@ -7,6 +7,7 @@ import java.util.List;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import domains.NearEarthObject;
+import domains.baseEntity;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
@@ -89,14 +90,13 @@ public class NearEarthObjectAdapter extends ArrayAdapter<NearEarthObject> {
             holder = (ViewHolder) vi.getTag();
         }
         
-        if (entityObject.getName().equals("Unable to retrieve Asteroid Data")){
-            holder.title_error.setText("Unable to retrieve Asteroid Data");
+        if (entityObject.getName().equals(baseEntity.FAILURELOADING)){
+            holder.title_error.setText(entityObject.getName());
             holder.title.setText("");
             holder.missDistance.setText("");
             holder.relativeVelocity.setText("");
             holder.estimatedDiameter.setText("");
             holder.date.setText("");
-
         }else{
             holder.title.setText(NearEarthObjectAdapter.this.getContext().getString(R.string.neoName)+" "+entityObject.getName());
             holder.Icon.setImageDrawable(entityObject.IconD);

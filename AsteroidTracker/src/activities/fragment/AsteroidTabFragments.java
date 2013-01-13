@@ -4,11 +4,13 @@ import service.SharingService;
 import utils.NetworkUtil;
 import activities.BaseActivity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -16,15 +18,14 @@ import com.actionbarsherlock.view.Window;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
+import fragments.BookFragment;
 import fragments.ImpactFragment;
 import fragments.NewsFragment;
 import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 
-public class AsteroidTabFragments extends BaseActivity // implements ViewPager.OnPageChangeListener 
-{
+public class AsteroidTabFragments extends BaseActivity {
     PageIndicator mIndicator;
-    private TabHost mTabHost;
     public static FragPageAdapter mPagerAdapter;
     public static ViewPager mViewPager;
     public static Context cText;
@@ -41,12 +42,10 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         setContentView(R.layout.tabs_viewpager_layout);
         actionBar=getSupportActionBar();
         setSupportProgressBarIndeterminateVisibility(false);
-
         cText = this;
-        mTabHost = (TabHost)findViewById(android.R.id.tabhost);
-        mTabHost.setup();
-
-        initFragmentAndPading();
+        Configuration conf =getResources().getConfiguration();
+        fixActionBar(conf);
+        initActionBarFragmentsAndPading(actionBar);
         drawable = getResources().getDrawable(R.drawable.asteroid);
     }
 
@@ -54,16 +53,19 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         return this.mPagerAdapter;
     }
 
-    public void initFragmentAndPading()
+    public void initActionBarFragmentsAndPading(ActionBar actionBar)
     {
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mViewPager = (ViewPager)super.findViewById(R.id.viewpager);
-        mPagerAdapter = new FragPageAdapter(this, mTabHost, mViewPager);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("RECENT").setIndicator("Recent"),RecentFragment.class, null);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("UPCOMING").setIndicator("Upcoming"),UpcomingFragment.class, null);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("IMPACT RISK").setIndicator("ImpactRisk"),ImpactFragment.class, null);
-        mPagerAdapter.addTab(mTabHost.newTabSpec("NEWS").setIndicator("News"),NewsFragment.class, null);
+        mPagerAdapter = new FragPageAdapter(this, actionBar, mViewPager);
+//        mPagerAdapter.addTab(actionBar.newTab().setText("Recent") ,RecentFragment.class, null);
+//        mPagerAdapter.addTab(actionBar.newTab().setText("Upcoming") ,UpcomingFragment.class, null);
+//        mPagerAdapter.addTab(actionBar.newTab().setText("ImpactRisk") ,ImpactFragment.class, null);
+//        mPagerAdapter.addTab(actionBar.newTab().setText("News") ,NewsFragment.class, null);
+        mPagerAdapter.addTab(actionBar.newTab().setText("Books") ,BookFragment.class, null);
         mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(5);
+
     }
 
     @Override
@@ -78,18 +80,20 @@ public class AsteroidTabFragments extends BaseActivity // implements ViewPager.O
         }
     }
 
-    private class MyTabListener implements ActionBar.TabListener
-    {
-        public void onTabSelected(Tab tab, FragmentTransaction ft) {}
-
-        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-            // TODO Auto-generated method stub
-            
-        }
-
-        public void onTabReselected(Tab tab, FragmentTransaction ft) {
-            // TODO Auto-generated method stub
-            
+    public void fixActionBar(Configuration configuration) {
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        } else if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
         }
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        fixActionBar(newConfig);
     }
+
+}

@@ -7,6 +7,7 @@ import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import domains.Impact;
 import domains.NearEarthObject;
+import domains.baseEntity;
 import android.R.color;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -92,12 +93,12 @@ public class ImpactAdapter extends ArrayAdapter<Impact> {
 		} else {
 			holder = (ViewHolder) vi.getTag();
 		}
-		if (entityObject.getName().equals("Unable to retrieve Asteroid Data")){
+		if (entityObject.getName().equals(baseEntity.FAILURELOADING)){
 			holder.title_error.setText(entityObject.getName());
 		}else{
 			int torinoScale = Integer.parseInt(entityObject.getTorinoScale());
 			holder = getHazardLevel(torinoScale, holder);
-			if (entityObject.getName().equals("Unable to retrieve Asteroid feed")){
+			if (entityObject.getName().equals(baseEntity.FAILURELOADING)){
 				holder.title.setText(ImpactAdapter.this.getContext().getString(R.string.Impact_Name)+" "+entityObject.getName());
 			}else{
 				holder.title.setText(ImpactAdapter.this.getContext().getString(R.string.Impact_Name)+" "+entityObject.getName());

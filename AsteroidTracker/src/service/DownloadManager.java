@@ -6,6 +6,7 @@ import utils.NetworkUtil;
 
 import android.util.Log;
 
+import domains.AmazonItemListing;
 import domains.Impact;
 import domains.NearEarthObject;
 import domains.News;
@@ -61,6 +62,18 @@ public class DownloadManager {
             }
         }
         return AsteroidGitService.getImpactErrorList();
+    }
+    
+    public ArrayList<AmazonItemListing> retrieveScienceBooks(boolean IsNetworkAvailable) {
+        if (IsNetworkAvailable) {
+//            if (AsteroidGitService.isGitServiceAvailable()) {
+                Log.d("DownloadManager", "retrieveAsteroidImpact - git service");
+                return AsteroidGitService.getAmazonBookData();
+//            } else {
+//                return AsteroidGitService.getBookErrorList();
+//            }
+        }
+        return AsteroidGitService.getBookErrorList();
     }
 
 }

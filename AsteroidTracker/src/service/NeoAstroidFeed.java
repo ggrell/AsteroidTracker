@@ -26,6 +26,7 @@ import domains.Nasa_neoEntityDeprecated;
 import domains.NearEarthObject;
 import domains.Impact;
 import domains.News;
+import domains.baseEntity;
 
 import activities.AsteroidTrackerActivity;
 import android.app.Activity;
@@ -127,9 +128,9 @@ public class NeoAstroidFeed {
     public ArrayList<NearEarthObject> parseDATA(String data, String startingPoint, String endingPoint, String type){
         ArrayList<NearEarthObject> nasaNeoList = new ArrayList<NearEarthObject>();
         ArrayList<NearEarthObject> nasaNeoList_SortingList = new ArrayList<NearEarthObject>();
-        if(data == null || data.length() == 0 || data.equals("Exception")) {
+        if(data == null || data.length() == 0 || data.equals("Exception") || data.equals("Timeout")) {
             NearEarthObject astroid = new NearEarthObject();
-            astroid.setName("Unable to retrieve Asteroid feed");
+            astroid.setName(baseEntity.FAILURELOADING);
             nasaNeoList.add(astroid);
         }else{
         int bIDX_Recent = data.indexOf(startingPoint);
@@ -191,10 +192,10 @@ public class NeoAstroidFeed {
     public ArrayList<Impact> parseImpactDATA(String data, String startingPoint, String endingPoint, String type){
         ArrayList<Impact> nasaNeoList = new ArrayList<Impact>();
 
-        if(data == null || data.length() == 0 ||  data.equals("Exception")) {
+        if(data == null || data.length() == 0 ||  data.equals("Exception") || data.equals("Timeout")) {
 //            Log.e("parsedata", "IM EMPTY");
             Impact astroid = new Impact();
-            astroid.setName("Unable to retrieve Asteroid feed");
+            astroid.setName(baseEntity.FAILURELOADING);
             nasaNeoList.add(astroid);
         }else{
 //        Log.i("parsedata", "IMPACT IM NOT EMPTY");
@@ -258,8 +259,17 @@ public class NeoAstroidFeed {
         return nasaNeoList;
 }
 
-    public ArrayList<News> parseNewsFeed(String data){
-        XmlParser xmlParser = new XmlParser(data);
-        return xmlParser.getXpath_getNewsItem();
+    public ArrayList<News> parseNewsFeed(String data) {
+        ArrayList<News> returnData = new ArrayList<News>();
+        if(data == null || data.length() == 0 ||  data.equals("Exception") || data.equals("Timeout")) {
+//          Log.e("parsedata", "IM EMPTY");
+            News astroid = new News();
+          astroid.setName(baseEntity.FAILURELOADING);
+          returnData.add(astroid);
+        } else {
+            XmlParser xmlParser = new XmlParser(data);
+            returnData = xmlParser.getXpath_getNewsItem();            
+        }
+        return returnData;
     }
 }

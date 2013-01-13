@@ -9,6 +9,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
+import domains.AmazonItemListing;
 import domains.NearEarthObject;
 import domains.Impact;
 import domains.News;
@@ -22,6 +24,8 @@ public class AsteroidTrackerService {
     public static String URI_UPCOMING      = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_upcoming/upcoming";
     public static String URI_IMPACT        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_impact/impactRisk";
     public static String URI_NEWS          = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_news/latestnews";
+    public static String URI_BOOKS         = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_books/books";
+
 
     boolean useService = false;
     public Gson gson = new Gson();
@@ -112,13 +116,22 @@ public class AsteroidTrackerService {
         errorData.add(error);
         return errorData;
     }
+    
+    public ArrayList<AmazonItemListing> getBookErrorList(){
+        ArrayList<AmazonItemListing> errorData = new ArrayList<AmazonItemListing>();
+        AmazonItemListing error = new AmazonItemListing();
+        error.title ="Unable to retrieve Asteroid Data"; 
+        errorData.add(error);
+        return errorData;
+    }
+
 
     public ArrayList<News> getLatestNews(){
         ArrayList<News> newslist = new ArrayList<News>();
         try {
             Type collectionType = new TypeToken<ArrayList<News>>(){}.getType();
             newslist = gson.fromJson(httputil.get(URI_NEWS), collectionType);
-            for(int i = 0; i < newslist.size(); i++){
+            for(int i = 0; i < newslist.size(); i++) {
                 try {
                     newslist.get(i).updateImageURLDrawable();
                 } catch(NullPointerException e) {
@@ -151,4 +164,25 @@ public class AsteroidTrackerService {
         }
         return impactList;
     }
+
+    public ArrayList<AmazonItemListing> getAmazonBookData() {
+        ArrayList<AmazonItemListing> amazonList = new ArrayList<AmazonItemListing>();
+        try {
+            Type collectionType = new TypeToken<ArrayList<AmazonItemListing>>(){}.getType();
+            amazonList = gson.fromJson(httputil.get(URI_BOOKS), collectionType);
+            for(int i = 0; i < amazonList.size(); i++) {
+                amazonList.get(i).updateImageURLDrawable();
+            }
+        } catch (JsonSyntaxException e) {
+            AmazonItemListing listingError = new AmazonItemListing();
+            listingError.setTitle("Unable to retrieve Asteroid Data");
+            if(amazonList.size() > 0){
+                amazonList.clear();
+            }
+            amazonList.add(listingError);
+        }
+        return amazonList;
+    }
+
+
 }

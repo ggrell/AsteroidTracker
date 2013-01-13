@@ -18,6 +18,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.NearEarthObject;
 import domains.News;
+import domains.baseEntity;
 
 public class RecentFragment extends AsteroidFragmentBase {
 
@@ -66,7 +67,7 @@ public class RecentFragment extends AsteroidFragmentBase {
         //Check if view is bad, try to update.
         //If the view if good, but data is bad...dont update
         if (neoAdapter != null) {
-            if (neoAdapter.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
+            if (neoAdapter.getItem(0).getName().equals(baseEntity.FAILURELOADING)) {
                 loadContent(data);
             } else {
                 if(data.size() > 1){
@@ -92,7 +93,7 @@ public class RecentFragment extends AsteroidFragmentBase {
 
     public OnItemClickListener neoClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            if (!neoAdapter.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
+            if (!neoAdapter.getItem(0).getName().equals(baseEntity.FAILURELOADING)) {
                 NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
                 String headline = "Asteroid " + neo.getName();
                 String message = "Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers()

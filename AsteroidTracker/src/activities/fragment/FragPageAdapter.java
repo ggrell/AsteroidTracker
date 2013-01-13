@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TabHost;
@@ -25,20 +27,30 @@ import android.util.Log;
 import android.widget.TabHost.TabContentFactory;
 
 public class FragPageAdapter extends FragmentPagerAdapter 
-implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
+implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener, ActionBar.TabListener{
 
     private ViewPager mViewPager;
     private TabHost mTabHost;
     private final ArrayList mTabs = new ArrayList();
     private Context mContext = null;
     String[] tabNames = {"RECENT", "UPCOMING", "IMPACT RISK", "NEWS"};
-
+    private ActionBar mBar;
+    
     public FragPageAdapter(SherlockFragmentActivity activity, TabHost tabHost, ViewPager pager) {
         super(activity.getSupportFragmentManager());
         mContext = activity;
         mTabHost = tabHost;
         mViewPager = pager;
         mTabHost.setOnTabChangedListener(this);
+        mViewPager.setAdapter(this);
+        mViewPager.setOnPageChangeListener(this);
+    }
+    
+    public FragPageAdapter(SherlockFragmentActivity activity, ActionBar bar, ViewPager pager) {
+        super(activity.getSupportFragmentManager());
+        mContext = activity;
+        mBar = bar;
+        mViewPager = pager;
         mViewPager.setAdapter(this);
         mViewPager.setOnPageChangeListener(this);
     }
@@ -69,6 +81,15 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
         notifyDataSetChanged();
     }
 
+    public void addTab(ActionBar.Tab tab, Class<? extends Fragment> clss, Bundle args) {
+        TabInfo info = new TabInfo(clss, args);
+        tab.setTag(info);
+        tab.setTabListener(this);
+        mTabs.add(info);
+        mBar.addTab(tab);
+        notifyDataSetChanged();
+    }
+    
     class TabFactory implements TabContentFactory {
         private final Context mContext;
 
@@ -96,8 +117,11 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
     }
 
     public void onPageScrollStateChanged(int arg0) {
-        int pos =  this.mViewPager.getCurrentItem();
-        mTabHost.setCurrentTab(pos);
+        int changedTo = mViewPager.getCurrentItem();
+        mBar.selectTab(mBar.getTabAt(changedTo));
+//        int pos =  mBar.getSelectedTab().getPosition();
+//        mViewPager.setCurrentItem(pos);
+//        mTabHost.setCurrentTab(pos);
     }
 
     public void onPageScrolled(int arg0, float arg1, int arg2) {}
@@ -108,5 +132,24 @@ implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener{
       int pos = mTabHost.getCurrentTab();
       this.mViewPager.setCurrentItem(pos);
   }
+
+ public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        Object tag = tab.getTag();
+        for (int i=0; i<mTabs.size(); i++) {
+            if (mTabs.get(i) == tag) {
+                mViewPager.setCurrentItem(i);
+            }
+        }
+    }
+
+public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    // TODO Auto-generated method stub
+    
+}
+
+public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    // TODO Auto-generated method stub
+    
+}
 
 }

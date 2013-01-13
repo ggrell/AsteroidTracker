@@ -34,6 +34,7 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     public com.actionbarsherlock.view.MenuItem reloadItem;
     DownloadManager downloadManager = new DownloadManager();
     boolean isNetworkAvailable;
+    Log Log;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {

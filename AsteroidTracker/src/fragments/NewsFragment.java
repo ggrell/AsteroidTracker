@@ -2,16 +2,7 @@ package fragments;
 
 import java.util.List;
 
-import utils.LoadingDialogHelper;
-
-import com.actionbarsherlock.view.MenuItem;
-import com.vitruviussoftware.bunifish.asteroidtracker.R;
-
-import domains.NearEarthObject;
-import domains.News;
-import activities.AsteroidTrackerActivity;
 import activities.fragment.AsteroidTabFragments;
-import adapters.NearEarthObjectAdapter;
 import adapters.NewsAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -22,9 +13,13 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ProgressBar;
+
+import com.actionbarsherlock.view.MenuItem;
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import domains.News;
+import domains.baseEntity;
 
 public class NewsFragment extends AsteroidFragmentBase {
 
@@ -66,7 +61,7 @@ public class NewsFragment extends AsteroidFragmentBase {
     {
         super.onLoadFinished(arg0, data);
         if (adapter_NEWS != null) {
-            if (adapter_NEWS.getItem(0).title.equals("Unable to retrieve Asteroid Data")) {
+            if (adapter_NEWS.getItem(0).title.equals(baseEntity.FAILURELOADING)) {
                 loadContent(data);
             } else {
                 if(data.size() > 1){
@@ -84,7 +79,7 @@ public class NewsFragment extends AsteroidFragmentBase {
     }
     public OnItemClickListener Asteroid_NewsArticle_ClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            if (!adapter_NEWS.getItem(0).title.equals("Unable to retrieve Asteroid Data")) {
+            if (!adapter_NEWS.getItem(0).title.equals(baseEntity.FAILURELOADING)) {
                 Object object = getListAdapter().getItem(position);    
                 News asteroidEntity = (News) object;
                 Intent i = new Intent(Intent.ACTION_VIEW);
