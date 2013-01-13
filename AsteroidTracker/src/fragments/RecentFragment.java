@@ -33,7 +33,7 @@ public class RecentFragment extends AsteroidFragmentBase {
     @Override
     public void onStart() {
         super.onStart();
-        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(LOADER_RECENT, null, this);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class RecentFragment extends AsteroidFragmentBase {
     protected void restartLoading(MenuItem item) {
         reloadItem = item;
         setRefreshIcon(true, "RECENT");
-        getLoaderManager().restartLoader(0, null, this);
+        getLoaderManager().restartLoader(LOADER_RECENT, null, this);
     }
 
 

@@ -69,9 +69,9 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/book_Image"
-        android:maxLines="10"
+        android:maxLines="8"
         android:text="TES TEST descrdescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptioniption"
-        android:textSize="12dip" />
+        android:textSize="13dip" />
 
     <TextView
         android:id="@+id/checkouttext"

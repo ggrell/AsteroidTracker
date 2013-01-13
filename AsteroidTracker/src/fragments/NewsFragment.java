@@ -34,7 +34,7 @@ public class NewsFragment extends AsteroidFragmentBase {
     @Override
     public void onStart(){
         super.onStart();
-        getLoaderManager().initLoader(3, null, this);
+        getLoaderManager().initLoader(LOADER_NEWS, null, this);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class NewsFragment extends AsteroidFragmentBase {
     protected void restartLoading(MenuItem item) {
         reloadItem = item;
         setRefreshIcon(true, "News");
-        getLoaderManager().restartLoader(3, null, this);
+        getLoaderManager().restartLoader(LOADER_NEWS, null, this);
     }
 
     public boolean onOptionsItemSelected(final MenuItem item) 

@@ -31,6 +31,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.view.View;
@@ -46,17 +47,18 @@ import domains.baseEntity;
 public class BookFragment extends AsteroidFragmentBase {
 
     public BooksAdapter adapterBooks;
+    public List<AmazonItemListing> items;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadingMessage = resources.getString(R.string.text_content_loading_books);
     }
-    
+
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
-        getLoaderManager().initLoader(4, null, this);
+        getLoaderManager().initLoader(LOADER_BOOKS, null, this);
     }
 
     @Override
@@ -69,20 +71,27 @@ public class BookFragment extends AsteroidFragmentBase {
     @Override
     public Loader<List> onCreateLoader(int id, Bundle args) {
         super.onCreateLoader(id, args);
-        AsyncTaskLoader<List> loader = new AsyncTaskLoader<List>(getActivity()) {
-        @Override
-        public List<AmazonItemListing> loadInBackground() {
-            return downloadManager.retrieveScienceBooks(isNetworkAvailable);
-            }
-        };
-    loader.forceLoad();
-    return loader;
+            AsyncTaskLoader<List> Loader = new AsyncTaskLoader<List>(getActivity()) {
+            @Override
+            public List<AmazonItemListing> loadInBackground() {
+                items = downloadManager.retrieveScienceBooks(isNetworkAvailable);
+                return items;
+                }
+            };
+            Loader.forceLoad();
+            return Loader;
+        }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+       super.onSaveInstanceState(outState);
+//       mWebView.saveState(outState);
     }
     
     @Override
-    public void onLoadFinished( Loader<List> arg0, List data ) 
-    {
-        super.onLoadFinished(arg0, data);
+    public void onLoadFinished( Loader<List> loader, List data ) {
+        super.onLoadFinished(loader, data);
         if (adapterBooks != null) {
             if (adapterBooks.getItem(0).title.equals(baseEntity.FAILURELOADING)) {
                 loadContent(data);
@@ -100,11 +109,11 @@ public class BookFragment extends AsteroidFragmentBase {
         adapterBooks = new BooksAdapter(AsteroidTabFragments.cText, R.layout.view_books_fragment, data);
         setListAdapter(adapterBooks);
     }
-    
+
     protected void restartLoading(MenuItem item) {
         reloadItem = item;
         setRefreshIcon(true, "Books");
-        getLoaderManager().restartLoader(4, null, this);
+        getLoaderManager().restartLoader(LOADER_BOOKS, null, this);
     }
 
     public boolean onOptionsItemSelected(final MenuItem item) 

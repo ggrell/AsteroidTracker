@@ -34,7 +34,7 @@ public class ImpactFragment extends AsteroidFragmentBase {
     @Override
     public void onStart(){
         super.onStart();
-        getLoaderManager().initLoader(2, null, this);
+        getLoaderManager().initLoader(LOADER_IMPACT, null, this);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ImpactFragment extends AsteroidFragmentBase {
     protected void restartLoading(MenuItem item) {
         reloadItem = item;
         setRefreshIcon(true, "Impact");
-        getLoaderManager().restartLoader(2, null, this);
+        getLoaderManager().restartLoader(LOADER_IMPACT, null, this);
     }
 
     public boolean onOptionsItemSelected(final MenuItem item) 

@@ -29,7 +29,7 @@ public class UpcomingFragment extends AsteroidFragmentBase {
     @Override
     public void onStart(){
         super.onStart();
-        getLoaderManager().initLoader(1, null, this);
+        getLoaderManager().initLoader(LOADER_UPCOMING, null, this);
     }
     
     @Override
@@ -93,7 +93,7 @@ public class UpcomingFragment extends AsteroidFragmentBase {
     protected void restartLoading(MenuItem item) {
         reloadItem = item;
         setRefreshIcon(true, "Upcoming");
-        getLoaderManager().restartLoader(1, null, this);
+        getLoaderManager().restartLoader(LOADER_UPCOMING, null, this);
   }
 
     public boolean onOptionsItemSelected(final MenuItem item) {

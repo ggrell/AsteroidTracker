@@ -35,6 +35,14 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     DownloadManager downloadManager = new DownloadManager();
     boolean isNetworkAvailable;
     Log Log;
+    
+    static final int LOADER_RECENT = 0;
+    static final int LOADER_UPCOMING = 1;
+    static final int LOADER_IMPACT = 2;
+    static final int LOADER_NEWS = 3;
+    static final int LOADER_BOOKS = 4;
+    static final int LOADER_BOOKS_IMAGE = 5;
+    
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
