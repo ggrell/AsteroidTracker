@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import domains.AmazonItemListing;
 import domains.baseEntity;
@@ -60,6 +61,7 @@ public class BooksAdapter extends ArrayAdapter<AmazonItemListing> {
         public TextView detailPageUri;
         public TextView description;
         public ImageView listingIcon;
+        public ImageView listingIconAudible;
         public TextView checkOutText;
     }
 
@@ -84,35 +86,43 @@ public class BooksAdapter extends ArrayAdapter<AmazonItemListing> {
         View vi = convertView;
         ViewHolder holder;
         if (convertView == null) {
-            vi = inflater.inflate(R.layout.view_books_fragment, null);        
+            vi = inflater.inflate(R.layout.view_books_fragment, null);
             holder = new ViewHolder();
-            holder.title            =    (TextView) vi.findViewById(R.id.book_title);
-            holder.title_error      =    (TextView) vi.findViewById(R.id.books_error);
-            holder.author           =    (TextView) vi.findViewById(R.id.book_author);
-            holder.listingIcon      =    (ImageView) vi.findViewById(R.id.book_Image);
-            holder.description      =    (TextView) vi.findViewById(R.id.book_description);
-            holder.productGroup     =    (TextView) vi.findViewById(R.id.book_productType);
-            holder.checkOutText     =    (TextView) vi.findViewById(R.id.checkouttext);
-            holder.detailPageUri    =    (TextView) vi.findViewById(R.id.book_detailsPageUri);
+            holder.title              =    (TextView) vi.findViewById(R.id.book_title);
+            holder.title_error        =    (TextView) vi.findViewById(R.id.books_error);
+            holder.author             =    (TextView) vi.findViewById(R.id.book_author);
+            holder.listingIcon        =    (ImageView) vi.findViewById(R.id.book_Image);
+            holder.listingIconAudible =    (ImageView) vi.findViewById(R.id.book_Image_audible);
+            holder.description        =    (TextView) vi.findViewById(R.id.book_description);
+            holder.productGroup       =    (TextView) vi.findViewById(R.id.book_productType);
+            holder.checkOutText       =    (TextView) vi.findViewById(R.id.checkouttext);
+            holder.detailPageUri      =    (TextView) vi.findViewById(R.id.book_detailsPageUri);
             vi.setTag(holder);
         } else {
             holder = (ViewHolder) vi.getTag();
         }
-        if (entityObject.getTitle().equals(baseEntity.FAILURELOADING)){
+        if (entityObject.getTitle().equals(baseEntity.FAILURELOADING)) {
             holder.title_error.setText(entityObject.getTitle());
             holder.title.setText("");
             holder.productGroup.setText("");
             holder.checkOutText.setText("");
-        }else{
+        } else {
+            if (entityObject.getProductGroup().equals("Audible")) {
+                holder.listingIcon.setVisibility(View.INVISIBLE);
+                holder.listingIconAudible.setVisibility(View.VISIBLE);
+                holder.listingIconAudible.setImageDrawable(getContext().getResources().getDrawable(R.drawable.headphones_light_hdpi));
+            } else {
+                holder.listingIcon.setVisibility(View.VISIBLE);
+                holder.listingIconAudible.setVisibility(View.INVISIBLE);
+//                holder.listingIconAudible.setVisibility(View.INVISIBLE);
+                holder.listingIcon.setImageDrawable(entityObject.getImage());
+            }
             holder.title.setText(entityObject.getTitle());
-            holder.listingIcon.setImageDrawable(entityObject.getImage());
             holder.description.setText(Html.fromHtml(entityObject.getDescription()));
             holder.author.setText(entityObject.getAuthor());
             holder.productGroup.setText("Media Type: " + entityObject.getProductGroup());
             holder.checkOutText.setText("Check this title out at");
         }
-        vi.setFocusable(false);
-        vi.setClickable(false);
         return vi;
     }
 

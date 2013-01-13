@@ -96,7 +96,7 @@ public class BookFragment extends AsteroidFragmentBase {
         }
     }
 
-    public void loadContent(List data){
+    public void loadContent(List data) {
         adapterBooks = new BooksAdapter(AsteroidTabFragments.cText, R.layout.view_books_fragment, data);
         setListAdapter(adapterBooks);
     }

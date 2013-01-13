@@ -23,6 +23,17 @@
         android:layout_marginBottom="10dp"
         android:adjustViewBounds="true"
          />
+    
+        <ImageView
+          android:id="@+id/book_Image_audible"
+          android:layout_width="70dp"
+          android:layout_height="100dp"
+          android:layout_centerInParent="true"
+          android:layout_below="@+id/book_author"
+          android:layout_marginBottom="10dp"
+          android:adjustViewBounds="true"
+          android:visibility="invisible"
+        />
 
     <TextView
         android:id="@+id/book_title"
@@ -43,7 +54,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/book_title"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="10dp"
         android:gravity="right"
         android:text="Author"
         android:textSize="10dip"

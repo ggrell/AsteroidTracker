@@ -58,10 +58,10 @@ public class AsteroidTabFragments extends BaseActivity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mViewPager = (ViewPager)super.findViewById(R.id.viewpager);
         mPagerAdapter = new FragPageAdapter(this, actionBar, mViewPager);
-//        mPagerAdapter.addTab(actionBar.newTab().setText("Recent") ,RecentFragment.class, null);
-//        mPagerAdapter.addTab(actionBar.newTab().setText("Upcoming") ,UpcomingFragment.class, null);
-//        mPagerAdapter.addTab(actionBar.newTab().setText("ImpactRisk") ,ImpactFragment.class, null);
-//        mPagerAdapter.addTab(actionBar.newTab().setText("News") ,NewsFragment.class, null);
+        mPagerAdapter.addTab(actionBar.newTab().setText("Recent") ,RecentFragment.class, null);
+        mPagerAdapter.addTab(actionBar.newTab().setText("Upcoming") ,UpcomingFragment.class, null);
+        mPagerAdapter.addTab(actionBar.newTab().setText("ImpactRisk") ,ImpactFragment.class, null);
+        mPagerAdapter.addTab(actionBar.newTab().setText("News") ,NewsFragment.class, null);
         mPagerAdapter.addTab(actionBar.newTab().setText("Books") ,BookFragment.class, null);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(5);
