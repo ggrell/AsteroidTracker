@@ -58,6 +58,7 @@ public class BooksAdapter extends ArrayAdapter<AmazonItemListing> {
         public TextView description;
         public ImageView listingIcon;
         public ImageView listingIconAudible;
+        public ImageView amazonImage;
         public TextView checkOutText;
     }
 
@@ -93,15 +94,20 @@ public class BooksAdapter extends ArrayAdapter<AmazonItemListing> {
             holder.productGroup       =    (TextView) vi.findViewById(R.id.book_productType);
             holder.checkOutText       =    (TextView) vi.findViewById(R.id.checkouttext);
             holder.detailPageUri      =    (TextView) vi.findViewById(R.id.book_detailsPageUri);
+            holder.amazonImage        =    (ImageView) vi.findViewById(R.id.amazon);
             vi.setTag(holder);
         } else {
             holder = (ViewHolder) vi.getTag();
         }
         if (entityObject.getTitle().equals(baseEntity.FAILURELOADING)) {
-            holder.title_error.setText(entityObject.getTitle());
+            holder.title_error.setText("Unable to retrieve book listings");
             holder.title.setText("");
             holder.productGroup.setText("");
             holder.checkOutText.setText("");
+            holder.description.setText("");
+            holder.author.setText("");
+            holder.amazonImage.setVisibility(View.INVISIBLE);
+            
         } else {
             if (entityObject.getProductGroup().equals("Audible")) {
                 holder.listingIcon.setVisibility(View.INVISIBLE);

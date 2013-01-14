@@ -80,8 +80,8 @@ public class NewsAdapter extends ArrayAdapter<News>{
         } else {
             holder = (ViewHolder) vi.getTag();
         }
-        if(entityObject.title.equals(baseEntity.FAILURELOADING)){
-            holder.title_error.setText(entityObject.getName());
+        if(entityObject.getTitle().equals(baseEntity.FAILURELOADING)){
+            holder.title_error.setText("Unable to retrieve Asteroid news");
         } else {
             holder.title.setText(entityObject.title);
             holder.pubDate.setText(entityObject.pubDate);

@@ -30,7 +30,15 @@ public class News extends baseEntity {
 	public String imgURL;
 	
 
-	public String getImgURL() {
+	public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImgURL() {
 		return imgURL;
 	}
 

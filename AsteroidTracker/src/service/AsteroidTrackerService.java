@@ -82,7 +82,7 @@ public class AsteroidTrackerService {
                 responseData = gson.fromJson(httputil.get(URI), collectionType);
             } catch (JsonSyntaxException e) {
                 NearEarthObject neoerror = new NearEarthObject();
-                neoerror.setName("Unable to retrieve Asteroid Data");
+                neoerror.setName(baseEntity.FAILURELOADING);
                 if(responseData.size() > 0){
                     responseData.clear();
                 }
@@ -96,7 +96,7 @@ public class AsteroidTrackerService {
     public ArrayList<NearEarthObject> getNeoErrorList(){
         ArrayList<NearEarthObject> errorData = new ArrayList<NearEarthObject>();
         NearEarthObject neoerror = new NearEarthObject();
-        neoerror.name = "Unable to retrieve Asteroid Data";
+        neoerror.name = baseEntity.FAILURELOADING;
         errorData.add(neoerror);
         return errorData;
     }
@@ -104,7 +104,7 @@ public class AsteroidTrackerService {
     public ArrayList<News> getNewsErrorList(){
         ArrayList<News> errorData = new ArrayList<News>();
         News error = new News();
-        error.title = "Unable to retrieve Asteroid Data";
+        error.title = baseEntity.FAILURELOADING;
         errorData.add(error);
         return errorData;
     }
@@ -112,7 +112,7 @@ public class AsteroidTrackerService {
     public ArrayList<Impact> getImpactErrorList(){
         ArrayList<Impact> errorData = new ArrayList<Impact>();
         Impact error = new Impact();
-        error.name ="Unable to retrieve Asteroid Data"; 
+        error.name = baseEntity.FAILURELOADING; 
         errorData.add(error);
         return errorData;
     }
@@ -120,7 +120,7 @@ public class AsteroidTrackerService {
     public ArrayList<AmazonItemListing> getBookErrorList(){
         ArrayList<AmazonItemListing> errorData = new ArrayList<AmazonItemListing>();
         AmazonItemListing error = new AmazonItemListing();
-        error.title ="Unable to retrieve Asteroid Data"; 
+        error.title = baseEntity.FAILURELOADING; 
         errorData.add(error);
         return errorData;
     }
@@ -140,7 +140,7 @@ public class AsteroidTrackerService {
             }
         } catch (JsonSyntaxException e) {
             News newsError = new News();
-            newsError.title = "Unable to retrieve Asteroid News";
+            newsError.title = baseEntity.FAILURELOADING;
             if(newslist.size() > 0){
                 newslist.clear();
             }
@@ -156,7 +156,7 @@ public class AsteroidTrackerService {
             impactList = gson.fromJson(httputil.get(URI_IMPACT), collectionType);
         } catch (JsonSyntaxException e) {
             Impact impactError = new Impact();
-            impactError.setName("Unable to retrieve Asteroid Data");
+            impactError.setName(baseEntity.FAILURELOADING);
             if(impactList.size() > 0){
                 impactList.clear();
             }
@@ -175,7 +175,7 @@ public class AsteroidTrackerService {
             }
         } catch (JsonSyntaxException e) {
             AmazonItemListing listingError = new AmazonItemListing();
-            listingError.setTitle("Unable to retrieve Asteroid Data");
+            listingError.setTitle(baseEntity.FAILURELOADING);
             if(amazonList.size() > 0){
                 amazonList.clear();
             }
