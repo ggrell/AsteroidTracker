@@ -22,7 +22,7 @@
 <string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
 
 <!-- Error -->
-<string name="feedDown">Unable to load Asteroid feed</string>
+<string name="feedDown">Unable to retrieve Asteroid Data</string>
 <string name="refresh">Refresh</string>
 <string name="networkerror">It seems your mobile/wifi network(s) are unavailable, please check your system settings, airplane mode maybe?? Either way, Sad Panda (Feel free to submit a bug report if you feel this message is in error, though its likely not).</string>
 

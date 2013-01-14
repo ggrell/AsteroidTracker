@@ -3,4 +3,5 @@
     <string name="text_content_loading_neo">Caricamento feed NASA NEO</string>
     <string name="text_content_loading_news">Caricamento News Feed</string>
     <string name="text_content_loading_impact">Caricamento di alimentazione Impact</string>
+    <string name="text_content_loading_books">Caricamento Libri fresco</string>
 </resources>

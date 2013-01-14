@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+<!-- Menu -->
 <string name="app_name">AsteroidTracker</string>
 <string name="quit">Dejar de</string>
 <string name="settings">Configuración</string>
 <string name="about">Sobre</string>
+
+<!-- About -->
 <string name="developedby">Desarrollado por: Software de Vitruvio (Proyectos BunnyFish)</string>
 <string name="visit_neoSite">Ir a sitio web NEO</string>
 <string name="visit_bunnyFish">Ir a bunnyFish</string>
 <string name="description">\nAndoidTracker es una aplicación de agregación de la ciencia que muestra información sobre objetos cercanos a la Tierra. </string>
 <string name="neo">¿Qué es un objeto cercano a la Tierra (NEO)? \ nNear a la Tierra los objetos (NEOs) son cometas y asteroides que han sido empujado por la atracción gravitatoria de los planetas en órbitas cercanas que les permiten entrar en la vecindad de la Tierra \'s. Compuesta principalmente de hielo de agua con partículas de polvo incrustadas...</string>
 <string name="alldata">Todos los datos son de la NASA Cerca del programa Earth Object \n http://neo.jpl.nasa.gov.</string>
-<string name="refresh">Refrescar</string>
 <string name="about_impactRisk">NASA NEO - Impact Risk - Sentry Risk Table\nhttp://neo.jpl.nasa.gov/risk/</string>
 <string name="about_impactRiskDetail">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
 <string name="about_closeApproaches">NASA NEO - Close Approaches\nhttp://neo.jpl.nasa.gov/ca/</string>
 <string name="about_torinoScale">NASA NEO - The Torino Impact Hazard Scale \nhttp://neo.jpl.nasa.gov/torino_scale.html</string>
 <string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
 <string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
-<string name="networkerror">Su red wifi (s) no están disponibles, por favor verifica la configuración del sistema, el modo de avión tal vez? De cualquier manera, Panda triste (no dude en enviar un informe de error si se siente este mensaje es un error, aunque su probable es que no)</string>
+
+<!-- Error -->
 <string name="feedDown">No se puede cargar alimentación Asteroid</string>
+<string name="refresh">Refrescar</string>
+<string name="networkerror">Su red wifi (s) no están disponibles, por favor verifica la configuración del sistema, el modo de avión tal vez? De cualquier manera, Panda triste (no dude en enviar un informe de error si se siente este mensaje es un error, aunque su probable es que no)</string>
+
 </resources>

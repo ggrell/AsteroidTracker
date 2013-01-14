@@ -3,4 +3,5 @@
     <string name="text_content_loading_neo">Nahrávání NASA NEO</string>
     <string name="text_content_loading_news">Nahrávání novinky</string>
     <string name="text_content_loading_impact">Impact Nahrávání data</string>
+    <string name="text_content_loading_books">Nahrávání cool Knihy</string>
 </resources>
