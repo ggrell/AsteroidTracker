@@ -36,7 +36,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import domains.AmazonItemListing;
 import domains.baseEntity;
@@ -44,12 +43,9 @@ import domains.baseEntity;
 public class BooksAdapter extends ArrayAdapter<AmazonItemListing> {
 
     private LayoutInflater inflater = null;
-    private int resourceId;
-    List dataObject;
-    
+
     public BooksAdapter(Context context, int textViewResourceId, List Objects) {
         super(context, textViewResourceId, Objects);
-        resourceId = textViewResourceId;
     }
 
     public static class ViewHolder {
@@ -114,7 +110,6 @@ public class BooksAdapter extends ArrayAdapter<AmazonItemListing> {
             } else {
                 holder.listingIcon.setVisibility(View.VISIBLE);
                 holder.listingIconAudible.setVisibility(View.INVISIBLE);
-//                holder.listingIconAudible.setVisibility(View.INVISIBLE);
                 holder.listingIcon.setImageDrawable(entityObject.getImage());
             }
             holder.title.setText(entityObject.getTitle());

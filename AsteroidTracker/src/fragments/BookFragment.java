@@ -31,7 +31,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.view.View;
@@ -82,13 +81,6 @@ public class BookFragment extends AsteroidFragmentBase {
             return Loader;
         }
 
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-       super.onSaveInstanceState(outState);
-//       mWebView.saveState(outState);
-    }
-    
     @Override
     public void onLoadFinished( Loader<List> loader, List data ) {
         super.onLoadFinished(loader, data);
@@ -129,9 +121,6 @@ public class BookFragment extends AsteroidFragmentBase {
     
     public OnItemClickListener listingClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View view, int position, long id) { 
- 
-            Log.i("clickit", "click");
-
             if (!adapterBooks.getItem(0).title.equals(baseEntity.FAILURELOADING)) {
                 Object object = getListAdapter().getItem(position);    
                 AmazonItemListing asteroidEntity = (AmazonItemListing) object;

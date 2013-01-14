@@ -71,8 +71,6 @@ public class DownloadManager {
 //            if (AsteroidGitService.isGitServiceAvailable()) {
                 Log.d("DownloadManager", "retrieveAsteroidImpact - git service");
                 return AsteroidGitService.getAmazonBookData();
-//            } else {
-//                return AsteroidGitService.getBookErrorList();
 //            }
         }
         return AsteroidGitService.getBookErrorList();

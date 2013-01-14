@@ -4,6 +4,7 @@ import service.SharingService;
 import utils.NetworkUtil;
 import activities.BaseActivity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -30,32 +31,30 @@ public class AsteroidTabFragments extends BaseActivity {
     public static ViewPager mViewPager;
     public static Context cText;
     public static Drawable drawable;
-    ActionBar actionBar;
-    String[] tabNames = {"RECENT", "UPCOMING", "IMPACT RISK", "NEWS"};
     public static SharingService shareSvc = new SharingService();
     static com.actionbarsherlock.view.MenuItem reloadItem;
+    ActionBar actionBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
+        Configuration conf = getResources().getConfiguration();
+        fixActionBar(conf);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabs_viewpager_layout);
-        actionBar=getSupportActionBar();
+        actionBar = getSupportActionBar();
         setSupportProgressBarIndeterminateVisibility(false);
         cText = this;
-        Configuration conf =getResources().getConfiguration();
-        fixActionBar(conf);
         initActionBarFragmentsAndPading(actionBar);
         drawable = getResources().getDrawable(R.drawable.asteroid);
     }
 
     public FragPageAdapter getAdap(){
-        return this.mPagerAdapter;
+        return AsteroidTabFragments.mPagerAdapter;
     }
 
     public void initActionBarFragmentsAndPading(ActionBar actionBar)
     {
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mViewPager = (ViewPager)super.findViewById(R.id.viewpager);
         mPagerAdapter = new FragPageAdapter(this, actionBar, mViewPager);
         mPagerAdapter.addTab(actionBar.newTab().setText("Recent") ,RecentFragment.class, null);
@@ -65,6 +64,7 @@ public class AsteroidTabFragments extends BaseActivity {
         mPagerAdapter.addTab(actionBar.newTab().setText("Books") ,BookFragment.class, null);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(5);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
     }
 
@@ -88,6 +88,7 @@ public class AsteroidTabFragments extends BaseActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(true);
         }
+        getSherlock().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
     }
 
     @Override
