@@ -1,22 +1,15 @@
 package activities.fragment;
 
 import service.SharingService;
-import utils.NetworkUtil;
 import activities.BaseActivity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.widget.TabHost;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.view.Window;
-import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import fragments.BookFragment;
@@ -26,7 +19,6 @@ import fragments.RecentFragment;
 import fragments.UpcomingFragment;
 
 public class AsteroidTabFragments extends BaseActivity {
-    PageIndicator mIndicator;
     public static FragPageAdapter mPagerAdapter;
     public static ViewPager mViewPager;
     public static Context cText;
