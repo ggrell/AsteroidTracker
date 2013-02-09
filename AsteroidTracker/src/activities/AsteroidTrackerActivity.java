@@ -58,6 +58,7 @@ public class AsteroidTrackerActivity extends ListActivity {
     public static ContentManager contentManager = new ContentManager();
     AsteroidTrackerService GitService = new AsteroidTrackerService();
     NetworkUtil nUtil = new NetworkUtil();
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState){

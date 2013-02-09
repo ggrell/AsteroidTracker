@@ -55,7 +55,11 @@ public class AmazonItemListing {
     }
 
     public void updateImageURLDrawable() {
-        this.image = HttpUtil.getImageData(this.imageUri);
+        if (this.imageUri.length() > 0) {
+            this.image = HttpUtil.getImageData(this.imageUri);
+        } else {
+            // TODO Set a default book image
+        }
     }
 
     public Drawable getImage() {

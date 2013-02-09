@@ -77,7 +77,8 @@ public class HttpUtil {
              } else {
                  InputStream content = response.getEntity().getContent();
                  image = Drawable.createFromStream(content, "src");
-                 content.close();;
+                 content.close();
+                 content = null;
              }
          }catch (ConnectTimeoutException e ){
              Log.e("HTTPCLIENT", "Timeout");

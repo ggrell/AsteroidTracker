@@ -17,6 +17,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,7 @@ public class NewsAdapter extends ArrayAdapter<News>{
         View vi = convertView;
         ViewHolder holder;
         if (convertView == null) {
-            vi = inflater.inflate(R.layout.view_news_fragment, null);        
+            vi = inflater.inflate(R.layout.view_news_fragment, null);
             holder = new ViewHolder();
             holder.title        =  (TextView) vi.findViewById(R.id.jpl_news_title);
             holder.title_error  =  (TextView) vi.findViewById(R.id.news_error);
@@ -80,13 +81,17 @@ public class NewsAdapter extends ArrayAdapter<News>{
         } else {
             holder = (ViewHolder) vi.getTag();
         }
+        if (entityObject.getTitle().length() == 0) {
+            holder.title.setVisibility(View.GONE);
+        }
         if(entityObject.getTitle().equals(baseEntity.FAILURELOADING)){
             holder.title_error.setText("Unable to retrieve Asteroid news");
         } else {
             holder.title.setText(entityObject.title);
             holder.pubDate.setText(entityObject.pubDate);
 //            holder.artcileUrl.setText(entityObject.artcileUrl);
-            holder.description.setText(entityObject.description);
+//            holder.description.setText(entityObject.description);
+            holder.description.setText(Html.fromHtml(entityObject.description));
             holder.imgURL.setImageDrawable(entityObject.getImageURL());
         }
     return vi;
