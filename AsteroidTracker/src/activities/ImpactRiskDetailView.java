@@ -23,6 +23,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -94,7 +96,19 @@ public class ImpactRiskDetailView extends SherlockListActivity implements OnClic
         };
         checkUpdate.start();
   }
-    
+
+    @Override
+    public void onStart() {
+      super.onStart();
+      EasyTracker.getInstance().activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+      super.onStop();
+      EasyTracker.getInstance().activityStop(this);
+    }
+
     public void asteroidDetailsPage(View view) {
         String url = DetailPageURL;
         Intent i = new Intent(Intent.ACTION_VIEW);

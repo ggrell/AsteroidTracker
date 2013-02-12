@@ -15,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.view.MenuItem;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 import domains.News;
@@ -23,11 +25,10 @@ import domains.baseEntity;
 public class NewsFragment extends AsteroidFragmentBase {
 
     public NewsAdapter adapter_NEWS;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadingMessage = resources.getString(R.string.text_content_loading_news);
     }
 
     @Override
@@ -35,6 +36,12 @@ public class NewsFragment extends AsteroidFragmentBase {
         super.onStart();
         getLoaderManager().initLoader(LOADER_NEWS, null, this);
     }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -81,6 +88,17 @@ public class NewsFragment extends AsteroidFragmentBase {
             if (!adapter_NEWS.getItem(0).title.equals(baseEntity.FAILURELOADING)) {
                 Object object = getListAdapter().getItem(position);    
                 News asteroidEntity = (News) object;
+                String label = null;
+                if (asteroidEntity.getName() != null) {
+                    label = asteroidEntity.getName() ;
+                } else if (asteroidEntity.description != null) {
+                        try {
+                            label = asteroidEntity.description.substring(0, 20);
+                        } catch(IndexOutOfBoundsException e){
+                            label = null;
+                        }
+                }
+                defaultTracker.sendEvent("news_action", "article_click", "Title: "+ label, null);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 try {
                     i.setData(Uri.parse(asteroidEntity.artcileUrl));
@@ -88,10 +106,10 @@ public class NewsFragment extends AsteroidFragmentBase {
                 } catch (ActivityNotFoundException e){
                     Log.d("News", "ActivityNotFound on news article listner", e);
                 }
-                }
-            };
+            }
+        };
     };
-    
+
     protected void restartLoading(MenuItem item) {
         reloadItem = item;
         setRefreshIcon(true, "News");

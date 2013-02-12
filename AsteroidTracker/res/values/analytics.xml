@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+  <!--Replace placeholder ID with your tracking ID-->
+  <string name="ga_trackingId">UA-38271771-1</string>
+
+  <!--Enable automatic activity tracking-->
+  <bool name="ga_autoActivityTracking">true</bool>
+  <bool name="ga_debug">true</bool>
+  
+  <string name="activities.SplashScreen">Splash</string>
+  <string name="activities.AsteroidTrackerActivity">AsteroidTrackerActivity</string>
+  <string name="activities.fragment.AsteroidTabFragments">AsteroidTabFragments Main TabView</string>
+  <string name="activities.About">About</string>
+  <string name="activities.ImpactRiskDetailView">ImpactRisk DetailView</string>
+  <integer name="ga_dispatchPeriod">7200</integer>
+  
+  <!--Enable automatic exception tracking-->
+  <bool name="ga_reportUncaughtExceptions">true</bool>
+</resources>

@@ -124,6 +124,7 @@ public class BookFragment extends AsteroidFragmentBase {
             if (!adapterBooks.getItem(0).title.equals(baseEntity.FAILURELOADING)) {
                 Object object = getListAdapter().getItem(position);    
                 AmazonItemListing asteroidEntity = (AmazonItemListing) object;
+                defaultTracker.sendEvent("books_action", "book_click", "Title: "+ asteroidEntity.getTitle(), null);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 try {
                     i.setData(Uri.parse(asteroidEntity.getDetailPageUri()));
