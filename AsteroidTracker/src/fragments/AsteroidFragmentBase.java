@@ -21,6 +21,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
 public class AsteroidFragmentBase extends SherlockListFragment implements LoaderCallbacks<List>{
@@ -35,7 +38,10 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     DownloadManager downloadManager = new DownloadManager();
     boolean isNetworkAvailable;
     Log Log;
-    
+
+    Tracker defaultTracker;
+
+
     static final int LOADER_RECENT = 0;
     static final int LOADER_UPCOMING = 1;
     static final int LOADER_IMPACT = 2;
@@ -60,6 +66,8 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
         if (savedInstanceState != null) {
             return;
         }
+        EasyTracker.getInstance().setContext(getActivity().getParent());
+        defaultTracker = EasyTracker.getTracker();
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -68,7 +76,20 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
         text = (TextView) getView().findViewById(R.id.loading_text);
         bar = (ProgressBar) getView().findViewById(R.id.loading_progress);
         text.setText(loadingMessage);
+
     }
+
+    @Override
+    public void onStart() {
+      super.onStart();
+//      defaultTracker.sendView("Name of View");
+    }
+
+    @Override
+    public void onStop() {
+      super.onStop();
+    }
+
     
     public void setAdap(ListAdapter adapter){
         setListAdapter(adapter);
