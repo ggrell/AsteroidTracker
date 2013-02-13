@@ -3,21 +3,18 @@ package fragments;
 import java.util.List;
 
 import service.baseLoader;
-
 import activities.fragment.AsteroidTabFragments;
 import adapters.NearEarthObjectAdapter;
 import android.os.Bundle;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
 import com.actionbarsherlock.view.MenuItem;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
 import domains.NearEarthObject;
-import domains.News;
 import domains.baseEntity;
 
 public class RecentFragment extends AsteroidFragmentBase {
