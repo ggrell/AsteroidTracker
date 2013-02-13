@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.NearEarthObject;
 import domains.News;
@@ -95,6 +96,7 @@ public class RecentFragment extends AsteroidFragmentBase {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             if (!neoAdapter.getItem(0).getName().equals(baseEntity.FAILURELOADING)) {
                 NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
+                defaultTracker.sendEvent("recent_action", "recent_click", "Title: "+ neo.getName(), null);
                 String headline = "Asteroid " + neo.getName();
                 String message = "Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers()
                         + "(km) " +

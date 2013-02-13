@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.view.Window;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
@@ -41,12 +42,25 @@ public class AsteroidTabFragments extends BaseActivity {
         Configuration conf = getResources().getConfiguration();
         fixActionBar(conf);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.tabs_viewpager_layout);
         actionBar = getSupportActionBar();
         setSupportProgressBarIndeterminateVisibility(false);
         cText = this;
         initActionBarFragmentsAndPading(actionBar);
         drawable = getResources().getDrawable(R.drawable.asteroid);
+    }
+
+    @Override
+    public void onStart() {
+      super.onStart();
+      EasyTracker.getInstance().activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+      super.onStop();
+      EasyTracker.getInstance().activityStop(this);
     }
 
     public FragPageAdapter getAdap(){

@@ -1,28 +1,23 @@
 package activities;
 
-import android.net.Uri;
-import android.os.Bundle;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import service.AsteroidTrackerService;
 import service.ContentManager;
 import utils.LoadingDialogHelper;
 import utils.NetworkUtil;
-import com.vitruviussoftware.bunifish.asteroidtracker.R;
-import domains.NearEarthObject;
-import domains.Impact;
-import domains.News;
 import android.app.ListActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
@@ -30,11 +25,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import domains.Impact;
+import domains.NearEarthObject;
+import domains.News;
 
 public class AsteroidTrackerActivity extends ListActivity {
 
@@ -61,8 +63,10 @@ public class AsteroidTrackerActivity extends ListActivity {
 
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EasyTracker.getInstance().activityStart(this);
+        
         setContentView(R.layout.asteroid_main_tablayout);
         setTitle("Asteroid Tracker");
         TabAndListViewSetup();

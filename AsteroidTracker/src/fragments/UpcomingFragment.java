@@ -82,6 +82,7 @@ public class UpcomingFragment extends AsteroidFragmentBase {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             if (!recentNeoAdapter.getItem(0).getName().equals("Unable to retrieve Asteroid Data")) {
                 NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
+                defaultTracker.sendEvent("upcoming_action", "upcoming_click", "Title: "+ neo.getName(), null);
                 String headline = "Asteroid " + " " + neo.getName() + ",";
                 String message = "#Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers() + "km " +
                         "See Details "  + neo.getURL() + " #AsteroidTracker<http://bit.ly/nkxCx1>" ;

@@ -6,6 +6,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 import domains.AboutAsteroidTracker;
 import activities.fragment.AsteroidTabFragments;
@@ -22,9 +23,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
-public class About extends SherlockListActivity 
-{
-//    public class About extends ListActivity {
+public class About extends SherlockListActivity {
+
+
     public static Drawable drawableAbout;
     static AboutAdapter AboutDapter;
     ArrayList<AboutAsteroidTracker> aboutEntityList = new ArrayList();
@@ -55,6 +56,18 @@ public class About extends SherlockListActivity
             }
         };
         checkUpdate.start();
+    }
+
+    @Override
+    public void onStart() {
+      super.onStart();
+      EasyTracker.getInstance().activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+      super.onStop();
+      EasyTracker.getInstance().activityStop(this);
     }
 
     private OnClickListener GoToNASANeoSite = new OnClickListener() {

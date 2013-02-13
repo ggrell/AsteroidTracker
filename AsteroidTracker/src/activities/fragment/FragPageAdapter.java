@@ -98,9 +98,6 @@ implements ViewPager.OnPageChangeListener, ActionBar.TabListener{
     public void onPageScrollStateChanged(int arg0) {
         int changedTo = mViewPager.getCurrentItem();
         mBar.selectTab(mBar.getTabAt(changedTo));
-//        int pos =  mBar.getSelectedTab().getPosition();
-//        mViewPager.setCurrentItem(pos);
-//        mTabHost.setCurrentTab(pos);
     }
 
     public void onPageScrolled(int arg0, float arg1, int arg2) {}
