@@ -30,7 +30,6 @@ public class UpcomingFragment extends AsteroidFragmentBase {
     public void onStart(){
         super.onStart();
         getLoaderManager().initLoader(LOADER_UPCOMING, null, this);
-        defaultTracker.sendView("Upcoming View");
     }
     
     @Override
