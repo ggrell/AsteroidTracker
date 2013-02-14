@@ -1,94 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:orientation="vertical"
-  android:label="About SciencePortal">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:scrollbars="vertical" >
 
-<TextView 
-	android:text="@string/description"
-	android:id="@+id/asteroiddescription" 
-	android:layout_width="wrap_content" 
-	android:textSize="17dip"
-	android:layout_height="wrap_content">
-</TextView>
-	 	
-<TextView 
-	android:text="@string/neo"
-	android:layout_marginTop="25dp"
-	android:id="@+id/about_whatisneo" 
-	android:layout_width="wrap_content" 
-	android:textSize="14dip"
-	android:layout_height="wrap_content">
-</TextView>
+    <ImageView
+        android:id="@+id/aboutImage"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:scaleType="center"
+        android:src="@drawable/splash48" />
 
+    <TextView
+        android:id="@+id/about_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:textSize="13dip" />
 
-<TextView 
-	android:text="Usefull Links"
-	android:layout_marginTop="5dp"
-	android:id="@+id/about_usefulllinksTitle" 
-	android:layout_width="wrap_content" 
-	android:textSize="20dip"
-	android:layout_height="wrap_content">
-</TextView>
-<TextView 
-	android:text="@string/alldata"
-	android:layout_marginTop="5dp"
-	android:id="@+id/about_allDatafromNASA" 
-	android:layout_width="wrap_content" 
-	android:textSize="15dip"
-	android:layout_height="wrap_content">
-</TextView>
+    <TextView
+        android:id="@+id/about_space_track_link"
+        android:text="@string/about_space_track_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:linksClickable="true"
+        android:textSize="13dip" />
 
-<TextView 
-	android:text="@string/about_closeApproaches"
-	android:layout_marginTop="5dp"
-	android:id="@+id/about_Link_NASANEO_CloseApproaches" 
-	android:layout_width="wrap_content" 
-	android:textSize="14dip"
-	android:layout_height="wrap_content">
-</TextView>
+    <TextView
+        android:id="@+id/aboutHelpLinks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:textSize="14dip" >
 
-<TextView 
-	android:text="@string/about_impactRisk"
-	android:layout_marginTop="5dp"
-	android:id="@+id/about_Link_NASANEO_ImpactRisk" 
-	android:layout_width="wrap_content" 
-	android:textSize="14dip"
-	android:layout_height="wrap_content">
-</TextView>
-<TextView 
-	android:text="@string/about_impactRiskFaq"
-	android:layout_marginTop="5dp"
-	android:id="@+id/about_Link_NASANEO_ImpactRisk_faq" 
-	android:layout_width="wrap_content" 
-	android:textSize="14dip"
-	android:layout_height="wrap_content">
-</TextView>
-<TextView 
-	android:text="@string/about_JPLNews"
-	android:layout_marginTop="5dp"
-	android:id="@+id/about_Link_JPLNews" 
-	android:layout_width="wrap_content" 
-	android:textSize="14dip"
-	android:layout_height="wrap_content">
-</TextView>
-<TextView 
-	android:text="@string/about_torinoScale"
-	android:layout_marginTop="5dp"
-	android:id="@+id/about_Link_NASANEO_TorinoScale" 
-	android:layout_width="wrap_content" 
-	android:textSize="14dip"
-	android:layout_height="wrap_content">
-</TextView>
-<TextView android:text="Developed by: BuniFish" 
-	android:layout_marginTop="15dp"
-	android:id="@+id/about_developedBY" 
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content">
-</TextView>
+    </TextView>
+    <TextView
+        android:id="@+id/about_link_closeApproaches"
+        android:text="@string/about_closeApproaches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:textSize="12dip" >
+    </TextView>
+    <TextView
+        android:id="@+id/about_link_impact_risk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/about_impactRisk"
+        android:textSize="12dip" >
+    </TextView>
 
+    <TextView
+        android:id="@+id/about_link_torino_scale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/about_torinoScale"
+        android:textSize="12dip" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/about_impactRiskFaq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/about_impactRiskFaq"
+        android:textSize="12dip" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/about_JPLNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/about_JPLNews"
+        android:textSize="12dip" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/about_developedBY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp">
+    </TextView>
 
 </LinearLayout>
-	
+    

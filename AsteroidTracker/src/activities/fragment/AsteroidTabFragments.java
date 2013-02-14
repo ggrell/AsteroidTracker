@@ -74,7 +74,7 @@ public class AsteroidTabFragments extends BaseActivity {
         mPagerAdapter.addTab(actionBar.newTab().setText("Recent") ,RecentFragment.class, null);
         mPagerAdapter.addTab(actionBar.newTab().setText("Upcoming") ,UpcomingFragment.class, null);
         mPagerAdapter.addTab(actionBar.newTab().setText("ImpactRisk") ,ImpactFragment.class, null);
-        mPagerAdapter.addTab(actionBar.newTab().setText("News") ,NewsFragment.class, null);
+        mPagerAdapter.addTab(actionBar.newTab().setText("Space Tracks") ,NewsFragment.class, null);
         mPagerAdapter.addTab(actionBar.newTab().setText("Books") ,BookFragment.class, null);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(5);

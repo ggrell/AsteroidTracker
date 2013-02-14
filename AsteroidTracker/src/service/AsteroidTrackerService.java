@@ -2,22 +2,20 @@ package service;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
-import utils.HttpUtil;
 import android.util.Log;
-import com.google.gson.Gson;
+
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import domains.AmazonItemListing;
-import domains.NearEarthObject;
 import domains.Impact;
+import domains.NearEarthObject;
 import domains.News;
 import domains.baseEntity;
 
 
-public class AsteroidTrackerService {
+public class AsteroidTrackerService extends BaseService {
 
     public static String URI_USESERVICE    = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/useService";
     public static String URI_RECENT        = "https://raw.github.com/AsteroidTracker/AsteroidTrackerService/master/neo_recent/recent";
@@ -28,8 +26,6 @@ public class AsteroidTrackerService {
 
 
     boolean useService = false;
-    public Gson gson = new Gson();
-    HttpUtil httputil = new HttpUtil();
     boolean IsMocking = false;
 
     public boolean isGitServiceAvailable(){
@@ -39,40 +35,6 @@ public class AsteroidTrackerService {
             return false;
         }
     }
-
-//    public ArrayList getMockedList(Object dataType, int setCount){
-//        ArrayList responseData = null;
-//        if (dataType instanceof NearEarthObject) {
-//            responseData = new ArrayList<NearEarthObject>();
-//            for (int i=0; i < setCount; i++){
-//                NearEarthObject mock = new NearEarthObject();
-//                mock.setName("TestName "+setCount);
-//                mock.setEstimatedDiameter("");
-//                mock.setHmagnitude("test");
-//                mock.setDate("test");
-//                mock.SetMissDistance_AU("test");
-//                mock.setMissDistance_LD("test");
-//                mock.setRelativeVelocity("test");
-//                responseData.add(mock);
-//            }
-//        }
-//        if (dataType instanceof News) {
-//            responseData = new ArrayList<News>();
-//            for (int i=0; i < setCount; i++){
-//                News mock = new News();
-//                mock.description = "This is mock data";
-//                mock.title = "Asteroid news title";
-//                mock.artcileUrl = "http://asteroidmock.com";
-//                responseData.add(mock);
-//            }
-//        }
-//        if (dataType instanceof Impact) {
-//            responseData = new ArrayList<Impact>();
-//            for (int i=0; i < setCount; i++){}
-//        }
-//        return responseData;
-//    }
-
 
     public ArrayList<NearEarthObject> getNEOList(String URI) 
     {

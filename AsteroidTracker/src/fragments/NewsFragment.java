@@ -29,6 +29,7 @@ public class NewsFragment extends AsteroidFragmentBase {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadingMessage = resources.getString(R.string.text_content_loading_news);
     }
 
     @Override

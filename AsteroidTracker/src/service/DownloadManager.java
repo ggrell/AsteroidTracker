@@ -2,8 +2,6 @@ package service;
 
 import java.util.ArrayList;
 
-import com.vitruviussoftware.bunifish.asteroidtracker.R;
-
 import utils.NetworkUtil;
 
 import android.util.Log;

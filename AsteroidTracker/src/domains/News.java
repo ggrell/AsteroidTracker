@@ -63,7 +63,7 @@ public class News extends baseEntity {
             // Do nothing
         }
     }
-    
+
     //    private String imgURL;
     public void setPubDate(String dateString){
         DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
