@@ -8,18 +8,34 @@
 <string name="about">Sobre</string>
 
 <!-- About -->
-<string name="developedby">Desarrollado por: Software de Vitruvio (Proyectos BunnyFish)</string>
-<string name="visit_neoSite">Ir a sitio web NEO</string>
-<string name="visit_bunnyFish">Ir a bunnyFish</string>
-<string name="description">\nAndoidTracker es una aplicación de agregación de la ciencia que muestra información sobre objetos cercanos a la Tierra. </string>
-<string name="neo">¿Qué es un objeto cercano a la Tierra (NEO)? \ nNear a la Tierra los objetos (NEOs) son cometas y asteroides que han sido empujado por la atracción gravitatoria de los planetas en órbitas cercanas que les permiten entrar en la vecindad de la Tierra \'s. Compuesta principalmente de hielo de agua con partículas de polvo incrustadas...</string>
-<string name="alldata">Todos los datos son de la NASA Cerca del programa Earth Object \n http://neo.jpl.nasa.gov.</string>
-<string name="about_impactRisk">NASA NEO - Impact Risk - Sentry Risk Table\nhttp://neo.jpl.nasa.gov/risk/</string>
-<string name="about_impactRiskDetail">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
-<string name="about_closeApproaches">NASA NEO - Close Approaches\nhttp://neo.jpl.nasa.gov/ca/</string>
-<string name="about_torinoScale">NASA NEO - The Torino Impact Hazard Scale \nhttp://neo.jpl.nasa.gov/torino_scale.html</string>
-<string name="about_impactRiskFaq">NASA NEO - Impact Risk - FAQ\nhttp://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</string>
-<string name="about_JPLNews">NASA NEO - JPL Asteroid News \nhttp://www.jpl.nasa.gov/asteroidwatch/</string>
+<string name="developedby"><![CDATA[ <p><em>AsteroidTracker es desarrollado por BunnyFish, un equipo de San Francisco app. </em></p> ]]></string>
+<string name="aboutPage">
+    <![CDATA[
+    <p>AsteroidTracker es una aplicación de astronomía ofrece la más reciente información sobre los objetos cercanos a la Tierra. Por definición de la NASA, Objetos Cercanos a la Tierra (NEOs) son &quot;los cometas y asteroides que han sido empujado por la atracción gravitatoria de planetas cercanos a órbitas que les permiten entrar en la vecindad de la Tierra&quot;.</p>
+    <p>Básicamente, son las cosas que vuelan por el espacio nuestro planeta a distancias relativamente cercanas. </p>
+    <p>La aplicación AsteroidTracker proporciona información sobre los NEOs que están haciendo su paso más cercano a la Tierra pronto, los que sólo paassed y las distancias relativas en la que están por zumbando. Recientemente, hemos añadido la pestaña Spacetracks para ofrecerle lo último y lo mejor en noticias relacionadas con el espacio, la cultura, la diversión y las fotos. </p>
+    <p>AsteroidTracker y Spacetracks son trabajos de amor, siempre gratuitamente por un par de nerds que quieren que más personas se preocupan por el viaje espacial astronomía y la ciencia en general. Nos encanta escuchar a nuestros usuarios con sugerencias, quejas (respetuosa), preguntas o cualquier otra cosa que quieras decirnos. </p>
+    <p>Gracias por el contacto con nosotros, y la ciencia Viva!</p>
+    <p>Atentamente, <br />
+    <strong>Los Nerds en BunnyFish</strong></p>
+    <p><em>&quot;Science is a way of thinking much more than it is a body of knowledge.&quot;   Carl Sagan </em></p>
+    <p>Email the BunnyFish team: <a href="mailto:bunnyfishapps@gmail.com" title="Email the BunnyFish team">BunnyFishApps@gmail.com</a></p>
+    ]]>
+</string>
+
+<string name="about_space_track_link">Echa un vistazo a todos los puestos Spacetracks, nuevos y viejos, en Tumblr! - http://spacetracks.tumblr.com</string>
+<string name="helpful_links"><![CDATA[ <p><strong>Enlaces útiles para obtener más información NEO:</strong></p> ]]></string>
+
+<string name="about_impactRisk"><p>Impact Risk - Sentry Risk Table: <a href="http://neo.jpl.nasa.gov/risk/" target="_blank">http://neo.jpl.nasa.gov/risk/</a> </p></string>
+<string name="about_impactRiskDetail"><p>Impact Risk - FAQ: <a href="http://neo.jpl.nasa.gov/risk/doc/sentry_faq.html" target="_blank">http://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</a> </p></string>
+<string name="about_closeApproaches"><p>Close Approaches: <a href="http://neo.jpl.nasa.gov/ca/" target="_blank">http://neo.jpl.nasa.gov/ca/</a> </p></string>
+<string name="about_torinoScale"><p>The Torino Impact Hazard Scale: <a href="http://neo.jpl.nasa.gov/torino_scale.html" target="_blank">http://neo.jpl.nasa.gov/torino_scale.html</a> </p></string>
+<string name="about_impactRiskFaq"><p>Impact Risk - FAQ: <a href="http://neo.jpl.nasa.gov/risk/doc/sentry_faq.html" target="_blank">http://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</a> </p></string>
+<string name="about_JPLNews"><p>JPL Asteroid News: <a href="http://www.jpl.nasa.gov/asteroidwatch/" target="_blank">http://www.jpl.nasa.gov/asteroidwatch/</a></p></string>
+
+<string name="rate_the_app"><p>Rate the AsteroidTracker app and send comments: YYYYYYYYYYY</p></string>
+<string name="visit_neoSite">Go To NEO Website</string>
+<string name="visit_bunnyFish">Go To bunnyFish</string>
 
 <!-- Error -->
 <string name="feedDown">No se puede cargar alimentación Asteroid</string>

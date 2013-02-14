@@ -41,7 +41,6 @@
         android:autoLink="all"
         android:linksClickable="true"
         android:textSize="14dip" >
-
     </TextView>
     <TextView
         android:id="@+id/about_link_closeApproaches"
@@ -49,7 +48,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="2dp"
         android:textSize="12dip" >
     </TextView>
     <TextView
