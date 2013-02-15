@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <resources>
-  <string name="ga_trackingId">UA-38271771-1</string>
+  <string name="ga_trackingId" translatable="false">UA-38271771-1</string>
 
   <!--Enable automatic activity tracking-->
   <bool name="ga_autoActivityTracking">true</bool>
 
-  <string name="activities.SplashScreen">Splash</string>
-  <string name="activities.AsteroidTrackerActivity">AsteroidTrackerActivity</string>
-  <string name="activities.fragment.AsteroidTabFragments">AsteroidTabFragments Main TabView</string>
-  <string name="activities.About">About</string>
-  <string name="activities.ImpactRiskDetailView">ImpactRisk DetailView</string>
+  <string name="activities.SplashScreen" translatable="false" >Splash</string>
+  <string name="activities.AsteroidTrackerActivity" translatable="false">AsteroidTrackerActivity</string>
+  <string name="activities.fragment.AsteroidTabFragments"  translatable="false">AsteroidTabFragments Main TabView</string>
+  <string name="activities.About"  translatable="false">About</string>
+  <string name="activities.ImpactRiskDetailView"  translatable="false">ImpactRisk DetailView</string>
   <integer name="ga_dispatchPeriod">3600</integer>
   
   <!--Enable automatic exception tracking-->

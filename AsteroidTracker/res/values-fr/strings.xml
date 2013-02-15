@@ -33,7 +33,6 @@
 <string name="about_impactRiskFaq"><p>Impact Risk - FAQ: <a href="http://neo.jpl.nasa.gov/risk/doc/sentry_faq.html" target="_blank">http://neo.jpl.nasa.gov/risk/doc/sentry_faq.html</a> </p></string>
 <string name="about_JPLNews"><p>JPL Asteroid News: <a href="http://www.jpl.nasa.gov/asteroidwatch/" target="_blank">http://www.jpl.nasa.gov/asteroidwatch/</a></p></string>
 
-<string name="rate_the_app"><p>Rate the AsteroidTracker app and send comments: YYYYYYYYYYY</p></string>
 <string name="visit_neoSite">Go To NEO Website</string>
 <string name="visit_bunnyFish">Go To bunnyFish</string>
 
