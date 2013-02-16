@@ -1,5 +1,8 @@
 package activities.fragment;
 
+import java.util.List;
+
+import persistence.DataBaseHelper;
 import service.SharingService;
 import utils.NetworkUtil;
 import activities.BaseActivity;
@@ -10,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -19,6 +23,8 @@ import com.actionbarsherlock.view.Window;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import domains.NearEarthObject;
 
 import fragments.BookFragment;
 import fragments.ImpactFragment;
@@ -35,6 +41,7 @@ public class AsteroidTabFragments extends BaseActivity {
     public static SharingService shareSvc = new SharingService();
     static com.actionbarsherlock.view.MenuItem reloadItem;
     ActionBar actionBar;
+    DataBaseHelper dataBaseHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -42,8 +49,17 @@ public class AsteroidTabFragments extends BaseActivity {
         Configuration conf = getResources().getConfiguration();
         fixActionBar(conf);
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.tabs_viewpager_layout);
+
+//        dataBaseHelper = new DataBaseHelper(this);
+//        NearEarthObject neo = new NearEarthObject();
+//        neo.setName("TEST");
+//        dataBaseHelper.addNearEarthObject(neo);
+//        List<NearEarthObject> test = dataBaseHelper.getAllNearEarthObject();
+//        Log.d("DATABASE", "TEST GET SIZE" + test.size());
+//        for ( int i = 0; i < test.size(); i++) {
+//            Log.d("DATABASE", test.get(i).name);
+//        }
         actionBar = getSupportActionBar();
         setSupportProgressBarIndeterminateVisibility(false);
         cText = this;
