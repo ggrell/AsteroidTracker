@@ -6,7 +6,7 @@ import utils.HttpUtil;
 import android.graphics.drawable.Drawable;
 
 
-public class AmazonItemListing {
+public class AmazonItemListing extends baseEntity {
 
     public String asinItemID;
     public String title;

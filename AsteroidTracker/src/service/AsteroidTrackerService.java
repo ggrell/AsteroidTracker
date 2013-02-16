@@ -43,50 +43,52 @@ public class AsteroidTrackerService extends BaseService {
                 Type collectionType = new TypeToken<ArrayList<NearEarthObject>>(){}.getType();
                 responseData = gson.fromJson(httputil.get(URI), collectionType);
             } catch (JsonSyntaxException e) {
-                NearEarthObject neoerror = new NearEarthObject();
-                neoerror.setName(baseEntity.FAILURELOADING);
-                if(responseData.size() > 0){
-                    responseData.clear();
-                }
-                responseData.add(neoerror);
+                responseData = getNeoErrorEntity(responseData);
+                Log.e("AsteroidTrackerService", "Error on getList" +e);
+            }
+            catch (Exception e) {
+                responseData = getNeoErrorEntity(responseData);
                 Log.e("AsteroidTrackerService", "Error on getList" +e);
             }
             return responseData;
     }
 
-    //TODO refactor this!!!
-    public ArrayList<NearEarthObject> getNeoErrorList(){
-        ArrayList<NearEarthObject> errorData = new ArrayList<NearEarthObject>();
-        NearEarthObject neoerror = new NearEarthObject();
-        neoerror.name = baseEntity.FAILURELOADING;
-        errorData.add(neoerror);
-        return errorData;
+    public ArrayList sanitizeList(ArrayList list) {
+        if(list.size() > 0) {
+            list.clear();
+        }
+        return list;
     }
 
-    public ArrayList<News> getNewsErrorList(){
-        ArrayList<News> errorData = new ArrayList<News>();
+    public ArrayList<NearEarthObject> getNeoErrorEntity(ArrayList<NearEarthObject> list) {
+        list = sanitizeList(list);
+        NearEarthObject error = new NearEarthObject();
+        error.setName(baseEntity.FAILURELOADING);
+        list.add(error);
+        return list;
+    }
+
+    public ArrayList<News> getNewsErrorEntity(ArrayList<News> list) {
+        list = sanitizeList(list);
         News error = new News();
-        error.title = baseEntity.FAILURELOADING;
-        errorData.add(error);
-        return errorData;
+        error.setTitle(baseEntity.FAILURELOADING);
+        list.add(error); 
+        return list;
     }
-
-    public ArrayList<Impact> getImpactErrorList(){
-        ArrayList<Impact> errorData = new ArrayList<Impact>();
+    public ArrayList<Impact> getImpactErrorEntity(ArrayList<Impact> list) {
+        list = sanitizeList(list);
         Impact error = new Impact();
-        error.name = baseEntity.FAILURELOADING; 
-        errorData.add(error);
-        return errorData;
+        error.setName(baseEntity.FAILURELOADING);
+        list.add(error);
+        return list;
     }
-    
-    public ArrayList<AmazonItemListing> getBookErrorList(){
-        ArrayList<AmazonItemListing> errorData = new ArrayList<AmazonItemListing>();
+    public ArrayList<AmazonItemListing> getBookErrorEntity(ArrayList<AmazonItemListing> list) {
+        list = sanitizeList(list);
         AmazonItemListing error = new AmazonItemListing();
-        error.title = baseEntity.FAILURELOADING; 
-        errorData.add(error);
-        return errorData;
+        error.setTitle(baseEntity.FAILURELOADING);
+        list.add(error);
+        return list;
     }
-
 
     public ArrayList<News> getLatestNews(){
         ArrayList<News> newslist = new ArrayList<News>();
@@ -101,12 +103,11 @@ public class AsteroidTrackerService extends BaseService {
                 }
             }
         } catch (JsonSyntaxException e) {
-            News newsError = new News();
-            newsError.title = baseEntity.FAILURELOADING;
-            if(newslist.size() > 0){
-                newslist.clear();
-            }
-            newslist.add(newsError);
+            newslist = getNewsErrorEntity(newslist);
+            Log.e("AsteroidTrackerService", "Error on getList" +e);
+        } catch (Exception e) {
+            newslist = getNewsErrorEntity(newslist);
+            Log.e("AsteroidTrackerService", "Error on getList" +e);
         }
         return newslist;
     }
@@ -117,12 +118,11 @@ public class AsteroidTrackerService extends BaseService {
             Type collectionType = new TypeToken<ArrayList<Impact>>(){}.getType();
             impactList = gson.fromJson(httputil.get(URI_IMPACT), collectionType);
         } catch (JsonSyntaxException e) {
-            Impact impactError = new Impact();
-            impactError.setName(baseEntity.FAILURELOADING);
-            if(impactList.size() > 0){
-                impactList.clear();
-            }
-            impactList.add(impactError);
+            impactList = getImpactErrorEntity(impactList);
+            Log.e("AsteroidTrackerService", "Error on getList" +e);
+        } catch (Exception e) {
+            impactList = getImpactErrorEntity(impactList);
+            Log.e("AsteroidTrackerService", "Error on getList" +e);
         }
         return impactList;
     }
@@ -136,12 +136,11 @@ public class AsteroidTrackerService extends BaseService {
                 amazonList.get(i).updateImageURLDrawable();
             }
         } catch (JsonSyntaxException e) {
-            AmazonItemListing listingError = new AmazonItemListing();
-            listingError.setTitle(baseEntity.FAILURELOADING);
-            if(amazonList.size() > 0){
-                amazonList.clear();
-            }
-            amazonList.add(listingError);
+            amazonList = getBookErrorEntity(amazonList);
+            Log.e("AsteroidTrackerService", "Error on getList" +e);
+        } catch (Exception e) {
+            amazonList = getBookErrorEntity(amazonList);
+            Log.e("AsteroidTrackerService", "Error on getList" +e);
         }
         return amazonList;
     }

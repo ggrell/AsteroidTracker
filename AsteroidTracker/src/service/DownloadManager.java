@@ -35,7 +35,7 @@ public class DownloadManager {
                 }
             }
         }
-        return AsteroidGitService.getNeoErrorList();
+        return AsteroidGitService.getNeoErrorEntity(new ArrayList());
      }
 
     public ArrayList<News> retrieveAsteroidNews(boolean IsNetworkAvailable) {
@@ -48,7 +48,7 @@ public class DownloadManager {
                 return contentManager.neo_AstroidFeed.parseNewsFeed(contentManager.neo_AstroidFeed.getAstroidFeedDATA(NeoAstroidFeed.URL_JPL_AsteroidNewsFeed));
             }
         }
-        return AsteroidGitService.getNewsErrorList();
+        return AsteroidGitService.getNewsErrorEntity(new ArrayList());
      }
 
     public ArrayList<Impact> retrieveAsteroidImpact(boolean IsNetworkAvailable) {
@@ -61,7 +61,7 @@ public class DownloadManager {
                 return (ArrayList<Impact>) contentManager.neo_AstroidFeed.getImpactList(contentManager.neo_AstroidFeed.getAstroidFeedDATA(NeoAstroidFeed.URL_NASA_NEO_IMPACT_FEED));
             }
         }
-        return AsteroidGitService.getImpactErrorList();
+        return AsteroidGitService.getImpactErrorEntity(new ArrayList());
     }
     
     public ArrayList<AmazonItemListing> retrieveScienceBooks(boolean IsNetworkAvailable) {
@@ -71,7 +71,7 @@ public class DownloadManager {
                 return AsteroidGitService.getAmazonBookData();
 //            }
         }
-        return AsteroidGitService.getBookErrorList();
+        return AsteroidGitService.getBookErrorEntity(new ArrayList());
     }
 
 }
