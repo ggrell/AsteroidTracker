@@ -111,7 +111,7 @@ public class AsteroidTrackerService extends BaseService {
         }
         return newslist;
     }
-    
+
     public ArrayList<Impact> getImpactData(){
         ArrayList<Impact> impactList = new ArrayList<Impact>();
         try {
@@ -133,7 +133,9 @@ public class AsteroidTrackerService extends BaseService {
             Type collectionType = new TypeToken<ArrayList<AmazonItemListing>>(){}.getType();
             amazonList = gson.fromJson(httputil.get(URI_BOOKS), collectionType);
             for(int i = 0; i < amazonList.size(); i++) {
-                amazonList.get(i).updateImageURLDrawable();
+                if (amazonList.get(i).imageUri != null) {
+                    amazonList.get(i).updateImageURLDrawable();
+                }
             }
         } catch (JsonSyntaxException e) {
             amazonList = getBookErrorEntity(amazonList);
