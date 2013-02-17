@@ -27,7 +27,6 @@ import domains.AboutAsteroidTracker;
 
 public class About extends BaseListActivity {
 
-
     public static Drawable drawableAbout;
     static AboutAdapter AboutDapter;
     ArrayList<AboutAsteroidTracker> aboutEntityList = new ArrayList();

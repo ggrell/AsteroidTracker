@@ -109,6 +109,10 @@ public class ImpactRiskDetailView extends BaseListActivity implements OnClickLis
 
     public void asteroidDetailsPage(View view) {
         String url = DetailPageURL;
+        // TODO, This is a hack per the URL, will remove later
+        if (url.contains("apophis")) {
+            url = "http://neo.jpl.nasa.gov/risk/a99942.html";
+        }
         sentTrackingEvent("Impact", "ImpactDetailsPage_click", DetailPageURL, null);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
@@ -117,6 +121,10 @@ public class ImpactRiskDetailView extends BaseListActivity implements OnClickLis
     
     public void asteroidOrbitPage(View view) {
         String URL = OrbitPageURL;
+        // TODO, This is a hack per the URL, will remove later
+        if (URL.contains("Apophis")) {
+            URL = "http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=99942;orb=1";
+        }
         sentTrackingEvent("Impact", "ImpactOrbitPage_click", OrbitPageURL, null);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(URL));
