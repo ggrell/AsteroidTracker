@@ -31,7 +31,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ImpactRiskDetailView extends SherlockListActivity implements OnClickListener {
+public class ImpactRiskDetailView extends BaseListActivity implements OnClickListener {
 
     public ShareActionProvider shareActionProvider;
     Bundle extras;
@@ -100,17 +100,16 @@ public class ImpactRiskDetailView extends SherlockListActivity implements OnClic
     @Override
     public void onStart() {
       super.onStart();
-      EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
       super.onStop();
-      EasyTracker.getInstance().activityStop(this);
     }
 
     public void asteroidDetailsPage(View view) {
         String url = DetailPageURL;
+        sentTrackingEvent("Impact", "ImpactDetailsPage_click", DetailPageURL, null);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
@@ -118,6 +117,7 @@ public class ImpactRiskDetailView extends SherlockListActivity implements OnClic
     
     public void asteroidOrbitPage(View view) {
         String URL = OrbitPageURL;
+        sentTrackingEvent("Impact", "ImpactOrbitPage_click", OrbitPageURL, null);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(URL));
         startActivity(i);

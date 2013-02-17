@@ -93,7 +93,7 @@ public class RecentFragment extends AsteroidFragmentBase {
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             if (!neoAdapter.getItem(0).getName().equals(baseEntity.FAILURELOADING)) {
                 NearEarthObject neo = (NearEarthObject) getListAdapter().getItem(position);
-                defaultTracker.sendEvent("recent_action", "recent_click", "Title: "+ neo.getName(), null);
+                sentTrackingEvent("Recent", "recent_click", "Title: "+ neo.getName(), null);
                 String headline = "Asteroid " + neo.getName();
                 String message = "Asteroid " + neo.getName() + ",missDistance is " + neo.getMissDistance_AU_Kilometers()
                         + "(km) " +

@@ -39,8 +39,7 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     boolean isNetworkAvailable;
     Log Log;
 
-    Tracker defaultTracker;
-
+    protected Tracker defaultTracker;
 
     static final int LOADER_RECENT = 0;
     static final int LOADER_UPCOMING = 1;
@@ -48,7 +47,6 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
     static final int LOADER_NEWS = 3;
     static final int LOADER_BOOKS = 4;
     static final int LOADER_BOOKS_IMAGE = 5;
-    
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -68,6 +66,16 @@ public class AsteroidFragmentBase extends SherlockListFragment implements Loader
         }
         EasyTracker.getInstance().setContext(getActivity().getParent());
         defaultTracker = EasyTracker.getTracker();
+    }
+
+    public void sentTrackingEvent(String Category, String Action, String Label, Long value) {
+        try {
+            defaultTracker.sendEvent(Category, Action, Label, value);
+        } catch(NullPointerException e) {
+            EasyTracker.getInstance().setContext(getActivity().getParent());
+            defaultTracker = EasyTracker.getTracker();
+            defaultTracker.sendEvent(Category, Action, Label, value);
+        }
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {

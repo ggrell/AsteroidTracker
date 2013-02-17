@@ -90,8 +90,8 @@ public class NewsFragment extends AsteroidFragmentBase {
                 Object object = getListAdapter().getItem(position);    
                 News asteroidEntity = (News) object;
                 String label = null;
-                if (asteroidEntity.getName() != null) {
-                    label = asteroidEntity.getName() ;
+                if (asteroidEntity.getTitle() != null) {
+                    label = asteroidEntity.getTitle();
                 } else if (asteroidEntity.description != null) {
                         try {
                             label = asteroidEntity.description.substring(0, 20);
@@ -99,7 +99,7 @@ public class NewsFragment extends AsteroidFragmentBase {
                             label = null;
                         }
                 }
-                defaultTracker.sendEvent("news_action", "article_click", "Title: "+ label, null);
+                sentTrackingEvent("News", "SpaceTracks_click", "Title: "+ label, null);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 try {
                     i.setData(Uri.parse(asteroidEntity.artcileUrl));

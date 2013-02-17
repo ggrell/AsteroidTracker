@@ -14,6 +14,29 @@
         android:scaleType="center"
         android:src="@drawable/splash48" />
 
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal">
+
+    <Button
+        android:id="@+id/about_button_rate_app"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="5dp"
+        android:text="Rate Our App"
+        android:onClick="rateTheApp" />
+    <Button
+        android:id="@+id/about_button_follow_space_tracks"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Follow SpaceTracks"
+        android:layout_toRightOf="@+id/about_button_rate_app"
+        android:onClick="followTumblr" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/about_page"
         android:layout_width="wrap_content"

@@ -2,16 +2,9 @@ package activities;
 
 import java.util.ArrayList;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.google.analytics.tracking.android.EasyTracker;
-import com.vitruviussoftware.bunifish.asteroidtracker.R;
-import domains.AboutAsteroidTracker;
-import activities.fragment.AsteroidTabFragments;
 import adapters.AboutAdapter;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -22,8 +15,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class About extends SherlockListActivity {
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
+import com.vitruviussoftware.bunifish.asteroidtracker.R;
+
+import domains.AboutAsteroidTracker;
+
+public class About extends BaseListActivity {
 
 
     public static Drawable drawableAbout;
@@ -31,7 +33,7 @@ public class About extends SherlockListActivity {
     ArrayList<AboutAsteroidTracker> aboutEntityList = new ArrayList();
     ActionBar actionBar;
     ListView ListView_acout;
-    
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBar=getSupportActionBar();
@@ -61,13 +63,11 @@ public class About extends SherlockListActivity {
     @Override
     public void onStart() {
       super.onStart();
-      EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
       super.onStop();
-      EasyTracker.getInstance().activityStop(this);
     }
 
     private OnClickListener GoToNASANeoSite = new OnClickListener() {
@@ -86,5 +86,37 @@ public class About extends SherlockListActivity {
             startActivity(i);
         }
     };
+
+    public void rateTheApp(View view) {
+        Log.d("About", "rateTheApp");
+        sentTrackingEvent("About", "RateTheApp_Click", "RateTheApp", null);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.vitruviussoftware.bunifish.asteroidtracker"));
+        if (MyStartActivity(intent) == false) {
+            Toast.makeText(this, "Unable to open the Android market, please install the market app.  Thanks", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void followTumblr(View view) {
+        Log.d("About", "followTumblr");
+        sentTrackingEvent("About", "FollowTumblr_Click", "FollowTumblr", null);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("http://spacetracks.tumblr.com/"));
+        if (MyStartActivity(intent) == false) {
+            Toast.makeText(this, "Unable to open the Tumblr Page", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean MyStartActivity(Intent aIntent) {
+        try
+        {
+            startActivity(aIntent);
+            return true;
+        }
+        catch (ActivityNotFoundException e)
+        {
+            return false;
+        }
+    }
 
 }
