@@ -40,13 +40,11 @@ public class DownloadManager {
 
     public ArrayList<News> retrieveAsteroidNews(boolean IsNetworkAvailable) {
         if (IsNetworkAvailable) {
-            if (AsteroidGitService.isGitServiceAvailable()) {
+//            if (AsteroidGitService.isGitServiceAvailable()) {
                 Log.d("DownloadManager", "retrieveAsteroidNews - git service");
                 return AsteroidGitService.getLatestNews();
-            } else {
-                Log.d("DownloadManager", "retrieveAsteroidNews - nasa service");
-                return contentManager.neo_AstroidFeed.parseNewsFeed(contentManager.neo_AstroidFeed.getAstroidFeedDATA(NeoAstroidFeed.URL_JPL_AsteroidNewsFeed));
-            }
+//            }
+                // As SpaceTracks is the main feed, removing backup/older Nasa News feed
         }
         return AsteroidGitService.getNewsErrorEntity(new ArrayList());
      }
