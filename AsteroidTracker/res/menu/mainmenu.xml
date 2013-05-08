@@ -9,10 +9,15 @@
       android:orderInCategory="0"
       android:showAsAction="ifRoom">
       <menu>
-          <item 
+          <item
               android:id="@+id/about"
-              android:title="@string/about" />
-    </menu>
+              android:title="@string/about"
+          />
+          <item
+              android:id="@+id/aboutSkylog"
+              android:title="@string/about_skylog"
+          />
+      </menu>
     </item>
     <ProgressBar
         android:id="@+id/progress_icon"

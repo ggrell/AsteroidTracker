@@ -3,13 +3,22 @@ package activities.fragment;
 import service.SharingService;
 import activities.BaseActivity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
@@ -27,6 +36,7 @@ public class AsteroidTabFragments extends BaseActivity {
     public static Context cText;
     public static Drawable drawable;
     public static SharingService shareSvc = new SharingService();
+    public static String TAG = "AsteroidTabFragments";
     static com.actionbarsherlock.view.MenuItem reloadItem;
     ActionBar actionBar;
 
@@ -43,8 +53,29 @@ public class AsteroidTabFragments extends BaseActivity {
         cText = this;
         initActionBarFragmentsAndPading(actionBar);
         drawable = getResources().getDrawable(R.drawable.asteroid);
+        
+        // Buttons for SkyLog Banner
+        final Button bannerVote = (Button) findViewById(R.id.bannerVote);
+        bannerVote.setOnClickListener(clickListnerBannerVote);
+
+        final Button bannerMore = (Button) findViewById(R.id.bannerMore);
+        bannerMore.setOnClickListener(clickListnerBannerMore);
     }
 
+    public OnClickListener clickListnerBannerVote = new OnClickListener() {
+        public void onClick(View view) {
+            String twitterMessage = getString(R.string.skylog_twitter_message);
+            String twitterShareLink = getString(R.string.skylog_twitter_share_link);
+            Intent shareMe = AsteroidTabFragments.shareSvc.createTwitterShareIntent(twitterMessage, twitterShareLink, cText);
+          ((SherlockFragmentActivity)cText).startActivity(shareMe);
+        }
+    };
+
+    public OnClickListener clickListnerBannerMore = new OnClickListener() {
+        public void onClick(View view) {
+            openAboutSkylogApp(cText);
+        }
+    };
     @Override
     public void onStart() {
       super.onStart();
@@ -81,8 +112,11 @@ public class AsteroidTabFragments extends BaseActivity {
     {
         switch (item.getItemId()) {
             case R.id.about:
-              openAbout(this);
-              return true;
+                openAbout(this);
+                return true;
+            case R.id.aboutSkylog:
+                openAboutSkylogApp(this);
+                return true;
         default:
         return false;
         }

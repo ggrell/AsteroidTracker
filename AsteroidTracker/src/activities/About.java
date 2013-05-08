@@ -48,7 +48,7 @@ public class About extends BaseListActivity {
         Thread checkUpdate = new Thread() {
             public void run() {
                 Artclehandler.sendEmptyMessage(0);
-                About.this.runOnUiThread(new Runnable() {
+                About.this.runOnUiThread(new Runnable() {   
                        public void run() {
                            AboutDapter = new AboutAdapter(About.this, R.layout.about_main, aboutEntityList);
                            setListAdapter(About.this.AboutDapter);

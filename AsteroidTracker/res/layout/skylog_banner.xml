@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#463E3F">
+
+    <Button
+        android:id="@+id/bannerMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More Info"
+        android:textSize="14sp"
+        android:layout_marginLeft="2dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/votedYet"
+    />
+
+    <Button
+        android:id="@+id/bannerVote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vote"
+        android:textSize="14sp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/bannerMore"
+        android:layout_alignRight="@+id/bannerMore"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentRight="true"
+    />
+
+    <TextView
+        android:id="@+id/votedYet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:ellipsize="none"
+        android:maxLines="100"
+        android:layout_weight="1"  
+        android:text="Have you voted for SkyLog yet?"
+        android:textSize="14sp" />
+
+</RelativeLayout>

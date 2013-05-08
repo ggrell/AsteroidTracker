@@ -15,7 +15,7 @@ import android.os.Bundle;
 public class BaseActivity  extends SherlockFragmentActivity {
 
     ActionBar actionBar;
-    
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBar=getSupportActionBar();
@@ -27,7 +27,6 @@ public class BaseActivity  extends SherlockFragmentActivity {
         return true;
     }
 
-    
     @Override
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
         switch (item.getItemId()) {
@@ -37,6 +36,9 @@ public class BaseActivity  extends SherlockFragmentActivity {
         case R.id.about:
             openAbout(this);
             return true;
+        case R.id.aboutSkylog:
+            openAboutSkylogApp(this);
+            return true;
         case R.id.reload:
           LoadingDialogHelper.closeDialog = 0;
 //          processFeeds();
@@ -45,16 +47,21 @@ public class BaseActivity  extends SherlockFragmentActivity {
             return super.onOptionsItemSelected(item);
         }
 }
-    
+
+    public void openAboutSkylogApp(Context thisclass) {
+        Intent i = new Intent(getApplicationContext(), SkyLogInfo.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
     public void openAbout(Context thisclass) {
         Intent i = new Intent(thisclass, About.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);    
+        startActivity(i);
        }
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        }
-
+    }
 
 }
