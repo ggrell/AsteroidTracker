@@ -52,8 +52,8 @@
 <!-- SkyLog Info-->
 <string name="skylog_button_vote_now">Vote Now!</string>
 <string name="skylog_button_more_info">Learn More about SkyLog</string>
-<string name="skylog_continueButton">Continue to AsteroidTracker</string>
-<string name="skylog_dont_show">Never Show this page again</string>
+<string name="skylog_continueButton">Close</string>
+<string name="skylog_dont_show">Never Show again</string>
 <string name="skylog_twitter_message">I vote &#35;skylogneowsapp for &#64;spaceapps People\'s Choice Award&#33;</string>
 <string name="skylog_weebly_site">http://tiny.cc/skylogger</string>
 <string name="skylog_space_apps_site">http://spaceappschallenge.org/project/neows/</string>

@@ -2,14 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/skylogbackground">
+    android:background="@drawable/skylogbackground"
+    android:id="@+id/skyLogLayout">
 
-    
-<ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent">
+<ScrollView 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/skyLogScrollLayout">
+
 <RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
+    android:layout_height="fill_parent"
+    android:id="@+id/skyLogBaseLayout"
+    >
 
 <TextView
     android:id="@+id/skylogMessageRequest"
@@ -36,6 +41,7 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/skylogMessageRequest"
     android:background="@drawable/voteskylog"
+    android:gravity="center_horizontal"
 />
 
 <TextView
@@ -98,21 +104,23 @@
     android:text="@string/skylog_button_more_info"
     android:textSize="14dp" />
 
-<Button
-    android:id="@+id/skyLogContinueToApp"
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:layout_below="@+id/skylogButtonVoteNow"
-    android:layout_width="wrap_content"
-    android:layout_height="40dp"
-    android:gravity="center_horizontal"
-    android:layout_centerHorizontal="true"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="5dp"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentRight="true"
-    android:text="@string/skylog_continueButton"
-    android:textSize="14dp"
-    />
+    android:id="@+id/closeButtonGrid">
+
+    <Button
+        android:id="@+id/skyLogContinueToApp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/skylogDontShow"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@+id/skylogDontShow"
+        android:text="@string/skylog_continueButton"
+        android:textSize="14dp" />
 
 <Button
     android:id="@+id/skylogDontShow"
@@ -122,15 +130,16 @@
     android:layout_centerHorizontal="true"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
-    android:layout_alignParentLeft="true"
     android:layout_alignParentRight="true"
-    android:layout_below="@+id/skyLogContinueToApp"
     android:text="@string/skylog_dont_show"
     android:textSize="14dp" />
 
+ </RelativeLayout>
+
+
 <TextView
     android:id="@+id/skylogDescription"
-    android:layout_below="@+id/skylogDontShow"
+    android:layout_below="@+id/closeButtonGrid"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"

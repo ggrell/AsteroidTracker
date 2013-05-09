@@ -1,16 +1,14 @@
 package activities.fragment;
 
 import service.SharingService;
+import utils.SkyLogUtil;
 import activities.BaseActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +18,7 @@ import android.widget.Button;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.viewpagerindicator.PageIndicator;
 import com.vitruviussoftware.bunifish.asteroidtracker.R;
 
@@ -32,6 +31,7 @@ import fragments.UpcomingFragment;
 public class AsteroidTabFragments extends BaseActivity {
     PageIndicator mIndicator;
     public static FragPageAdapter mPagerAdapter;
+    public static SkyLogUtil skyLogUtil = new SkyLogUtil();
     public static ViewPager mViewPager;
     public static Context cText;
     public static Drawable drawable;
@@ -39,6 +39,7 @@ public class AsteroidTabFragments extends BaseActivity {
     public static String TAG = "AsteroidTabFragments";
     static com.actionbarsherlock.view.MenuItem reloadItem;
     ActionBar actionBar;
+    private Tracker defaultTracker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -53,17 +54,25 @@ public class AsteroidTabFragments extends BaseActivity {
         cText = this;
         initActionBarFragmentsAndPading(actionBar);
         drawable = getResources().getDrawable(R.drawable.asteroid);
-        
+
+        if (!skyLogUtil.checkRunDateIsValid()) {
+            View bannerskylog = (View) findViewById(R.id.bannerskylog);
+            bannerskylog.setVisibility(View.GONE);
+        }
         // Buttons for SkyLog Banner
         final Button bannerVote = (Button) findViewById(R.id.bannerVote);
         bannerVote.setOnClickListener(clickListnerBannerVote);
 
         final Button bannerMore = (Button) findViewById(R.id.bannerMore);
         bannerMore.setOnClickListener(clickListnerBannerMore);
+
+        EasyTracker.getInstance().setContext(this);
+        defaultTracker = EasyTracker.getTracker();
     }
 
     public OnClickListener clickListnerBannerVote = new OnClickListener() {
         public void onClick(View view) {
+            sentTrackingEvent("SkyLog", "vote", "banner", null);
             String twitterMessage = getString(R.string.skylog_twitter_message);
             String twitterShareLink = getString(R.string.skylog_twitter_share_link);
             Intent shareMe = AsteroidTabFragments.shareSvc.createTwitterShareIntent(twitterMessage, twitterShareLink, cText);
@@ -73,6 +82,7 @@ public class AsteroidTabFragments extends BaseActivity {
 
     public OnClickListener clickListnerBannerMore = new OnClickListener() {
         public void onClick(View view) {
+            sentTrackingEvent("SkyLog", "moreInfo", "banner", null);
             openAboutSkylogApp(cText);
         }
     };
@@ -137,6 +147,16 @@ public class AsteroidTabFragments extends BaseActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         fixActionBar(newConfig);
+    }
+
+    public void sentTrackingEvent(String Category, String Action, String Label, Long value) {
+        try {
+            defaultTracker.sendEvent(Category, Action, Label, value);
+        } catch(NullPointerException e) {
+            EasyTracker.getInstance().setContext(this);
+            defaultTracker = EasyTracker.getTracker();
+            defaultTracker.sendEvent(Category, Action, Label, value);
+        }
     }
 
 }

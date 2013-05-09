@@ -25,6 +25,7 @@ import domains.baseEntity;
 public class NewsFragment extends AsteroidFragmentBase {
 
     public NewsAdapter adapter_NEWS;
+    public String TAG = "NewsFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class NewsFragment extends AsteroidFragmentBase {
                 Object object = getListAdapter().getItem(position);    
                 News asteroidEntity = (News) object;
                 String label = null;
-                if (asteroidEntity.getTitle() != null) {
+                if (asteroidEntity.getTitle() != null && asteroidEntity.getTitle().length() > 0) {
                     label = asteroidEntity.getTitle();
                 } else if (asteroidEntity.description != null) {
                         try {
@@ -105,7 +106,7 @@ public class NewsFragment extends AsteroidFragmentBase {
                     i.setData(Uri.parse(asteroidEntity.artcileUrl));
                     startActivity(i);
                 } catch (ActivityNotFoundException e){
-                    Log.d("News", "ActivityNotFound on news article listner", e);
+                    Log.d(TAG, "ActivityNotFound on news article listner", e);
                 }
             }
         };

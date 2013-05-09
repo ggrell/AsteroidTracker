@@ -57,8 +57,7 @@ public class SharingService {
         I.putExtra(Intent.EXTRA_TEXT, message);
         return I;
     }
-    
-    
+
     public Intent createTwitterShareIntent(String message, String shareLink, Context context) {
         pkgMngr = context.getPackageManager();
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
@@ -67,6 +66,7 @@ public class SharingService {
         try {
             List<ResolveInfo> activityList = pkgMngr.queryIntentActivities(intent, 0);
             Log.d("share", "activityList: "+ activityList.size());
+            boolean foundApp = false;
             int listSize = activityList.size();
             for (int i = 0; i < listSize; i++) {
                 final ResolveInfo app = activityList.get(i);
@@ -78,10 +78,15 @@ public class SharingService {
                     intent.setComponent(name);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     intent.putExtra(Intent.EXTRA_TEXT, message);
-//                    throw new ActivityNotFoundException();
+                    foundApp = true;
                     break;
                 }
             }
+            if (!foundApp) {
+                Log.v(TAG, "twitter not found");
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(shareLink));
+                return browserIntent;
+              }
         }
         catch(final ActivityNotFoundException e) {
             Log.i(TAG, "twitter not found",e );

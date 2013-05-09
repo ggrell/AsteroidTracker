@@ -11,8 +11,9 @@
   <string name="activities.fragment.AsteroidTabFragments"  translatable="false">AsteroidTabFragments Main TabView</string>
   <string name="activities.About"  translatable="false">About</string>
   <string name="activities.ImpactRiskDetailView"  translatable="false">ImpactRisk DetailView</string>
+  <string name="activities.SkyLogInfo" translatable="false">SkyLogInfo</string>
   <integer name="ga_dispatchPeriod">3600</integer>
-  
+
   <!--Enable automatic exception tracking-->
   <bool name="ga_reportUncaughtExceptions">true</bool>
 </resources>

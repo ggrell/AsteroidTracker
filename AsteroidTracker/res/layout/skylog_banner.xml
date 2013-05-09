@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#463E3F">
+    android:background="#463E3F"
+    android:id="@+id/bannerskylog">
 
     <Button
         android:id="@+id/bannerMore"
@@ -19,25 +20,25 @@
         android:id="@+id/bannerVote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vote"
-        android:textSize="14sp"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/bannerMore"
-        android:layout_alignRight="@+id/bannerMore"
-        android:layout_marginLeft="5dp"
         android:layout_alignParentRight="true"
-    />
+        android:layout_alignRight="@+id/bannerMore"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/bannerMore"
+        android:text="Vote"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/votedYet"
-        android:layout_width="wrap_content"
+        android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:ellipsize="none"
-        android:maxLines="100"
-        android:layout_weight="1"  
-        android:text="Have you voted for SkyLog yet?"
-        android:textSize="14sp" />
+        android:scrollHorizontally="false"
+        android:layout_marginLeft="5dp"
+        android:singleLine="false"
+        android:text="Vote for SkyLog!!!"
+        android:textStyle="bold"
+        android:textSize="16sp" />
 
 </RelativeLayout>
